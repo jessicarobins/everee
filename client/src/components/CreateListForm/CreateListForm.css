@@ -1,0 +1,31 @@
+.create-list-form {
+  min-height: 200px;
+  display: flex;
+}
+
+.create-list-text-fields {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-weight: 100;
+  font-size: 4rem;
+  line-height: 5rem;
+  padding-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.create-list-btn {
+  align-self: flex-end;
+  margin-bottom: -28px;
+  margin-right: 28px;
+}
+
+@media only screen
+  and (max-device-width: 736px) {
+
+  .create-list-form {
+    flex-direction: column;
+    padding-top: 40px;
+  }
+}

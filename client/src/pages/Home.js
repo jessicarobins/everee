@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import CreateListForm from '../components/CreateListForm/CreateListForm'
+
 class Home extends Component {
   render() {
     return (
       <div>
-        hi
+        <CreateListForm />
       </div>
     );
   }

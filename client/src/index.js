@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App'
 import Home from './pages/Home'
 import registerServiceWorker from './registerServiceWorker';
 
-import { MuiThemeProvider, createMuiTheme, createPalette } from 'material-ui/styles'
-import lime from 'material-ui/colors/lime'
-import green from 'material-ui/colors/green'
-import pink from 'material-ui/colors/pink'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -20,13 +18,11 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 
 import reducers from './reducers'
 
-const theme = createMuiTheme({
-  palette: createPalette({
-    primary: green,
-    accent: lime,
-    error: pink,
-  })
-})
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -45,11 +41,11 @@ const store = createStore(
 )
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
+  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
-          <Route exact path="/" component={App}/>
+          <Route exact path="/" component={Home}/>
           <Route path="/home" component={Home}/>
         </div>
       </ConnectedRouter>
