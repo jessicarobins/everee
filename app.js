@@ -1,16 +1,30 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+mongoose.Promise = require('bluebird')
 
-var app = express();
+const index = require('./routes/index');
+const users = require('./routes/users');
+
+const app = express();
 
 app.set("port", process.env.PORT || 3001)
+
+// MongoDB Connection
+const mongoURL = process.env.MONGO_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/everee'
+
+mongoose.connect(mongoURL, {
+    useMongoClient: true
+  })
+  .then(() => {
+    console.log('we are connected to mongo!')
+  })
+  .catch(console.error.bind(console, 'connection error:'))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
