@@ -8,4 +8,4 @@ const pendingItemSchema = new Schema({
   dateAdded: { type: 'Date', default: Date.now, required: true },
 })
 
-export default mongoose.model('PendingItem', pendingItemSchema)
+module.exports = mongoose.model('PendingItem', pendingItemSchema)

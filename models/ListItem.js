@@ -7,4 +7,4 @@ const listItemSchema = new Schema({
   dateModified: { type: 'Date', required: false },
 })
 
-export default mongoose.model('ListItem', listItemSchema)
+module.exports = mongoose.model('ListItem', listItemSchema)

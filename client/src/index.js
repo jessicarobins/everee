@@ -1,8 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+
 import Home from './pages/Home'
-import registerServiceWorker from './registerServiceWorker';
+import Login from './pages/Login'
+
+import registerServiceWorker from './registerServiceWorker'
 
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -45,12 +48,12 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Login}/>
           <Route path="/home" component={Home}/>
         </div>
       </ConnectedRouter>
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('root')
-);
-registerServiceWorker();
+)
+registerServiceWorker()

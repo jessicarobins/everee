@@ -302,4 +302,4 @@ listSchema.statics.demoLists = () => {
 
 listSchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('List', listSchema)
+module.exports = mongoose.model('List', listSchema)

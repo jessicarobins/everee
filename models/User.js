@@ -27,4 +27,4 @@ userSchema.methods.getPublicFields = () => {
   return returnObject
 }
 
-export default mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)

@@ -105,4 +105,4 @@ listTemplate.methods.addItem = (itemText, exceptLists) => {
 
 listTemplate.set('toJSON', { virtuals: true })
 
-export default mongoose.model('ListTemplate', listTemplate)
+module.exports = mongoose.model('ListTemplate', listTemplate)
