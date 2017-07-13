@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Route, BrowserRouter } from 'react-router-dom'
 
 import createHistory from 'history/createBrowserHistory'
 import { Route } from 'react-router'
@@ -14,7 +13,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Progress from './components/Progress/Progress'
 import Auth from './services/Auth'
-// import history from './history'
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
