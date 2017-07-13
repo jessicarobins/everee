@@ -1,11 +1,61 @@
-// import React from 'react';
-// import { Route, Switch } from 'react-router-dom';
-// import asyncComponent from './components/AsyncComponent';
+import React from 'react'
+// import { Route, BrowserRouter } from 'react-router-dom'
 
-// const AsyncLoggedInHome = asyncComponent(() => import('./pages/LoggedInHome'))
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
-// export default ({ childProps }) => (
-//   <Switch>
-//     <Route path="/" exact component={AsyncLoggedInHome} props={childProps} />
-//   </Switch>
-// )
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+
+import reducers from './reducers'
+
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Progress from './components/Progress/Progress'
+import Auth from './services/Auth'
+// import history from './history'
+
+// Create a history of your choosing (we're using a browser history in this case)
+const history = createHistory()
+
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history)
+
+// Add the reducer to your store on the `router` key
+// Also apply our middleware for navigating
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(middleware)
+)
+
+const auth = new Auth()
+
+const handleAuthentication = (nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication()
+  }
+}
+
+export const makeMainRoutes = () => {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <div>
+          <Route exact path="/" render={(props) => <Home auth={auth} {...props} />} />
+          <Route path="/login" component={Login}/>
+          <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
+          <Route path="/callback" render={(props) => {
+            handleAuthentication(props)
+            return <Progress {...props} />
+          }}/>
+        </div>
+      </ConnectedRouter>
+     </Provider>
+  )
+}
+
+export default makeMainRoutes
