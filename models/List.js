@@ -5,6 +5,7 @@ const _ = require('lodash')
 const ListItem = require('./ListItem')
 const ListTemplate = require('./ListTemplate')
 const PendingItem = require('./PendingItem')
+const User = require('./User')
 
 const Schema = mongoose.Schema
 mongoose.Promise = Promise

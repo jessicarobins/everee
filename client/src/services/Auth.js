@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js'
-
 import createHistory from 'history/createBrowserHistory'
+import axios from 'axios'
 
 const history = createHistory({
   forceRefresh: true
@@ -34,7 +34,7 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        history.replace('/')
+        // history.replace('/')
       } else if (err) {
         history.replace('/login')
         console.log(err)
@@ -52,8 +52,16 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('scopes', JSON.stringify(scopes))
 
-    // navigate to the home route
-    history.replace('/')
+    this.authFetch('http://everee-jrobins.c9users.io:8081/api/users/login')
+      .then(response => {
+        console.log(response)
+        // navigate to the home route
+        history.replace('/')
+      })
+      .catch(err => {
+        console.log('an error! ', err)
+        history.replace('/')
+      })
   }
 
   logout() {
@@ -81,7 +89,7 @@ export default class Auth {
     return accessToken
   }
 
-  authFetch(url, options) {
+  authFetch(url, method='get', options) {
     const headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -91,9 +99,13 @@ export default class Auth {
       headers['Authorization'] = 'Bearer ' + this.getAccessToken()
     }
 
-    return fetch(url, { headers, ...options })
+    return axios({
+        url: url,
+        headers,
+        ...options
+      })
       .then(this.checkStatus)
-      .then(response => response.json())
+      .then(response => response.data)
   }
 
   checkStatus(response) {
