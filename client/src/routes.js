@@ -6,6 +6,8 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import { createLogger } from 'redux-logger'
 
 import reducers from './reducers'
 
@@ -18,7 +20,11 @@ import Auth from './services/Auth'
 const history = createHistory()
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+const middleware = [thunk, routerMiddleware(history)]
+
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(createLogger())
+}
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
@@ -27,7 +33,7 @@ const store = createStore(
     ...reducers,
     router: routerReducer
   }),
-  applyMiddleware(middleware)
+  applyMiddleware(...middleware)
 )
 
 const auth = new Auth()
