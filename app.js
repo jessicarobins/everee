@@ -5,6 +5,9 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const jwt = require('express-jwt')
+const jwks = require('jwks-rsa')
+const jwtAuthz = require('express-jwt-authz')
 
 mongoose.Promise = require('bluebird')
 
@@ -12,6 +15,28 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 
 const app = express()
+
+if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
+  throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
+}
+
+const jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+  }),
+  audience: process.env.AUTH0_AUDIENCE,
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+  algorithms: ['RS256']
+})
+
+const checkScopes = jwtAuthz([ 'read:lists' ])
+
+app.get('/api/private', jwtCheck, checkScopes, function(req, res) {
+  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." });
+})
 
 app.set("port", process.env.PORT || 3001)
 

@@ -9,12 +9,12 @@ const history = createHistory({
 export default class Auth {
 
   auth0 = new auth0.WebAuth({
+    audience: 'http://everee-jrobins.c9users.io:8081/api',
     domain: 'jrobins.auth0.com',
     clientID: 'rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
     redirectUri: 'http://everee-jrobins.c9users.io:8080/callback',
-    audience: 'https://jrobins.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile read:lists'
   })
 
   constructor() {
@@ -22,6 +22,8 @@ export default class Auth {
     this.logout = this.logout.bind(this)
     this.handleAuthentication = this.handleAuthentication.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.getAccessToken = this.getAccessToken.bind(this)
+    this.authFetch = this.authFetch.bind(this)
   }
 
   login() {
@@ -43,9 +45,13 @@ export default class Auth {
   setSession(authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+    const scopes = authResult.scope || this.requestedScopes || ''
+
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    localStorage.setItem('scopes', JSON.stringify(scopes))
+
     // navigate to the home route
     history.replace('/home')
   }
@@ -64,5 +70,43 @@ export default class Auth {
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     return new Date().getTime() < expiresAt
+  }
+
+  getAccessToken() {
+    const accessToken = localStorage.getItem('access_token')
+    if (!accessToken) {
+      throw new Error('No access token found')
+    }
+    return accessToken
+  }
+
+  authFetch(url, options) {
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+
+    if (this.isAuthenticated()) {
+      headers['Authorization'] = 'Bearer ' + this.getAccessToken()
+    }
+
+    return fetch(url, { headers, ...options })
+      .then(this.checkStatus)
+      .then(response => response.json())
+  }
+
+  checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return response
+    } else {
+      let error = new Error(response.statusText)
+      error.response = response
+      throw error
+    }
+  }
+
+  userHasScopes(scopes) {
+    const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ')
+    return scopes.every(scope => grantedScopes.includes(scope))
   }
 }

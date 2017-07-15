@@ -1,7 +1,7 @@
 import React from 'react'
 
 import createHistory from 'history/createBrowserHistory'
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
@@ -43,9 +43,20 @@ export const makeMainRoutes = () => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <div>
-          <Route exact path="/" render={(props) => <Home auth={auth} {...props} />} />
-          <Route path="/login" component={Login}/>
-          <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
+          <Route exact path="/" render={(props) => (
+              !auth.isAuthenticated() ? (
+                <Redirect to="/login"/>
+              ) : (
+                <Home auth={auth} {...props} />
+              )
+            )} />
+          <Route path="/login" render={(props) => (
+              auth.isAuthenticated() ? (
+                <Redirect to="/"/>
+              ) : (
+                <Login auth={auth} {...props} />
+              )
+            )} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props)
             return <Progress {...props} />
