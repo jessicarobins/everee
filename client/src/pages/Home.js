@@ -8,7 +8,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <AppBar />
+        <AppBar logout={this.props.auth.logout} />
         <CreateListForm />
         <ListList />
       </div>
