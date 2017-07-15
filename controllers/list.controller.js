@@ -7,11 +7,11 @@ const ListTemplate = require('../models/ListTemplate')
 
 const wolframHelper = require('../util/wolframHelper')
 
-exports.getDemoLists = (req, res) => {
+const getDemoLists = (req, res) => {
   res.json( {lists: List.demoLists() })
 }
 
-exports.cloneList = (req, res) => {
+const cloneList = (req, res) => {
   if (!req.user) {
     res.status(401).send('Unauthorized')
   }
@@ -33,7 +33,7 @@ exports.cloneList = (req, res) => {
     })
 }
 
-exports.getRecentLists = (req, res) => {
+const getRecentLists = (req, res) => {
   if (!req.user) {
     req.user = {_id: null}
   }
@@ -56,7 +56,7 @@ exports.getRecentLists = (req, res) => {
     })
 }
 
-exports.getLists = (req, res) => {
+const getLists = (req, res) => {
   if (!req.user) {
     res.json({lists: []})
     return
@@ -75,7 +75,7 @@ exports.getLists = (req, res) => {
 
 }
 
-exports.addEmptyList = (req, res) => {
+const addEmptyList = (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end()
@@ -105,13 +105,7 @@ exports.addEmptyList = (req, res) => {
     })
 }
 
-/**
- * Find or create a list template
- * @param req
- * @param res
- * @returns void
- */
-exports.findOrCreateListTemplate = (req, res) => {
+const findOrCreateListTemplate = (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end()
@@ -153,7 +147,7 @@ exports.findOrCreateListTemplate = (req, res) => {
  * @param res
  * @returns void
  */
-exports.getList = (req, res) => {
+const getList = (req, res) => {
   List.findOne({ id: req.params._id })
     .populate('_users', 'name picture username')
     .exec()
@@ -165,7 +159,7 @@ exports.getList = (req, res) => {
     })
 }
 
-exports.addListItem = (req, res) => {
+const addListItem = (req, res) => {
 
   List.findOne({ _id: req.params._id })
     .populate('_users', 'name picture username')
@@ -181,7 +175,7 @@ exports.addListItem = (req, res) => {
     })
 }
 
-exports.deleteListItem = (req, res) => {
+const deleteListItem = (req, res) => {
   List.findOne({ _id: req.params._id })
     .populate('_users', 'name picture username')
     .exec()
@@ -196,7 +190,7 @@ exports.deleteListItem = (req, res) => {
     })
 }
 
-exports.paginateLists = (req, res) => {
+const paginateLists = (req, res) => {
   List.find().byPage(req.params.page)
     .then( lists => {
       res.json({lists: lists})
@@ -206,7 +200,7 @@ exports.paginateLists = (req, res) => {
     })
 }
 
-exports.count = (req, res) => {
+const count = (req, res) => {
   List.count()
     .then( count => {
       res.json({count: count})
@@ -216,7 +210,7 @@ exports.count = (req, res) => {
     })
 }
 
-exports.random = (req, res) => {
+const random = (req, res) => {
   List.random()
     .then( list => {
       res.json({list: list})
@@ -226,7 +220,7 @@ exports.random = (req, res) => {
     })
 }
 
-exports.deleteList = (req, res) => {
+const deleteList = (req, res) => {
   List.findOne({ _id: req.params._id }).exec((err, list) => {
     if (err) {
       res.status(500).send(err)
@@ -238,7 +232,7 @@ exports.deleteList = (req, res) => {
   })
 }
 
-exports.toggleListItem = (req, res) => {
+const toggleListItem = (req, res) => {
 
   List.findOne( { _id: req.params._id })
     .populate('_users', 'name picture username')
@@ -287,4 +281,21 @@ const findOrCreateTemplateByItems = action => {
     .catch( (err) => {
       return Promise.reject(err)
     })
+}
+
+module.exports = {
+  addEmptyList: addEmptyList,
+  addListItem: addListItem,
+  cloneList: cloneList,
+  count: count,
+  deleteList: deleteList,
+  deleteListItem: deleteListItem,
+  findOrCreateListTemplate: findOrCreateListTemplate,
+  getDemoLists: getDemoLists,
+  getList: getList,
+  getLists: getLists,
+  getRecentLists: getRecentLists,
+  paginateLists: paginateLists,
+  random: random,
+  toggleListItem: toggleListItem
 }

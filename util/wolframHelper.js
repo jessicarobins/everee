@@ -1,10 +1,10 @@
-const Q = require('q')
+const Promise = require('bluebird')
 const _ = require('lodash')
 const axios = require('axios')
 
-export const WA_APP_ID = process.env.WA_APP_ID
+const WA_APP_ID = process.env.WA_APP_ID
 
-export const uri = (input) => `http://api.wolframalpha.com/v2/query?input=${encodeURIComponent(input)}&format=plaintext&output=json&scanner=Data&podstate=100@More&appid=${WA_APP_ID}`
+const uri = (input) => `http://api.wolframalpha.com/v2/query?input=${encodeURIComponent(input)}&format=plaintext&output=json&scanner=Data&podstate=100@More&appid=${WA_APP_ID}`
 
 const query = (input) => {
   return axios.get(uri(input))

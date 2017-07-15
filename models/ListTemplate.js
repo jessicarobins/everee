@@ -4,8 +4,8 @@ const hasha = 'hasha'
 const  _ = 'lodash'
 
 const List = require('./List')
-const ListItem = ('./ListItem')
-const PendingItem = ('./PendingItem')
+const ListItem = require('./ListItem')
+const PendingItem = require('./PendingItem')
 
 const listTemplate = new Schema({
   actions: [String],
