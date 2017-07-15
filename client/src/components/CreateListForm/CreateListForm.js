@@ -8,6 +8,23 @@ import AddIcon from 'material-ui/svg-icons/content/add'
 import './CreateListForm.css'
 
 class CreateListForm extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      verb: '',
+      action: ''
+    }
+  }
+
+  addList = () => {
+    this.props.addList({
+      verb: this.state.verb,
+      action: this.state.action
+    })
+  }
+
   render() {
 
     const { muiTheme } = this.props
@@ -47,6 +64,7 @@ class CreateListForm extends Component {
         <div className="create-list-text-fields">
           I want to
           <TextField
+            onChange={(event, newValue) => this.setState({verb: newValue})}
             style={styles.textField.container}
             underlineStyle={styles.textField.underlineStyle}
             underlineFocusStyle={styles.textField.underlineFocusStyle}
@@ -56,6 +74,7 @@ class CreateListForm extends Component {
           />
           every
           <TextField
+            onChange={(event, newValue) => this.setState({action: newValue})}
             style={styles.textField.container}
             underlineStyle={styles.textField.underlineStyle}
             hintStyle={styles.textField.hintStyle}
@@ -64,7 +83,10 @@ class CreateListForm extends Component {
             inputStyle={styles.textField.inputStyle}
           />
         </div>
-        <FloatingActionButton secondary className="create-list-btn">
+        <FloatingActionButton
+          onClick={this.addList}
+          secondary
+          className="create-list-btn">
           <AddIcon />
         </FloatingActionButton>
       </div>

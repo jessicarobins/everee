@@ -2,9 +2,9 @@ import React from 'react'
 
 import createHistory from 'history/createBrowserHistory'
 import { Route, Redirect } from 'react-router'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
@@ -29,10 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 const store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer
-  }),
+  reducers,
   applyMiddleware(...middleware)
 )
 

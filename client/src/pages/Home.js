@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { getMyLists } from '../reducers/ListReducer'
+import * as listActions from '../actions/ListActions'
 
 import AppBar from '../components/AppBar/AppBar'
 import CreateListForm from '../components/CreateListForm/CreateListForm'
@@ -9,11 +14,24 @@ class Home extends Component {
     return (
       <div>
         <AppBar logout={this.props.auth.logout} />
-        <CreateListForm />
+        <CreateListForm addList={this.props.listActions.addListRequest} />
         <ListList />
       </div>
     )
   }
 }
 
-export default Home
+function mapStateToProps(state) {
+  return {
+    lists: getMyLists(state)
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    listActions: bindActionCreators(listActions, dispatch)
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

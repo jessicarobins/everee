@@ -8,14 +8,29 @@ const mongoose = require('mongoose')
 const jwt = require('express-jwt')
 const jwks = require('jwks-rsa')
 const jwtAuthz = require('express-jwt-authz')
+const cors = require('cors')
 
 mongoose.Promise = require('bluebird')
 
 const index = require('./routes/index')
-const users = require('./routes/users')
 const lists = require('./routes/lists')
 
 const app = express()
+
+const whitelist = [
+  'http://everee-jrobins.c9users.io:8080',
+  'http://localhost:8080'
+]
+
+const corsOptions = {
+  origin: function(origin, callback){
+    const originIsWhitelisted = whitelist.indexOf(origin) !== -1
+    callback(null, originIsWhitelisted)
+  },
+  credentials: true
+}
+
+app.use(cors(corsOptions))
 
 if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
   throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
@@ -36,7 +51,7 @@ const jwtCheck = jwt({
 const checkScopes = jwtAuthz([ 'read:lists' ])
 
 app.get('/api/private', jwtCheck, checkScopes, function(req, res) {
-  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." });
+  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." })
 })
 
 app.set("port", process.env.PORT || 3001)
@@ -63,19 +78,18 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
-app.use('/', index)
-app.use('/users', users)
-app.use('/lists', lists)
+app.use('/api', index)
+app.use('/api/lists', lists)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}

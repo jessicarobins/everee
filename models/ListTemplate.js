@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const hasha = 'hasha'
-const  _ = 'lodash'
+const hasha = require('hasha')
+const  _ = require('lodash')
 
 const List = require('./List')
 const ListItem = require('./ListItem')
 const PendingItem = require('./PendingItem')
+
+const Schema = mongoose.Schema
+mongoose.Promise = Promise
 
 const listTemplate = new Schema({
   actions: [String],
@@ -32,7 +34,7 @@ listTemplate.pre('save', next => {
   next()
 })
 
-listTemplate.methods.addListItems = (items, cb) => {
+listTemplate.methods.addListItems = function(items, cb) {
   let newItem
   items.forEach( (item) => {
     newItem = new ListItem({text: item})
@@ -41,13 +43,14 @@ listTemplate.methods.addListItems = (items, cb) => {
   return this.save(cb)
 }
 
-listTemplate.query.byItems = items => {
+listTemplate.query.byItems = function(items) {
   //create sha
   const itemSha = hasha(items)
+  console.log(this)
   return this.findOne({ sha: itemSha })
 }
 
-listTemplate.statics.newWithItems = (action, items) => {
+listTemplate.statics.newWithItems = function(action, items) {
   const newTemplate = new this({
     actions: [action],
   })
@@ -56,7 +59,7 @@ listTemplate.statics.newWithItems = (action, items) => {
   return newTemplate.save()
 }
 
-listTemplate.methods.realizePendingItem = (pendingItem) => {
+listTemplate.methods.realizePendingItem = function(pendingItem) {
 
   const template = this
   template.items.push(new ListItem({text: pendingItem.text}))
@@ -76,14 +79,14 @@ listTemplate.methods.realizePendingItem = (pendingItem) => {
     return template.save()
 }
 
-listTemplate.methods.removeItem = pendingItem => {
+listTemplate.methods.removeItem = function(pendingItem) {
   const item = _.find(this.items, item => _.toLower(item.text) === _.toLower(pendingItem.text))
   item.remove()
   pendingItem.remove()
   return this.save()
 }
 
-listTemplate.methods.addItem = (itemText, exceptLists) => {
+listTemplate.methods.addItem = function(itemText, exceptLists) {
   const template = this
   template.items.push(new ListItem({text: itemText}))
 

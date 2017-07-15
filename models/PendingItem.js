@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+mongoose.Promise = Promise
 
 const pendingItemSchema = new Schema({
   text: { type: 'String', required: true },

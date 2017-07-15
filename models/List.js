@@ -1,11 +1,13 @@
 const mongoose = require('mongoose')
 const Promise = require('bluebird')
+const _ = require('lodash')
 
 const ListItem = require('./ListItem')
 const ListTemplate = require('./ListTemplate')
 const PendingItem = require('./PendingItem')
+
 const Schema = mongoose.Schema
-const _ = require('lodash')
+mongoose.Promise = Promise
 
 const ADD_ITEM_THRESHOLD = 1
 const DELETE_ITEM_THRESHOLD = 1
@@ -45,18 +47,18 @@ listSchema.virtual('fractionComplete').get(() => {
   }
 })
 
-listSchema.query.forUser = (user) => {
+listSchema.query.forUser = function(user) {
   return this.find({_users: user._id})
 }
 
-listSchema.query.byRecent = () => {
+listSchema.query.byRecent = function() {
   return this
           .find()
           .sort('-dateAdded')
           .limit(20)
 }
 
-listSchema.query.byPage = (page, limit=15) => {
+listSchema.query.byPage = function(page, limit=15) {
   const skipped = (page-1)*limit
   return this
           .find()
@@ -66,7 +68,7 @@ listSchema.query.byPage = (page, limit=15) => {
           .populate('_users', 'name picture username')
 }
 
-listSchema.methods.addListItem = (item, user) => {
+listSchema.methods.addListItem = function(item, user) {
   let list = this
 
   if (_.find(list.items, (i) => _.toLower(i.text) === _.toLower(item))) {
@@ -273,7 +275,7 @@ listSchema.methods.deleteListItem = function(_id) {
     })
 }
 
-listSchema.statics.random = () => {
+listSchema.statics.random = function() {
   return this.count()
     .then( count => {
       const random = Math.floor(Math.random() * count)
@@ -283,7 +285,7 @@ listSchema.statics.random = () => {
     })
 }
 
-listSchema.statics.demoLists = () => {
+listSchema.statics.demoLists = function() {
   return [
     {name: 'watch every Harry Potter movie'},
     {name: 'visit every castle in Scotland'},

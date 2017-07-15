@@ -68,7 +68,7 @@ const formatResponse = (response) => {
     console.log('response was only 1 item')
     return Promise.reject('response was only 1 item')
   }
-  return Promise.when(resultArray)
+  return Promise.resolve(resultArray)
 }
 
 module.exports = {
