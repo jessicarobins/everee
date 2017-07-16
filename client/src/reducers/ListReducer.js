@@ -11,8 +11,6 @@ const myLists = (
       return [action.list, ...state]
     case actions.ADD_LIST_ITEM :
       return [action.list]
-    case actions.TOGGLE_LIST_ITEM :
-      return [action.list]
     case actions.DELETE_LIST_ITEM :
       return [action.list]
     case actions.ADD_LISTS :
@@ -28,6 +26,8 @@ const currentList = (
 ) => {
   switch (action.type) {
     case actions.SET_LIST :
+      return action.list
+    case actions.TOGGLE_LIST_ITEM :
       return action.list
     default:
       return state

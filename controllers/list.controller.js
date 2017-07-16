@@ -243,7 +243,7 @@ const deleteList = (req, res) => {
 
 const toggleListItem = (req, res) => {
 
-  List.findOne( { _id: req.params._id })
+  List.findById(req.params.id)
     .populate('_users', 'name picture username')
     .exec()
     .then( (list ) => {

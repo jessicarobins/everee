@@ -2,6 +2,15 @@ import api from '../services/Api'
 import * as actions from './ActionTypes'
 import { addMessage } from './AppActions'
 
+export function toggleListItemRequest({listId, listItemId}) {
+  return (dispatch) => {
+    return api(`lists/${listId}/toggle/${listItemId}`, {
+      method: 'put'
+    })
+    .then(res => dispatch(toggleListItem(res.list)))
+  }
+}
+
 export function fetchList(id) {
   return (dispatch) => {
     return api(`lists/${id}`)
@@ -60,5 +69,12 @@ export function setList(list) {
   return {
     type: actions.SET_LIST,
     list,
+  }
+}
+
+export function toggleListItem(list) {
+  return {
+    type: actions.TOGGLE_LIST_ITEM,
+    list
   }
 }

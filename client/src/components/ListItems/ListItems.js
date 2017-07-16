@@ -19,6 +19,13 @@ class ListItems extends Component {
     )
   }
 
+  toggleListItem(item) {
+    this.props.toggleListItem({
+      listId: this.props.list._id,
+      listItemId: item._id
+    })
+  }
+
   render() {
 
     return (
@@ -29,8 +36,9 @@ class ListItems extends Component {
               return (
                 <div key={index}>
                   <ListItem
+                    onClick={() => this.toggleListItem(item)}
                     rightIconButton={this.deleteButton()}
-                    leftCheckbox={<Checkbox />}
+                    leftCheckbox={<Checkbox defaultChecked={item.complete} />}
                     primaryText={item.text} />
                   {(index !== this.props.list.items.length-1) && <Divider inset={true} />}
                 </div>

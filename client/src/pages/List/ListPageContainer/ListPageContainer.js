@@ -17,11 +17,13 @@ class ListPageContainer extends Component {
           <div>
             I want to {this.props.list.name}
           </div>
-          {
-            this.props.list._users.map(user => {
-              return <Avatar key={user} src={user.picture} />
-            })
-          }
+          <div className="list-users">
+            {
+              this.props.list._users.map(user => {
+                return <Avatar key={user} src={user.picture} />
+              })
+            }
+          </div>
         </Paper>
         <Paper className="list-progress list-detail">
           <LinearProgress
@@ -29,6 +31,7 @@ class ListPageContainer extends Component {
             value={this.props.list.percentComplete} />
         </Paper>
         <ListItems
+          toggleListItem={this.props.toggleListItem}
           list={this.props.list} />
       </div>
     )

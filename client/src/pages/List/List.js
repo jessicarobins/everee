@@ -28,7 +28,9 @@ class List extends Component {
           zDepth={2}
           logout={this.props.auth.logout} />
         { this.props.list &&
-          <ListPageContainer list={this.props.list} />
+          <ListPageContainer
+            toggleListItem={this.props.listActions.toggleListItemRequest}
+            list={this.props.list} />
         }
         <SystemMessage
           addMessage={this.props.appActions.addMessage}

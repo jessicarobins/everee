@@ -22,6 +22,10 @@
   grid-row: 2 / 3;
 }
 
+.list-users {
+  margin-top: 20px;
+}
+
 .list-items-container {
   grid-row: 1 / 4;
   grid-column: 2 / 3;
