@@ -25,6 +25,9 @@ class CreateListForm extends Component {
         action: this.state.action
       })
     }
+    else {
+      this.props.addMessage('All fields are required.')
+    }
   }
 
   render() {

@@ -22,6 +22,7 @@ class Home extends Component {
           <AppBar
             logout={this.props.auth.logout} />
           <CreateListForm
+            addMessage={this.props.appActions.addMessage}
             addList={this.props.listActions.addListRequest} />
         </Paper>
         <ListList
