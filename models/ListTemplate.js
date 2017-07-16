@@ -19,11 +19,11 @@ const listTemplate = new Schema({
   createdBy: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
-listTemplate.virtual('name').get(() => {
+listTemplate.virtual('name').get(function() {
   return this.actions[0]
 })
 
-listTemplate.pre('save', next => {
+listTemplate.pre('save', function(next) {
   //update sha
   if(this.items){
     this.sha = hasha( _.map(this.items, 'text'))
@@ -34,13 +34,13 @@ listTemplate.pre('save', next => {
   next()
 })
 
-listTemplate.methods.addListItems = function(items, cb) {
+listTemplate.methods.addListItems = function(items) {
   let newItem
   items.forEach( (item) => {
     newItem = new ListItem({text: item})
     this.items.push(newItem)
   })
-  return this.save(cb)
+  return this.save()
 }
 
 listTemplate.query.byItems = function(items) {
@@ -50,12 +50,12 @@ listTemplate.query.byItems = function(items) {
   return this.findOne({ sha: itemSha })
 }
 
-listTemplate.statics.newWithItems = function(action, items) {
+listTemplate.statics.newWithItems = async function(action, items) {
   const newTemplate = new this({
     actions: [action],
   })
   newTemplate.sha = hasha(items)
-  newTemplate.addListItems(items)
+  await newTemplate.addListItems(items)
   return newTemplate.save()
 }
 

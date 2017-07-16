@@ -23,22 +23,22 @@ const listSchema = new Schema({
   dateModified: { type: 'Date', default: Date.now, required: false },
 })
 
-listSchema.virtual('name').get(() => {
+listSchema.virtual('name').get(function() {
   return `${this.verb} every ${this.action}`
 })
 
-listSchema.virtual('fullName').get(() => {
+listSchema.virtual('fullName').get(function() {
   const user = this._users[0].username
   return `${user} wants to ${this.verb} every ${this.action}`
 })
 
-listSchema.virtual('percentComplete').get(() => {
+listSchema.virtual('percentComplete').get(function() {
   const numItems = this.items.length
   const numComplete = _.filter(this.items, 'complete').length
   return _.round(numComplete*100/numItems) || 0
 })
 
-listSchema.virtual('fractionComplete').get(() => {
+listSchema.virtual('fractionComplete').get(function() {
   const numItems = this.items.length
   const numComplete = _.filter(this.items, 'complete').length
   return {
@@ -49,7 +49,8 @@ listSchema.virtual('fractionComplete').get(() => {
 })
 
 listSchema.query.forUser = function(user) {
-  return this.find({_users: user._id})
+  console.log('user?? ', user)
+  return this.find({_users: user.user_id})
 }
 
 listSchema.query.byRecent = function() {

@@ -15,7 +15,7 @@ export default class Auth {
     clientID: 'rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
     redirectUri: 'http://everee-jrobins.c9users.io:8080/callback',
     responseType: 'token id_token',
-    scope: 'openid profile read:lists'
+    scope: 'openid profile email'
   })
 
   constructor() {
@@ -51,15 +51,24 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('scopes', JSON.stringify(scopes))
 
-    api('users/login')
-      .then(response => {
-        console.log(response)
-        // navigate to the home route
-        history.replace('/')
-      })
-      .catch(err => {
-        history.replace('/login')
-      })
+    api('users', {
+      method: 'put',
+      data: {
+        userData: {
+          email: authResult.idTokenPayload.email,
+          name: authResult.idTokenPayload.name,
+          picture: authResult.idTokenPayload.picture
+        }
+      }
+    })
+    .then(response => {
+      console.log(response)
+      // navigate to the home route
+      history.replace('/')
+    })
+    .catch(err => {
+      history.replace('/login')
+    })
   }
 
   logout() {

@@ -6,6 +6,11 @@ import Paper from 'material-ui/Paper'
 import * as _ from 'lodash'
 
 class ListList extends Component {
+
+  componentDidMount() {
+    // this.props.getLists()
+  }
+
   render() {
 
     const items = ['a', 'b', 'c', 'd', 'e']

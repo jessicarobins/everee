@@ -4,6 +4,7 @@ const _ = require('lodash')
 
 const List = require('../models/List')
 const ListTemplate = require('../models/ListTemplate')
+const User = require('../models/User')
 
 const wolframHelper = require('../util/wolframHelper')
 
@@ -105,7 +106,7 @@ const addEmptyList = (req, res) => {
     })
 }
 
-const findOrCreateListTemplate = (req, res) => {
+const findOrCreateListTemplate = async (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end()
@@ -113,7 +114,10 @@ const findOrCreateListTemplate = (req, res) => {
   }
 
   let newList = new List(req.body.list)
-  newList._users.push(req.user)
+
+  const user = await User.find().findByAuth0(req.user).exec()
+
+  newList._users.push(user)
 
   //search ListTemplate for matching actions
   ListTemplate.findOne({ actions: req.body.list.action }).exec()
@@ -122,7 +126,7 @@ const findOrCreateListTemplate = (req, res) => {
       // a new list based on it
       if(template) {
         console.log('template found by name')
-        return Promise.when(template)
+        return Promise.resolve(template)
       }
       return findOrCreateTemplateByItems(req.body.list.action)
     })
@@ -271,15 +275,12 @@ const findOrCreateTemplateByItems = action => {
       }
       else {
         //create a new ListTemplate
-        console.log('creating a new template')
+        console.log('creating a new template with items: ', items)
         return ListTemplate.newWithItems(action, items)
       }
     })
     .then( (template) => {
       return template
-    })
-    .catch( (err) => {
-      return Promise.reject(err)
     })
 }
 

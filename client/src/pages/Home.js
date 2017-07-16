@@ -13,9 +13,13 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <AppBar logout={this.props.auth.logout} />
-        <CreateListForm addList={this.props.listActions.addListRequest} />
-        <ListList />
+        <AppBar
+          logout={this.props.auth.logout} />
+        <CreateListForm
+          addList={this.props.listActions.addListRequest} />
+        <ListList
+          lists={this.props.lists}
+          getLists={this.props.listActions.fetchLists} />
       </div>
     )
   }

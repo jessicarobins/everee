@@ -49,12 +49,6 @@ const jwtCheck = jwt({
   algorithms: ['RS256']
 })
 
-const checkScopes = jwtAuthz([ 'read:lists' ])
-
-app.get('/api/private', jwtCheck, checkScopes, function(req, res) {
-  res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." })
-})
-
 app.set("port", process.env.PORT || 3001)
 
 // MongoDB Connection
@@ -91,15 +85,15 @@ app.use((req, res, next) => {
 })
 
 // error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+// app.use((err, req, res, next) => {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message
+//   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  // render the error page
-  console.log(err)
-  res.status(err.status || 500).send(err)
-})
+//   // render the error page
+//   console.log(err)
+//   res.status(err.status || 500).send(err)
+// })
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`)

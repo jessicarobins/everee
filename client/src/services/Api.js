@@ -9,7 +9,7 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-export default function callApi(endpoint, method = 'get', data) {
+export default function callApi(endpoint, {method = 'get', data, params} = {}) {
 
   if (auth.isAuthenticated()) {
     headers['Authorization'] = 'Bearer ' + auth.getAccessToken()
@@ -21,12 +21,13 @@ export default function callApi(endpoint, method = 'get', data) {
     method: method,
     withCredentials: true,
     url: endpoint,
-    data: data
+    data: data,
+    params: params
   })
   .then(({data}) => {
     return data
   })
   .catch(err => {
-    return err.response.data
+    return err
   })
 }

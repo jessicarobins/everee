@@ -20,9 +20,13 @@ userSchema.plugin(
   { message: '{PATH} is already taken.' }
 )
 
-userSchema.statics.findOrCreate = async function(auth0User) {
-  if (auth0User) {
-    let localUser = await this.findOne({ auth0Id: auth0User.user_id }).exec()
+userSchema.query.findByAuth0 = function(user) {
+  return this.findOne({auth0Id: user.user_id})
+}
+
+userSchema.statics.findOrCreate = async function(auth0User, userData) {
+  if (auth0User && userData) {
+    let localUser = await this.findOne({ auth0Id: auth0User.sub }).exec()
 
     if (localUser !== null) {
       console.log('user already exists in db')
@@ -32,10 +36,10 @@ userSchema.statics.findOrCreate = async function(auth0User) {
     else {
       console.log('user does not exist in db. creating a new user')
       localUser = new this({
-        auth0Id: auth0User.user_id,
-        name: auth0User.name,
-        picture: auth0User.picture,
-        email: auth0User.email
+        auth0Id: auth0User.sub,
+        name: userData.name,
+        picture: userData.picture,
+        email: userData.email
       })
     }
 
