@@ -157,7 +157,7 @@ const findOrCreateListTemplate = async (req, res) => {
  * @returns void
  */
 const getList = (req, res) => {
-  List.findOne({ id: req.params._id })
+  List.findById(req.params.id)
     .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
