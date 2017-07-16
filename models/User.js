@@ -30,8 +30,8 @@ userSchema.statics.findOrCreate = async function(auth0User, userData) {
 
     if (localUser !== null) {
       console.log('user already exists in db')
-      localUser.name = auth0User.name
-      localUser.picture = auth0User.picture
+      localUser.name = userData.name
+      localUser.picture = userData.picture
     }
     else {
       console.log('user does not exist in db. creating a new user')

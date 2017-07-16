@@ -3,6 +3,9 @@ export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE'
 
 /** Lists **/
 
+// current list
+export const SET_LIST = 'SET_LIST'
+
 // my lists
 export const ADD_LIST = 'ADD_LIST'
 export const ADD_LISTS = 'ADD_LISTS'

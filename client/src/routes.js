@@ -11,8 +11,10 @@ import { createLogger } from 'redux-logger'
 
 import reducers from './reducers'
 
-import Home from './pages/Home'
-import Login from './pages/Login'
+import Home from './pages/Home/Home'
+import Login from './pages/Login/Login'
+import List from './pages/List/List'
+
 import Progress from './components/Progress/Progress'
 import Auth from './services/Auth'
 
@@ -64,6 +66,9 @@ export const makeMainRoutes = () => {
             handleAuthentication(props)
             return <Progress {...props} />
           }}/>
+          <Route path="/list/:id" render={(props) => (
+            <List auth={auth} {...props} />
+          )}/>
         </div>
       </ConnectedRouter>
      </Provider>

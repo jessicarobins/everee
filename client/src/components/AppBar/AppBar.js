@@ -7,13 +7,17 @@ class EvereeAppBar extends Component {
 
     return (
       <AppBar
-        zDepth={0}
+        zDepth={this.props.zDepth}
         title="everee"
         showMenuIconButton={false}
         iconElementRight={<FlatButton label="logout" onClick={this.props.logout} />}
       />
     )
   }
+}
+
+EvereeAppBar.defaultProps = {
+  zDepth: 0
 }
 
 export default EvereeAppBar

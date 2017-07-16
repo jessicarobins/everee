@@ -22,6 +22,18 @@ const myLists = (
   }
 }
 
+const currentList = (
+  state = null,
+  action
+) => {
+  switch (action.type) {
+    case actions.SET_LIST :
+      return action.list
+    default:
+      return state
+  }
+}
+
 const demoLists = (
   state = [],
   action
@@ -87,6 +99,7 @@ const randomList = (
 
 
 const ListReducer = combineReducers({
+  currentList,
   myLists,
   demoLists,
   recentLists,
@@ -98,10 +111,7 @@ const ListReducer = combineReducers({
 
 export const getMyLists = state => state.lists.myLists
 
-export const getList = (state, id) => {
-  const lists = [...state.lists.myLists, ...state.lists.recentLists, ...state.lists.paginatedLists, state.lists.randomList]
-  return lists.filter(list => list._id === id)[0]
-}
+export const getList = state => state.lists.currentList
 
 export const getDemoLists = state => state.lists.demoLists
 export const getRecentLists = state => state.lists.recentLists

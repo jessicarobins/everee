@@ -16,6 +16,11 @@ class ListList extends Component {
     this.props.getLists()
   }
 
+  changeList = (list) => {
+    this.props.setList(list)
+    this.props.pushState(`/list/${list._id}`)
+  }
+
   renderListItem(item) {
     return (
       <div className="list-item">
@@ -38,7 +43,9 @@ class ListList extends Component {
               _.map(this.props.lists, (list, index) => {
                 return (
                   <div key={index}>
-                    <ListItem primaryText={this.renderListItem(list)} />
+                    <ListItem
+                      onClick={() => this.changeList(list)}
+                      primaryText={this.renderListItem(list)} />
                     {(index !== this.props.lists.length-1) && <Divider />}
                   </div>
                 )

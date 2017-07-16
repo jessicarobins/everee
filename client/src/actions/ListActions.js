@@ -2,6 +2,15 @@ import api from '../services/Api'
 import * as actions from './ActionTypes'
 import { addMessage } from './AppActions'
 
+export function fetchList(id) {
+  return (dispatch) => {
+    return api(`lists/${id}`)
+      .then(res => {
+        dispatch(setList(res.list))
+      })
+  }
+}
+
 export function fetchLists() {
   return (dispatch) => {
     return api('lists')
@@ -44,5 +53,12 @@ export function addLists(lists) {
   return {
     type: actions.ADD_LISTS,
     lists,
+  }
+}
+
+export function setList(list) {
+  return {
+    type: actions.SET_LIST,
+    list,
   }
 }
