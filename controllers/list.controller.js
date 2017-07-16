@@ -63,10 +63,13 @@ const getLists = (req, res) => {
     return
   }
 
-  List.find().forUser(req.user)
-    .sort('-dateAdded')
-    .populate('_users', 'name picture username')
-    .exec()
+  User.find()
+    .findByAuth0(req.user).exec()
+    .then(localUser => {
+      return List.find().forUser(localUser)
+        .sort('-dateAdded')
+        .populate('_users', 'name picture username').exec()
+    })
     .then( (lists) => {
       res.json({ lists })
     })
@@ -116,6 +119,8 @@ const findOrCreateListTemplate = async (req, res) => {
   let newList = new List(req.body.list)
 
   const user = await User.find().findByAuth0(req.user).exec()
+
+  console.log('this is the user: ', user)
 
   newList._users.push(user)
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import Paper from 'material-ui/Paper'
+
 import { getMyLists } from '../reducers/ListReducer'
 import * as listActions from '../actions/ListActions'
 
@@ -13,10 +15,12 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <AppBar
-          logout={this.props.auth.logout} />
-        <CreateListForm
-          addList={this.props.listActions.addListRequest} />
+        <Paper zDepth={2}>
+          <AppBar
+            logout={this.props.auth.logout} />
+          <CreateListForm
+            addList={this.props.listActions.addListRequest} />
+        </Paper>
         <ListList
           lists={this.props.lists}
           getLists={this.props.listActions.fetchLists} />

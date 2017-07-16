@@ -1,6 +1,9 @@
 .create-list-form {
   min-height: 200px;
   display: flex;
+  margin-bottom: 35px;
+  position: relative;
+  padding-bottom: 28px;
 }
 
 .create-list-text-fields {
@@ -16,9 +19,9 @@
 }
 
 .create-list-btn {
-  align-self: flex-end;
-  margin-bottom: -28px;
-  margin-right: 28px;
+  position: absolute;
+  bottom: -28px;
+  right: 28px;
 }
 
 @media only screen

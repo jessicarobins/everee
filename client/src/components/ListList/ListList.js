@@ -1,34 +1,38 @@
 import React, { Component } from 'react'
 
 import Divider from 'material-ui/Divider'
+import {List, ListItem} from 'material-ui/List'
 import Paper from 'material-ui/Paper'
 
 import * as _ from 'lodash'
 
+import './ListList.css'
+
 class ListList extends Component {
 
   componentDidMount() {
-    // this.props.getLists()
+    this.props.getLists()
   }
 
   render() {
 
-    const items = ['a', 'b', 'c', 'd', 'e']
     return (
-     <Paper className='container'>
-      {
-        _.map(items, (item, index) => {
-          return (
-            <div key={index}>
-              {item}
-              {
-                (index !== items.length-1) && <Divider />
-              }
-            </div>
-          )
-        })
-      }
-     </Paper>
+      <div className='container'>
+        <Paper className='list-list-container'>
+          <List>
+            {
+              _.map(this.props.lists, (list, index) => {
+                return (
+                  <div key={index}>
+                    <ListItem  primaryText={list.name} />
+                    {(index !== this.props.lists.length-1) && <Divider />}
+                  </div>
+                )
+              })
+            }
+          </List>
+        </Paper>
+      </div>
     )
   }
 }

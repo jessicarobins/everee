@@ -49,8 +49,7 @@ listSchema.virtual('fractionComplete').get(function() {
 })
 
 listSchema.query.forUser = function(user) {
-  console.log('user?? ', user)
-  return this.find({_users: user.user_id})
+  return this.find({_users: user._id})
 }
 
 listSchema.query.byRecent = function() {

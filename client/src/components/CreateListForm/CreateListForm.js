@@ -60,35 +60,37 @@ class CreateListForm extends Component {
     }
 
     return (
-      <div style={styles.container} className="create-list-form">
-        <div className="create-list-text-fields">
-          I want to
-          <TextField
-            onChange={(event, newValue) => this.setState({verb: newValue})}
-            style={styles.textField.container}
-            underlineStyle={styles.textField.underlineStyle}
-            underlineFocusStyle={styles.textField.underlineFocusStyle}
-            hintStyle={styles.textField.hintStyle}
-            hintText="climb"
-            inputStyle={styles.textField.inputStyle}
-          />
-          every
-          <TextField
-            onChange={(event, newValue) => this.setState({action: newValue})}
-            style={styles.textField.container}
-            underlineStyle={styles.textField.underlineStyle}
-            hintStyle={styles.textField.hintStyle}
-            underlineFocusStyle={styles.textField.underlineFocusStyle}
-            hintText="mountain"
-            inputStyle={styles.textField.inputStyle}
-          />
+      <div style={styles.container}>
+        <div className="create-list-form container">
+          <div className="create-list-text-fields">
+            I want to
+            <TextField
+              onChange={(event, newValue) => this.setState({verb: newValue})}
+              style={styles.textField.container}
+              underlineStyle={styles.textField.underlineStyle}
+              underlineFocusStyle={styles.textField.underlineFocusStyle}
+              hintStyle={styles.textField.hintStyle}
+              hintText="climb"
+              inputStyle={styles.textField.inputStyle}
+            />
+            every
+            <TextField
+              onChange={(event, newValue) => this.setState({action: newValue})}
+              style={styles.textField.container}
+              underlineStyle={styles.textField.underlineStyle}
+              hintStyle={styles.textField.hintStyle}
+              underlineFocusStyle={styles.textField.underlineFocusStyle}
+              hintText="mountain"
+              inputStyle={styles.textField.inputStyle}
+            />
+          </div>
+          <FloatingActionButton
+            onClick={this.addList}
+            secondary
+            className="create-list-btn">
+            <AddIcon />
+          </FloatingActionButton>
         </div>
-        <FloatingActionButton
-          onClick={this.addList}
-          secondary
-          className="create-list-btn">
-          <AddIcon />
-        </FloatingActionButton>
       </div>
     );
   }

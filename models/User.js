@@ -21,7 +21,7 @@ userSchema.plugin(
 )
 
 userSchema.query.findByAuth0 = function(user) {
-  return this.findOne({auth0Id: user.user_id})
+  return this.findOne({auth0Id: user.sub})
 }
 
 userSchema.statics.findOrCreate = async function(auth0User, userData) {
