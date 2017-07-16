@@ -6,10 +6,13 @@ import Paper from 'material-ui/Paper'
 
 import { getMyLists } from '../reducers/ListReducer'
 import * as listActions from '../actions/ListActions'
+import { getSystemMessage } from '../reducers/AppReducer'
+import * as appActions from '../actions/AppActions'
 
 import AppBar from '../components/AppBar/AppBar'
 import CreateListForm from '../components/CreateListForm/CreateListForm'
 import ListList from '../components/ListList/ListList'
+import SystemMessage from '../components/SystemMessage/SystemMessage'
 
 class Home extends Component {
   render() {
@@ -24,6 +27,9 @@ class Home extends Component {
         <ListList
           lists={this.props.lists}
           getLists={this.props.listActions.fetchLists} />
+        <SystemMessage
+          addMessage={this.props.appActions.addMessage}
+          message={this.props.message} />
       </div>
     )
   }
@@ -31,12 +37,14 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    lists: getMyLists(state)
+    lists: getMyLists(state),
+    message: getSystemMessage(state)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    appActions: bindActionCreators(appActions, dispatch),
     listActions: bindActionCreators(listActions, dispatch)
   }
 }

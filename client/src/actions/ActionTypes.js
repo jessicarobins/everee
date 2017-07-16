@@ -1,4 +1,5 @@
-export const TEMP = 'TEMP'
+/** App **/
+export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE'
 
 /** Lists **/
 

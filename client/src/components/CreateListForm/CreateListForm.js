@@ -19,10 +19,12 @@ class CreateListForm extends Component {
   }
 
   addList = () => {
-    this.props.addList({
-      verb: this.state.verb,
-      action: this.state.action
-    })
+    if (this.state.verb.length && this.state.action.length) {
+      this.props.addList({
+        verb: this.state.verb,
+        action: this.state.action
+      })
+    }
   }
 
   render() {

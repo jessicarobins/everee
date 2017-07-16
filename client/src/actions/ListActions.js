@@ -1,5 +1,6 @@
 import api from '../services/Api'
 import * as actions from './ActionTypes'
+import { addMessage } from './AppActions'
 
 export function fetchLists() {
   return (dispatch) => {
@@ -23,6 +24,10 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
     }).then( ({list}) =>  {
       if(list){
         dispatch(addList(list))
+        dispatch(addMessage('List created.'))
+      }
+      else {
+        dispatch(addMessage('There was a problem creating your list.'))
       }
     })
   }
@@ -39,5 +44,5 @@ export function addLists(lists) {
   return {
     type: actions.ADD_LISTS,
     lists,
-  };
+  }
 }

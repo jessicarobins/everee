@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import {amber500, green500, green700, green100, grey900, grey600, grey400, white} from 'material-ui/styles/colors'
+import {amber500, green500, green700, green100, grey900, grey600, grey400} from 'material-ui/styles/colors'
 
 import Routes from './routes'
 
@@ -24,8 +24,6 @@ const muiTheme = getMuiTheme({
     accent1Color: amber500,
     textColor: grey900,
     secondaryTextColor: grey600,
-    alternateTextColor: white,
-    canvasColor: white,
     borderColor: grey400
   }
 })
