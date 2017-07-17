@@ -26,6 +26,12 @@
   margin-top: 20px;
 }
 
+.list-chips {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
 .list-items-container {
   grid-row: 1 / 4;
   grid-column: 2 / 3;
