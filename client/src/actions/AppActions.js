@@ -12,3 +12,10 @@ export function toggleAddEmptyList() {
     type: actions.TOGGLE_ADD_EMPTY_LIST
   }
 }
+
+export function changePage(index) {
+  return {
+    type: actions.CHANGE_PAGE,
+    index
+  }
+}

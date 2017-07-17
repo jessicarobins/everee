@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { push } from 'react-router-redux'
 
 import { getList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage } from '../../reducers/AppReducer'
+import { getSystemMessage, getPageIndex, LIST_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
 import AppBar from '../../components/AppBar/AppBar'
+import BottomNav from '../../components/BottomNav/BottomNav'
 import SystemMessage from '../../components/SystemMessage/SystemMessage'
 import ListPageContainer from './ListPageContainer/ListPageContainer'
 
@@ -19,6 +21,8 @@ class List extends Component {
     if (!props.list) {
       this.props.listActions.fetchList(props.match.params.id)
     }
+
+    this.props.appActions.changePage(LIST_INDEX)
   }
 
   render() {
@@ -32,6 +36,9 @@ class List extends Component {
             toggleListItem={this.props.listActions.toggleListItemRequest}
             list={this.props.list} />
         }
+        <BottomNav
+          changePage={this.props.pushState}
+          index={this.props.pageIndex} />
         <SystemMessage
           addMessage={this.props.appActions.addMessage}
           message={this.props.message} />
@@ -43,14 +50,16 @@ class List extends Component {
 function mapStateToProps(state, props) {
   return {
     list: getList(state, props.match.params.id),
-    message: getSystemMessage(state)
+    message: getSystemMessage(state),
+    pageIndex: getPageIndex(state)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
-    listActions: bindActionCreators(listActions, dispatch)
+    listActions: bindActionCreators(listActions, dispatch),
+    pushState: bindActionCreators(push, dispatch)
   }
 }
 

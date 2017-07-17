@@ -35,26 +35,30 @@ class ListItems extends Component {
 
   render() {
 
-    return (
-      <Paper className='list-items-container'>
-        <List>
-          {
-            _.map(this.props.list.items, (item, index) => {
-              return (
-                <div key={index}>
-                  <ListItem
-                    onClick={() => this.toggleListItem(item)}
-                    rightIconButton={this.deleteButton(item)}
-                    leftCheckbox={<Checkbox defaultChecked={item.complete} />}
-                    primaryText={item.text} />
-                  {(index !== this.props.list.items.length-1) && <Divider inset={true} />}
-                </div>
-              )
-            })
-          }
-        </List>
-      </Paper>
-    )
+    if( this.props.list.items.length) {
+      return (
+        <Paper className='list-items-container'>
+          <List>
+            {
+              _.map(this.props.list.items, (item, index) => {
+                return (
+                  <div key={index}>
+                    <ListItem
+                      onClick={() => this.toggleListItem(item)}
+                      rightIconButton={this.deleteButton(item)}
+                      leftCheckbox={<Checkbox defaultChecked={item.complete} />}
+                      primaryText={item.text} />
+                    {(index !== this.props.list.items.length-1) && <Divider inset={true} />}
+                  </div>
+                )
+              })
+            }
+          </List>
+        </Paper>
+      )
+    }
+
+    return null
   }
 }
 
