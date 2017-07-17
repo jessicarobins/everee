@@ -1,6 +1,8 @@
+import { push } from 'react-router-redux'
+
 import api from '../services/Api'
 import * as actions from './ActionTypes'
-import { addMessage } from './AppActions'
+import { addMessage, toggleAddEmptyList } from './AppActions'
 
 export function toggleListItemRequest({listId, listItemId}) {
   return (dispatch) => {
@@ -43,9 +45,10 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
       if(list){
         dispatch(addList(list))
         dispatch(addMessage('List created.'))
+        dispatch(push(`/list/${list._id}`))
       }
       else {
-        dispatch(addMessage('There was a problem creating your list.'))
+        dispatch(toggleAddEmptyList())
       }
     })
   }

@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper'
 
 import { getMyLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage } from '../../reducers/AppReducer'
+import { getSystemMessage, getShowAddEmptyList } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
 import AppBar from '../../components/AppBar/AppBar'
@@ -24,6 +24,8 @@ class Home extends Component {
           <AppBar
             logout={this.props.auth.logout} />
           <CreateListForm
+            showAddEmptyList={this.props.showAddEmptyList}
+            toggleAddEmptyList={this.props.appActions.toggleAddEmptyList}
             addMessage={this.props.appActions.addMessage}
             addList={this.props.listActions.addListRequest} />
         </Paper>
@@ -43,7 +45,8 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     lists: getMyLists(state),
-    message: getSystemMessage(state)
+    message: getSystemMessage(state),
+    showAddEmptyList: getShowAddEmptyList(state)
   }
 }
 

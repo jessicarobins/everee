@@ -5,6 +5,8 @@ import TextField from 'material-ui/TextField'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
 
+import AddEmptyListDialog from './AddEmptyListDialog/AddEmptyListDialog'
+
 import './CreateListForm.css'
 
 class CreateListForm extends Component {
@@ -28,6 +30,13 @@ class CreateListForm extends Component {
     else {
       this.props.addMessage('All fields are required.')
     }
+  }
+
+  addEmptyList = () => {
+    this.props.addList({
+      verb: this.state.verb,
+      action: this.state.action
+    }, 'lists')
   }
 
   render() {
@@ -96,6 +105,11 @@ class CreateListForm extends Component {
             <AddIcon />
           </FloatingActionButton>
         </div>
+        <AddEmptyListDialog
+          addEmptyList={this.addEmptyList}
+          action={this.state.action}
+          handleClose={this.props.toggleAddEmptyList}
+          open={this.props.showAddEmptyList} />
       </div>
     );
   }

@@ -6,3 +6,9 @@ export function addMessage(message) {
     message,
   }
 }
+
+export function toggleAddEmptyList() {
+  return {
+    type: actions.TOGGLE_ADD_EMPTY_LIST
+  }
+}

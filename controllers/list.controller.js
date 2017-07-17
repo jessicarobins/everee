@@ -79,18 +79,21 @@ const getLists = (req, res) => {
 
 }
 
-const addEmptyList = (req, res) => {
+const addEmptyList = async (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
     res.status(403).end()
   }
 
   const newList = new List(req.body.list)
-  newList._users.push(req.user)
+
+  const user = await User.find().findByAuth0(req.user).exec()
+
+  newList._users.push(user)
 
   const newTemplate = new ListTemplate({
     actions: [req.body.list.action],
-    createdBy: req.user
+    createdBy: user
   })
 
   newTemplate.save()
@@ -105,6 +108,7 @@ const addEmptyList = (req, res) => {
       res.json({ list })
     })
     .catch( (err) => {
+      console.log(err)
       res.status(422).send(err)
     })
 }
@@ -119,8 +123,6 @@ const findOrCreateListTemplate = async (req, res) => {
   let newList = new List(req.body.list)
 
   const user = await User.find().findByAuth0(req.user).exec()
-
-  console.log('this is the user: ', user)
 
   newList._users.push(user)
 

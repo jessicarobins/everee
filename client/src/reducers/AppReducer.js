@@ -15,10 +15,24 @@ const message = (
   }
 }
 
+const showAddEmptyList = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case actions.TOGGLE_ADD_EMPTY_LIST:
+      return !state
+    default:
+      return state
+  }
+}
+
 const AppReducer = combineReducers({
+  showAddEmptyList,
   message
 })
 
 export const getSystemMessage = state => state.app.message
+export const getShowAddEmptyList = state => state.app.showAddEmptyList
 
 export default AppReducer

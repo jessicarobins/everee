@@ -1,5 +1,6 @@
 /** App **/
 export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE'
+export const TOGGLE_ADD_EMPTY_LIST = 'TOGGLE_ADD_EMPTY_LIST'
 
 /** Lists **/
 
