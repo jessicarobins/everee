@@ -6,6 +6,7 @@
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   align-items: start;
+  margin-bottom: 76px;
 }
 
 @media only screen
@@ -20,10 +21,6 @@
   .list-items-container,
   .list-detail {
     margin: 0 20px 20px 20px;
-  }
-
-  .list-items-container {
-    margin-bottom: 76px;
   }
 }
 

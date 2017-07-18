@@ -33,6 +33,12 @@ class ListItems extends Component {
     })
   }
 
+  checkbox(item) {
+    return (
+      <Checkbox defaultChecked={item.complete} />
+    )
+  }
+
   render() {
 
     if( this.props.list.items.length) {
@@ -44,9 +50,9 @@ class ListItems extends Component {
                 return (
                   <div key={index}>
                     <ListItem
-                      onClick={() => this.toggleListItem(item)}
+                      onTouchTap={() => this.toggleListItem(item)}
                       rightIconButton={this.deleteButton(item)}
-                      leftCheckbox={<Checkbox defaultChecked={item.complete} />}
+                      leftCheckbox={this.checkbox(item)}
                       primaryText={item.text} />
                     {(index !== this.props.list.items.length-1) && <Divider inset={true} />}
                   </div>
