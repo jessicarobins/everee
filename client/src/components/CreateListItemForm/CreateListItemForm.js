@@ -17,10 +17,13 @@ class CreateListItemForm extends Component {
 
   addListItem = () => {
     if (this.state.text.length) {
-      // this.props.addList({
-      //   verb: this.state.verb,
-      //   action: this.state.action
-      // })
+      this.props.addListItem({
+        id: this.props.list._id,
+        text: this.state.text
+      })
+      this.setState({
+        text: ''
+      })
     }
     else {
       this.props.addMessage('All fields are required.')
@@ -33,10 +36,14 @@ class CreateListItemForm extends Component {
       <div className="create-list-item-form">
         <TextField
           fullWidth={true}
+          value={this.state.text}
           onChange={(event, newValue) => this.setState({text: newValue})}
           hintText="A new item..."
         />
-        <FlatButton label="Add item" secondary={true} />
+        <FlatButton
+          onClick={this.addListItem}
+          label="Add item"
+          secondary={true} />
       </div>
     )
   }

@@ -33,6 +33,8 @@ class List extends Component {
           logout={this.props.auth.logout} />
         { this.props.list &&
           <ListPageContainer
+            addMessage={this.props.appActions.addMessage}
+            addListItem={this.props.listActions.addListItemRequest}
             toggleListItem={this.props.listActions.toggleListItemRequest}
             list={this.props.list} />
         }

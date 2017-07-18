@@ -28,6 +28,6 @@ export default function callApi(endpoint, {method = 'get', data, params} = {}) {
     return data
   })
   .catch(err => {
-    return err
+    return err.response.data
   })
 }

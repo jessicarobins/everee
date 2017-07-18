@@ -4,6 +4,27 @@ import api from '../services/Api'
 import * as actions from './ActionTypes'
 import { addMessage, toggleAddEmptyList } from './AppActions'
 
+export function addListItemRequest({id, text}) {
+  return (dispatch) => {
+    return api(`lists/${id}`, {
+      method: 'post',
+      data: {
+        item: text
+      }
+    }).then( res => {
+      if(res.list) {
+        const successMessage = `${text} successfully added to list
+          ${res.list.name}`
+        dispatch(addListItem(res.list))
+        dispatch(addMessage(successMessage))
+      }
+      else {
+        dispatch(addMessage(res))
+      }
+    })
+  }
+}
+
 export function toggleListItemRequest({listId, listItemId}) {
   return (dispatch) => {
     return api(`lists/${listId}/toggle/${listItemId}`, {
@@ -78,6 +99,13 @@ export function setList(list) {
 export function toggleListItem(list) {
   return {
     type: actions.TOGGLE_LIST_ITEM,
+    list
+  }
+}
+
+export function addListItem(list) {
+  return {
+    type: actions.ADD_LIST_ITEM,
     list
   }
 }

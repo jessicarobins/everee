@@ -170,13 +170,15 @@ const getList = (req, res) => {
     })
 }
 
-const addListItem = (req, res) => {
+const addListItem = async (req, res) => {
 
-  List.findOne({ _id: req.params._id })
+  const user = await User.find().findByAuth0(req.user).exec()
+
+  List.findById(req.params.id)
     .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
-      return list.addListItem(req.body.item, req.user)
+      return list.addListItem(req.body.item, user)
     })
     .then( (list) => {
       res.json({ list })

@@ -39,7 +39,10 @@ class ListPageContainer extends Component {
           </div>
         </Paper>
         <Paper className="list-item-form list-detail">
-          <CreateListItemForm list={list} />
+          <CreateListItemForm
+            addMessage={this.props.addMessage}
+            addListItem={this.props.addListItem}
+            list={list} />
         </Paper>
         <ListItems
           toggleListItem={this.props.toggleListItem}

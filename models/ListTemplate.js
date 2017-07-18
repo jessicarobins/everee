@@ -92,7 +92,7 @@ listTemplate.methods.addItem = function(itemText, exceptLists) {
 
   let promises = [template.save()]
 
-  return List.find({_template: this._id, _id: { $nin: exceptLists }}).exec()
+  return this.model('List').find({_template: this._id, _id: { $nin: exceptLists }}).exec()
     .then( (lists) => {
       lists.forEach( (list) => {
         list.items.push(new ListItem({text: itemText}))
