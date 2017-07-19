@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 
 import Paper from 'material-ui/Paper'
 
-import { getMyLists } from '../../reducers/ListReducer'
+import { getRecentLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import { getSystemMessage, getPageIndex, EXPLORE_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
@@ -13,12 +13,14 @@ import * as appActions from '../../actions/AppActions'
 import AppBar from '../../components/AppBar/AppBar'
 import BottomNav from '../../components/BottomNav/BottomNav'
 import ExploreTabs from '../../components/ExploreTabs/ExploreTabs'
+import MasonryLayout from '../../components/MasonryLayout/MasonryLayout'
 import SystemMessage from '../../components/SystemMessage/SystemMessage'
 
 class Explore extends Component {
 
   componentDidMount() {
     this.props.appActions.changePage(EXPLORE_INDEX)
+    this.props.listActions.fetchRecentLists()
   }
 
   render() {
@@ -28,7 +30,7 @@ class Explore extends Component {
           <AppBar
             logout={this.props.auth.logout} />
         </Paper>
-        Explore page!!
+        <MasonryLayout lists={this.props.lists} />
         <BottomNav
           changePage={this.props.pushState}
           index={this.props.pageIndex} />
@@ -42,7 +44,7 @@ class Explore extends Component {
 
 function mapStateToProps(state) {
   return {
-    lists: getMyLists(state),
+    lists: getRecentLists(state),
     message: getSystemMessage(state),
     pageIndex: getPageIndex(state)
   }

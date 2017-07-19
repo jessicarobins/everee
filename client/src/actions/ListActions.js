@@ -4,6 +4,14 @@ import api from '../services/Api'
 import * as actions from './ActionTypes'
 import { addMessage, toggleAddEmptyList } from './AppActions'
 
+export function fetchRecentLists() {
+  return (dispatch) => {
+    return api('lists/recent').then(res => {
+      dispatch(addRecentLists(res.lists))
+    })
+  }
+}
+
 export function addListItemRequest({id, text}) {
   return (dispatch) => {
     return api(`lists/${id}`, {
@@ -109,3 +117,11 @@ export function addListItem(list) {
     list
   }
 }
+
+export function addRecentLists(lists) {
+  return {
+    type: actions.ADD_RECENT_LISTS,
+    lists
+  }
+}
+
