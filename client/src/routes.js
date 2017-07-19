@@ -14,6 +14,7 @@ import reducers from './reducers'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import List from './pages/List/List'
+import Explore from './pages/Explore/Explore'
 
 import Progress from './components/Progress/Progress'
 import Auth from './services/Auth'
@@ -68,6 +69,9 @@ export const makeMainRoutes = () => {
           }}/>
           <Route path="/list/:id" render={(props) => (
             <List auth={auth} {...props} />
+          )}/>
+          <Route path="/explore" render={(props) => (
+            <Explore auth={auth} {...props} />
           )}/>
         </div>
       </ConnectedRouter>

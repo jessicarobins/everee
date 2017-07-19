@@ -18,6 +18,7 @@ class BottomNav extends Component {
             icon={<ListIcon />}
           />
           <BottomNavigationItem
+            onTouchTap={() => this.props.changePage('/explore')}
             label="Explore"
             icon={<ExploreIcon />}
           />

@@ -4,6 +4,7 @@ import { combineReducers } from 'redux'
 import * as actions from '../actions/ActionTypes'
 
 export const HOME_INDEX = 0
+export const EXPLORE_INDEX = 2
 export const LIST_INDEX = -1
 
 const message = (
