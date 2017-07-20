@@ -6,6 +6,11 @@ import LinearProgress from 'material-ui/LinearProgress'
 import './ListCard.css'
 
 class ListCard extends Component {
+
+  handleClickList = () => {
+    this.props.pushState(`/list/${this.props.list._id}`)
+  }
+
   render() {
     const { list } = this.props
 
@@ -23,7 +28,7 @@ class ListCard extends Component {
         }
         </CardText>
         <CardActions>
-          <FlatButton label="Go!" />
+          <FlatButton label="Go!" onClick={this.handleClickList} />
         </CardActions>
       </Card>
     )

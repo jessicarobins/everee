@@ -32,7 +32,12 @@ class MasonryLayout extends Component {
         hasMore={true}
         loadMore={() => console.log('loading more!')}>
         {
-          this.props.lists.map( (list, index) => <ListCard key={index} list={list} />)
+          this.props.lists.map( (list, index) => (
+            <ListCard
+              pushState={this.props.pushState}
+              key={index}
+              list={list} />
+          ))
         }
       </MasonryInfiniteScroller>
     )

@@ -28,7 +28,7 @@ listSchema.virtual('name').get(function() {
 })
 
 listSchema.virtual('fullName').get(function() {
-  const user = this._users[0].username
+  const user = this._users[0].username || this._users[0].name
   return `${user} wants to ${this.verb} every ${this.action}`
 })
 

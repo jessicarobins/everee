@@ -21,7 +21,9 @@ class List extends Component {
     if (!props.list) {
       this.props.listActions.fetchList(props.match.params.id)
     }
+  }
 
+  componentDidMount() {
     this.props.appActions.changePage(LIST_INDEX)
   }
 

@@ -30,7 +30,9 @@ class Explore extends Component {
           <AppBar
             logout={this.props.auth.logout} />
         </Paper>
-        <MasonryLayout lists={this.props.lists} />
+        <MasonryLayout
+          pushState={this.props.pushState}
+          lists={this.props.lists} />
         <BottomNav
           changePage={this.props.pushState}
           index={this.props.pageIndex} />

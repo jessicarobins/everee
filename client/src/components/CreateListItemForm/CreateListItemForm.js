@@ -15,7 +15,9 @@ class CreateListItemForm extends Component {
     }
   }
 
-  addListItem = () => {
+  addListItem = (e) => {
+    e.preventDefault()
+
     if (this.state.text.length) {
       this.props.addListItem({
         id: this.props.list._id,
@@ -33,7 +35,9 @@ class CreateListItemForm extends Component {
   render() {
 
     return (
-      <div className="create-list-item-form">
+      <form
+        onSubmit={this.addListItem}
+        className="create-list-item-form">
         <TextField
           fullWidth={true}
           value={this.state.text}
@@ -41,10 +45,9 @@ class CreateListItemForm extends Component {
           hintText="A new item..."
         />
         <FlatButton
-          onClick={this.addListItem}
           label="Add item"
           secondary={true} />
-      </div>
+      </form>
     )
   }
 }
