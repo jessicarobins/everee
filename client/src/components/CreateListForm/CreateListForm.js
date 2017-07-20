@@ -78,16 +78,11 @@ class CreateListForm extends Component {
       }
     }
 
-const colors = [
-  'Red',
-  'Orange',
-  'Yellow',
-  'Green',
-  'Blue',
-  'Purple',
-  'Black',
-  'White',
-]
+    const dataSourceConfig = {
+      text: 'name',
+      value: '_id'
+    }
+
     return (
       <div style={styles.container}>
         <div className="create-list-form container">
@@ -105,14 +100,15 @@ const colors = [
             every
              <AutoComplete
               onChange={(event, newValue) => this.setState({action: newValue})}
-              style={styles.textField.container}
+              textFieldStyle={styles.textField.container}
               underlineStyle={styles.textField.underlineStyle}
               hintStyle={styles.textField.hintStyle}
               underlineFocusStyle={styles.textField.underlineFocusStyle}
               hintText="mountain"
               inputStyle={styles.textField.inputStyle}
               filter={AutoComplete.fuzzyFilter}
-              dataSource={colors} />
+              dataSource={this.props.templates}
+              dataSourceConfig={dataSourceConfig} />
             <TextField
               onChange={(event, newValue) => this.setState({action: newValue})}
               style={styles.textField.container}
