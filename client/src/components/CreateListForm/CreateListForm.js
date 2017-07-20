@@ -95,11 +95,11 @@ class CreateListForm extends Component {
               underlineFocusStyle={styles.textField.underlineFocusStyle}
               hintStyle={styles.textField.hintStyle}
               hintText="climb"
-              inputStyle={styles.textField.inputStyle}
-            />
+              inputStyle={styles.textField.inputStyle} />
             every
              <AutoComplete
-              onChange={(event, newValue) => this.setState({action: newValue})}
+              openOnFocus={true}
+              onUpdateInput={(searchText) => this.setState({action: searchText})}
               textFieldStyle={styles.textField.container}
               underlineStyle={styles.textField.underlineStyle}
               hintStyle={styles.textField.hintStyle}
@@ -109,15 +109,6 @@ class CreateListForm extends Component {
               filter={AutoComplete.fuzzyFilter}
               dataSource={this.props.templates}
               dataSourceConfig={dataSourceConfig} />
-            <TextField
-              onChange={(event, newValue) => this.setState({action: newValue})}
-              style={styles.textField.container}
-              underlineStyle={styles.textField.underlineStyle}
-              hintStyle={styles.textField.hintStyle}
-              underlineFocusStyle={styles.textField.underlineFocusStyle}
-              hintText="mountain"
-              inputStyle={styles.textField.inputStyle}
-            />
           </div>
           <FloatingActionButton
             onClick={this.addList}
