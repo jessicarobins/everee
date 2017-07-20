@@ -9,6 +9,8 @@ import { getMyLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import { getSystemMessage, getShowAddEmptyList, getPageIndex, HOME_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
+import { getTemplates } from '../../reducers/TemplateReducer'
+import * as templateActions from '../../actions/TemplateActions'
 
 import AppBar from '../../components/AppBar/AppBar'
 import BottomNav from '../../components/BottomNav/BottomNav'
@@ -29,6 +31,8 @@ class Home extends Component {
           <AppBar
             logout={this.props.auth.logout} />
           <CreateListForm
+            fetchTemplates={this.props.templateActions.fetchTemplates}
+            templates={this.props.templates}
             showAddEmptyList={this.props.showAddEmptyList}
             toggleAddEmptyList={this.props.appActions.toggleAddEmptyList}
             addMessage={this.props.appActions.addMessage}
@@ -53,6 +57,7 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     lists: getMyLists(state),
+    templates: getTemplates(state),
     message: getSystemMessage(state),
     showAddEmptyList: getShowAddEmptyList(state),
     pageIndex: getPageIndex(state)
@@ -63,6 +68,7 @@ function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
     listActions: bindActionCreators(listActions, dispatch),
+    templateActions: bindActionCreators(templateActions, dispatch),
     pushState: bindActionCreators(push, dispatch)
   }
 }

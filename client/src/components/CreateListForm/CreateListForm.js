@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import muiThemeable from 'material-ui/styles/muiThemeable'
+import AutoComplete from 'material-ui/AutoComplete'
 import TextField from 'material-ui/TextField'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import AddIcon from 'material-ui/svg-icons/content/add'
@@ -18,6 +19,10 @@ class CreateListForm extends Component {
       verb: '',
       action: ''
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchTemplates()
   }
 
   addList = () => {
@@ -73,6 +78,16 @@ class CreateListForm extends Component {
       }
     }
 
+const colors = [
+  'Red',
+  'Orange',
+  'Yellow',
+  'Green',
+  'Blue',
+  'Purple',
+  'Black',
+  'White',
+]
     return (
       <div style={styles.container}>
         <div className="create-list-form container">
@@ -88,6 +103,16 @@ class CreateListForm extends Component {
               inputStyle={styles.textField.inputStyle}
             />
             every
+             <AutoComplete
+              onChange={(event, newValue) => this.setState({action: newValue})}
+              style={styles.textField.container}
+              underlineStyle={styles.textField.underlineStyle}
+              hintStyle={styles.textField.hintStyle}
+              underlineFocusStyle={styles.textField.underlineFocusStyle}
+              hintText="mountain"
+              inputStyle={styles.textField.inputStyle}
+              filter={AutoComplete.fuzzyFilter}
+              dataSource={colors} />
             <TextField
               onChange={(event, newValue) => this.setState({action: newValue})}
               style={styles.textField.container}

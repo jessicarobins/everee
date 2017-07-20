@@ -96,8 +96,6 @@ const randomList = (
   }
 }
 
-
-
 const ListReducer = combineReducers({
   currentList,
   myLists,

@@ -124,4 +124,3 @@ export function addRecentLists(lists) {
     lists
   }
 }
-

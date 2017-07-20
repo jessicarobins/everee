@@ -1,4 +1,4 @@
-import ListTemplate from '../models/listTemplate'
+const ListTemplate = require('../models/ListTemplate')
 
 exports.getTemplates = (req, res) => {
   ListTemplate.find().sort('actions').exec((err, templates) => {

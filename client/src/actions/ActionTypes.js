@@ -30,3 +30,6 @@ export const RESET_PAGINATED_LISTS = 'RESET_PAGINATED_LISTS'
 
 // random list
 export const ADD_RANDOM_LIST = 'ADD_RANDOM_LIST'
+
+/** Templates **/
+export const ADD_TEMPLATES = 'ADD_TEMPLATES'

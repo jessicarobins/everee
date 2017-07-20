@@ -15,6 +15,7 @@ mongoose.Promise = require('bluebird')
 const index = require('./routes/index')
 const lists = require('./routes/lists')
 const users = require('./routes/users')
+const templates = require('./routes/templates')
 
 const app = express()
 
@@ -76,6 +77,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 app.use('/api', index)
 app.use('/api/lists', lists)
 app.use('/api/users', users)
+app.use('/api/templates', templates)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
