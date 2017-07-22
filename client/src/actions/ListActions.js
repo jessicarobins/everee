@@ -155,3 +155,18 @@ export function setCanEditList(authenticated) {
     authenticated
   }
 }
+
+export function addDemoLists(lists) {
+  return {
+    type: actions.ADD_DEMO_LISTS,
+    lists
+  }
+}
+
+export function fetchDemoLists() {
+  return (dispatch) => {
+    return api('lists/demo').then(res => {
+      dispatch(addDemoLists(res.lists))
+    })
+  }
+}
