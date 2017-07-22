@@ -45,6 +45,7 @@ class CreateListItemForm extends Component {
           hintText="A new item..."
         />
         <FlatButton
+          onClick={this.addListItem}
           label="Add item"
           secondary={true} />
       </form>

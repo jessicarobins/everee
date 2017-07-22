@@ -15,7 +15,10 @@ class ListItems extends Component {
   deleteListItem(e, item) {
     e.preventDefault()
     e.stopPropagation()
-    console.log('hello')
+    this.props.deleteListItem({
+      id: this.props.list._id,
+      list_item_id: item._id
+    })
   }
 
   deleteButton = (item) => {

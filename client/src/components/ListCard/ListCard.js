@@ -20,7 +20,7 @@ class ListCard extends Component {
         <CardText>
           <LinearProgress mode="determinate" value={list.percentComplete} />
         </CardText>
-        <CardText>
+        <CardText className="list-card-text">
         {
           list.items.map( (item, index) => {
             return `${item.text}${index === list.items.length - 1 ? '' : ', '}`

@@ -37,6 +37,7 @@ class List extends Component {
           <ListPageContainer
             addMessage={this.props.appActions.addMessage}
             addListItem={this.props.listActions.addListItemRequest}
+            deleteListItem={this.props.listActions.deleteListItemRequest}
             toggleListItem={this.props.listActions.toggleListItemRequest}
             list={this.props.list} />
         }

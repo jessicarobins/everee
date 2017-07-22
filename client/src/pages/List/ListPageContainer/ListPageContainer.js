@@ -45,6 +45,7 @@ class ListPageContainer extends Component {
             list={list} />
         </Paper>
         <ListItems
+          deleteListItem={this.props.deleteListItem}
           toggleListItem={this.props.toggleListItem}
           list={list} />
       </div>

@@ -188,19 +188,18 @@ const addListItem = async (req, res) => {
     })
 }
 
-const deleteListItem = (req, res) => {
-  List.findOne({ _id: req.params._id })
-    .populate('_users', 'name picture username')
-    .exec()
-    .then( (list) => {
-      return list.deleteListItem(req.params.id)
-    })
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      res.status(422).send(err)
-    })
+const deleteListItem = async (req, res) => {
+
+  try {
+    let list = await List.findById(req.params.id)
+      .populate('_users', 'name picture username')
+      .exec()
+    list = await list.deleteListItem(req.params.list_item_id)
+    res.json({ list })
+  } catch (err) {
+    console.log(err)
+    res.status(422).send(err)
+  }
 }
 
 const paginateLists = (req, res) => {

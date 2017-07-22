@@ -16,6 +16,6 @@ router.put('/:id/toggle/:list_item_id', jwtCheck, ListController.toggleListItem)
 router.post('/:id/clone', jwtCheck, ListController.cloneList)
 router.get('/:id', ListController.getList)
 router.post('/:id', jwtCheck, ListController.addListItem)
-router.delete('/:id/item/:id', jwtCheck, ListController.deleteListItem)
+router.delete('/:id/item/:list_item_id', jwtCheck, ListController.deleteListItem)
 
 module.exports = router

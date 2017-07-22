@@ -1,3 +1,8 @@
 .list-card {
   width: 300px;
 }
+
+.list-card-text {
+  overflow: hidden;
+  max-height: 200px;
+}

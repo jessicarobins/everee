@@ -124,3 +124,26 @@ export function addRecentLists(lists) {
     lists
   }
 }
+
+export function deleteListItemRequest({id, list_item_id}) {
+  return (dispatch) => {
+    return api(`lists/${id}/item/${list_item_id}`, {
+      method: 'delete'
+    })
+    .then(res => {
+      dispatch(deleteListItem(res.list))
+      dispatch(addMessage('Item deleted'))
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(addMessage('There was an error deleting your item.'))
+    })
+  }
+}
+
+export function deleteListItem(list) {
+  return {
+    type: actions.DELETE_LIST_ITEM,
+    list
+  }
+}
