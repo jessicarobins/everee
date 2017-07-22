@@ -38,18 +38,6 @@ if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_AUDIENCE) {
   throw 'Make sure you have AUTH0_DOMAIN, and AUTH0_AUDIENCE in your .env file'
 }
 
-const jwtCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-  }),
-  audience: process.env.AUTH0_AUDIENCE,
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: ['RS256']
-})
-
 app.set("port", process.env.PORT || 3001)
 
 // MongoDB Connection
@@ -87,15 +75,15 @@ app.use((req, res, next) => {
 })
 
 // error handler
-// app.use((err, req, res, next) => {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message
-//   res.locals.error = req.app.get('env') === 'development' ? err : {}
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-//   // render the error page
-//   console.log(err)
-//   res.status(err.status || 500).send(err)
-// })
+  // render the error page
+  console.log(err)
+  res.status(err.status || 500).send(err)
+})
 
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`)

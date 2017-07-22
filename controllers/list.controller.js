@@ -152,22 +152,24 @@ const findOrCreateListTemplate = async (req, res) => {
     })
 }
 
-/**
- * Get a single list
- * @param req
- * @param res
- * @returns void
- */
-const getList = (req, res) => {
-  List.findById(req.params.id)
-    .populate('_users', 'name picture username')
-    .exec()
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      res.status(404).send(err)
-    })
+const getList = async (req, res) => {
+
+  let user
+  if (req.user) {
+    user = await User.find().findByAuth0(req.user).exec()
+  }
+
+  try {
+    const list = await List.findById(req.params.id)
+      .populate('_users', 'name picture username')
+      .exec()
+
+    const authenticated = (user && !!_.find(list._users, {_id: user._id}))
+
+    res.json({ list, authenticated })
+  } catch(err) {
+    res.status(404).send(err)
+  }
 }
 
 const addListItem = async (req, res) => {

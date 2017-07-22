@@ -47,6 +47,7 @@ export function fetchList(id) {
     return api(`lists/${id}`)
       .then(res => {
         dispatch(setList(res.list))
+        dispatch(setCanEditList(res.authenticated))
       })
   }
 }
@@ -100,7 +101,7 @@ export function addLists(lists) {
 export function setList(list) {
   return {
     type: actions.SET_LIST,
-    list,
+    list
   }
 }
 
@@ -145,5 +146,12 @@ export function deleteListItem(list) {
   return {
     type: actions.DELETE_LIST_ITEM,
     list
+  }
+}
+
+export function setCanEditList(authenticated) {
+  return {
+    type: actions.SET_CAN_EDIT_LIST,
+    authenticated
   }
 }

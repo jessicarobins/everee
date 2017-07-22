@@ -1,7 +1,7 @@
 const jwt = require('express-jwt')
 const jwks = require('jwks-rsa')
 
-exports.jwtCheck = jwt({
+const jwtParams = {
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -11,4 +11,10 @@ exports.jwtCheck = jwt({
   audience: process.env.AUTH0_AUDIENCE,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
-})
+}
+
+exports.requireAuth = jwt(jwtParams)
+
+exports.authOptional = jwt(Object.assign(jwtParams, {
+  credentialsRequired: false
+}))

@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const UserController = require('../controllers/user.controller')
-const { jwtCheck } = require('./authenticate')
+const { requireAuth } = require('./authenticate')
 
-router.put('/', jwtCheck, UserController.updateUser)
+router.put('/', requireAuth, UserController.updateUser)
 
 module.exports = router

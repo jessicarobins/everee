@@ -39,6 +39,7 @@ class Home extends Component {
             addList={this.props.listActions.addListRequest} />
         </Paper>
         <ListList
+          setCanEditList={this.props.listActions.setCanEditList}
           setList={this.props.listActions.setList}
           pushState={this.props.pushState}
           lists={this.props.lists}

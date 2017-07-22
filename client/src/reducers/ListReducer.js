@@ -34,6 +34,19 @@ const currentList = (
   }
 }
 
+const canEditCurrentList = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case actions.SET_CAN_EDIT_LIST :
+      return action.authenticated
+    default:
+      return state
+  }
+}
+
+
 const demoLists = (
   state = [],
   action
@@ -98,6 +111,7 @@ const randomList = (
 
 const ListReducer = combineReducers({
   currentList,
+  canEditCurrentList,
   myLists,
   demoLists,
   recentLists,
@@ -110,6 +124,7 @@ const ListReducer = combineReducers({
 export const getMyLists = state => state.lists.myLists
 
 export const getList = state => state.lists.currentList
+export const canEditList = state => state.lists.canEditCurrentList
 
 export const getDemoLists = state => state.lists.demoLists
 export const getRecentLists = state => state.lists.recentLists

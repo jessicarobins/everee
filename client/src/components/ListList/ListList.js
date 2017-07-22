@@ -18,6 +18,7 @@ class ListList extends Component {
 
   changeList = (list) => {
     this.props.setList(list)
+    this.props.setCanEditList(true)
     this.props.pushState(`/list/${list._id}`)
   }
 

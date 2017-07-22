@@ -7,6 +7,7 @@ export const CHANGE_PAGE = 'CHANGE_PAGE'
 
 // current list
 export const SET_LIST = 'SET_LIST'
+export const SET_CAN_EDIT_LIST = 'SET_CAN_EDIT_LIST'
 
 // my lists
 export const ADD_LIST = 'ADD_LIST'
