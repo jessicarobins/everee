@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
-import RaisedButton from 'material-ui/RaisedButton'
-
-import ListTypist from '../../components/ListTypist/ListTypist'
+import LoginHero from './LoginHero/LoginHero'
 
 import { getDemoLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
@@ -14,15 +12,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <ListTypist
-          lists={this.props.demoLists}
-          fetchDemoLists={this.props.listActions.fetchDemoLists} />
-        <RaisedButton
-          onClick={() => this.props.auth.login()}
-          label='Login with Google'
-          primary={true} />
-      </div>
+      <LoginHero
+        auth={this.props.auth}
+        lists={this.props.demoLists}
+        fetchDemoLists={this.props.listActions.fetchDemoLists} />
     )
   }
 }

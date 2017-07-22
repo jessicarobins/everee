@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import RestartingTypist from './RestartingTypist/RestartingTypist'
 import * as _ from 'lodash'
 
+import './ListTypist.css'
+
 class ListTypist extends Component {
 
   constructor(props) {
@@ -32,13 +34,13 @@ class ListTypist extends Component {
   render() {
 
     return (
-      <h1>
-        {'I want to '}
+      <div className="typist-container">
+        <span>I want to</span>
         <RestartingTypist
           onTypingDone={this.changeList}>
           {this.currentList()}
         </RestartingTypist>
-      </h1>
+      </div>
     )
   }
 }

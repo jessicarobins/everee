@@ -39,7 +39,7 @@ class RestartingTypist extends Component {
     const {children, timeout, ...props} = this.props
     return this.state.typing ?
       <Typist {...props} onTypingDone={this.done}>{children}</Typist>
-      : <span></span>
+      : <span className="blink">|</span>
   }
 }
 

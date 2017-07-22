@@ -1,0 +1,32 @@
+.login-hero-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.login-hero-container .container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  height: 100%;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.login-hero-container .typist-container {
+  flex: .75;
+}
+
+.login-hero-container .login-button {
+  align-self: center;
+}
+
+@media only screen
+  and (max-device-width: 736px) {
+
+  .login-hero-container {
+    height: 95vh;
+  }
+}
