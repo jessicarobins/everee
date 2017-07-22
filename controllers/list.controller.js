@@ -164,7 +164,7 @@ const getList = async (req, res) => {
       .populate('_users', 'name picture username')
       .exec()
 
-    const authenticated = (user && !!_.find(list._users, {_id: user._id}))
+    const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
 
     res.json({ list, authenticated })
   } catch(err) {

@@ -38,13 +38,17 @@ class ListPageContainer extends Component {
             <Chip>{list.fractionComplete.total} items</Chip>
           </div>
         </Paper>
-        <Paper className="list-item-form list-detail">
-          <CreateListItemForm
-            addMessage={this.props.addMessage}
-            addListItem={this.props.addListItem}
-            list={list} />
-        </Paper>
+        {
+          this.props.canEdit &&
+          <Paper className="list-item-form list-detail">
+            <CreateListItemForm
+              addMessage={this.props.addMessage}
+              addListItem={this.props.addListItem}
+              list={list} />
+          </Paper>
+        }
         <ListItems
+          canEdit={this.props.canEdit}
           deleteListItem={this.props.deleteListItem}
           toggleListItem={this.props.toggleListItem}
           list={list} />

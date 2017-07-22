@@ -23,7 +23,8 @@ class ListItems extends Component {
 
   deleteButton = (item) => {
     return (
-      <IconButton onClick={(e) => this.deleteListItem(e, item)}>
+      <IconButton
+        onClick={(e) => this.deleteListItem(e, item)}>
         <DeleteIcon color={grey400} />
       </IconButton>
     )
@@ -38,7 +39,9 @@ class ListItems extends Component {
 
   checkbox(item) {
     return (
-      <Checkbox defaultChecked={item.complete} />
+      <Checkbox
+        disabled={!this.props.canEdit}
+        defaultChecked={item.complete} />
     )
   }
 
@@ -50,13 +53,21 @@ class ListItems extends Component {
           <List>
             {
               _.map(this.props.list.items, (item, index) => {
+                const listItemProps = {
+                  leftCheckbox: this.checkbox(item),
+                  primaryText: item.text
+                }
+
+                if (this.props.canEdit) {
+                  Object.assign(listItemProps, {
+                    rightIconButton: this.deleteButton(item),
+                    onTouchTap: () => this.toggleListItem(item)
+                  })
+                }
+
                 return (
                   <div key={index}>
-                    <ListItem
-                      onTouchTap={() => this.toggleListItem(item)}
-                      rightIconButton={this.deleteButton(item)}
-                      leftCheckbox={this.checkbox(item)}
-                      primaryText={item.text} />
+                    <ListItem {... listItemProps} />
                     {(index !== this.props.list.items.length-1) && <Divider inset={true} />}
                   </div>
                 )

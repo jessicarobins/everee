@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
-import { getList } from '../../reducers/ListReducer'
+import { getList, canEditList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import { getSystemMessage, getPageIndex, LIST_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
@@ -35,6 +35,7 @@ class List extends Component {
           logout={this.props.auth.logout} />
         { this.props.list &&
           <ListPageContainer
+            canEdit={this.props.canEdit}
             addMessage={this.props.appActions.addMessage}
             addListItem={this.props.listActions.addListItemRequest}
             deleteListItem={this.props.listActions.deleteListItemRequest}
@@ -55,6 +56,7 @@ class List extends Component {
 function mapStateToProps(state, props) {
   return {
     list: getList(state, props.match.params.id),
+    canEdit: canEditList(state),
     message: getSystemMessage(state),
     pageIndex: getPageIndex(state)
   }
