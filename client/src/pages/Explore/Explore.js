@@ -27,8 +27,7 @@ class Explore extends Component {
     return (
       <div>
         <Paper zDepth={2}>
-          <AppBar
-            logout={this.props.auth.logout} />
+          <AppBar auth={this.props.auth} />
         </Paper>
         <MasonryLayout
           pushState={this.props.pushState}

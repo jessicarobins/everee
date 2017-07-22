@@ -32,7 +32,7 @@ class List extends Component {
       <div>
         <AppBar
           zDepth={2}
-          logout={this.props.auth.logout} />
+          auth={this.props.auth} />
         { this.props.list &&
           <ListPageContainer
             canEdit={this.props.canEdit}

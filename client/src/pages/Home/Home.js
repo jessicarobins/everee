@@ -28,8 +28,7 @@ class Home extends Component {
     return (
       <div>
         <Paper zDepth={2}>
-          <AppBar
-            logout={this.props.auth.logout} />
+          <AppBar auth={this.props.auth} />
           <CreateListForm
             fetchTemplates={this.props.templateActions.fetchTemplates}
             templates={this.props.templates}
