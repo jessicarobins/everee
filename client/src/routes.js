@@ -15,8 +15,8 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import List from './pages/List/List'
 import Explore from './pages/Explore/Explore'
+import Callback from './pages/Callback/Callback'
 
-import Progress from './components/Progress/Progress'
 import Auth from './services/Auth'
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -65,7 +65,7 @@ export const makeMainRoutes = () => {
             )} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props)
-            return <Progress {...props} />
+            return <Callback {...props} />
           }}/>
           <Route path="/list/:id" render={(props) => (
             <List auth={auth} {...props} />
