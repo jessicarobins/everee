@@ -26,10 +26,11 @@
 
 .how-does-it-work .step-title {
   overflow: hidden;
-  height: 90px;
+  height: 65px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0 20px;
-  text-align: center;
+  font-size: 1.2em;
+  font-weight: 200;
 }

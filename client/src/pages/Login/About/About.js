@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import {grey200} from 'material-ui/styles/colors'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import Paper from 'material-ui/Paper'
 
@@ -13,8 +12,7 @@ class About extends Component {
 
     const styles = {
       container: {
-        backgroundColor: grey200,
-        color: muiTheme.palette.primary2Color
+        color: muiTheme.palette.accent1Color
       },
       description: {
         color: muiTheme.palette.shadowColor

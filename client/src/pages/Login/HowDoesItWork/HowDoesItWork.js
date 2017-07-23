@@ -15,9 +15,12 @@ class HowDoesItWork extends Component {
     const { muiTheme } = this.props
 
     const styles = {
+      container: {
+        backgroundColor: muiTheme.palette.accent1Color,
+        color: muiTheme.palette.alternateTextColor
+      },
       description: {
-        color: muiTheme.palette.accent3Color,
-        backgroundColor: muiTheme.palette.shadowColor,
+        color: muiTheme.palette.accent1Color,
         opacity: .7,
         flex: 1,
         padding: '20px',
@@ -31,8 +34,8 @@ class HowDoesItWork extends Component {
 
     return (
       <Paper className="step-card">
-        <div style={{backgroundColor: grey200}} className="step-title">
-          <h3>{text}</h3>
+        <div style={styles.container} className="step-title">
+          {text}
         </div>
         {icon}
         <div style={styles.description}>{description}</div>
@@ -45,7 +48,7 @@ class HowDoesItWork extends Component {
 
     const styles = {
       container: {
-        backgroundColor: muiTheme.palette.primary3Color,
+        backgroundColor: grey200,
       },
       icon: {
         width: '70%',
@@ -61,17 +64,17 @@ class HowDoesItWork extends Component {
           <div className="title">How does it work?</div>
           <div className="steps">
             {this.step({
-              text: 'Step 1: Add a new list',
+              text: 'Add a new list',
               icon: <AddIcon style={styles.icon} />,
               description: 'Think of an action and a collection of things. For example, visit every continent, or say hello in every language.'
             })}
             {this.step({
-              text: 'Step 2: everee searches for your list',
+              text: 'everee searches for your list',
               icon: <SearchIcon style={styles.icon} />,
               description: 'everee looks at existing lists that others have made to see if we have a collection of items that matches.'
             })}
             {this.step({
-              text: 'Step 3: Your list stays up-to-date',
+              text: 'Your list stays up-to-date',
               icon: <UpdateIcon style={styles.icon} />,
               description: 'When others add items to their list, the items get added to yours too.'
             })}
