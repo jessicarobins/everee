@@ -2,7 +2,7 @@ import { push } from 'react-router-redux'
 
 import api from '../services/Api'
 import * as actions from './ActionTypes'
-import { addMessage, toggleAddEmptyList } from './AppActions'
+import { addMessage, showAddEmptyList, hideAddEmptyList, showSpinner, hideSpinner } from './AppActions'
 
 export function fetchRecentLists() {
   return (dispatch) => {
@@ -63,6 +63,7 @@ export function fetchLists() {
 
 export function addListRequest(list, endpoint='lists/find_or_create') {
   return (dispatch) => {
+    dispatch(showSpinner())
     return api(endpoint, {
       method: 'post',
       data: {
@@ -73,13 +74,16 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
       }
     }).then( ({list}) =>  {
       if(list){
-        dispatch(addList(list))
+        dispatch(setList(list))
         dispatch(addMessage('List created.'))
         dispatch(push(`/list/${list._id}`))
+        dispatch(hideAddEmptyList())
       }
       else {
-        dispatch(toggleAddEmptyList())
+        dispatch(showAddEmptyList())
       }
+
+      dispatch(hideSpinner())
     })
   }
 }

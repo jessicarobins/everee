@@ -7,9 +7,15 @@ export function addMessage(message) {
   }
 }
 
-export function toggleAddEmptyList() {
+export function showAddEmptyList() {
   return {
-    type: actions.TOGGLE_ADD_EMPTY_LIST
+    type: actions.SHOW_ADD_EMPTY_LIST
+  }
+}
+
+export function hideAddEmptyList() {
+  return {
+    type: actions.HIDE_ADD_EMPTY_LIST
   }
 }
 
@@ -17,5 +23,17 @@ export function changePage(index) {
   return {
     type: actions.CHANGE_PAGE,
     index
+  }
+}
+
+export function showSpinner() {
+  return {
+    type: actions.SHOW_SPINNER
+  }
+}
+
+export function hideSpinner() {
+  return {
+    type: actions.HIDE_SPINNER
   }
 }

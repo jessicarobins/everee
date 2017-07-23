@@ -1,7 +1,10 @@
 /** App **/
 export const ADD_SYSTEM_MESSAGE = 'ADD_SYSTEM_MESSAGE'
-export const TOGGLE_ADD_EMPTY_LIST = 'TOGGLE_ADD_EMPTY_LIST'
+export const SHOW_ADD_EMPTY_LIST = 'SHOW_ADD_EMPTY_LIST'
+export const HIDE_ADD_EMPTY_LIST = 'HIDE_ADD_EMPTY_LIST'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
+export const SHOW_SPINNER = 'SHOW_SPINNER'
+export const HIDE_SPINNER = 'HIDE_SPINNER'
 
 /** Lists **/
 

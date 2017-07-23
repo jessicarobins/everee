@@ -24,8 +24,10 @@ const showAddEmptyList = (
   action
 ) => {
   switch (action.type) {
-    case actions.TOGGLE_ADD_EMPTY_LIST:
-      return !state
+    case actions.SHOW_ADD_EMPTY_LIST:
+      return true
+    case actions.HIDE_ADD_EMPTY_LIST:
+      return false
     default:
       return state
   }
@@ -43,14 +45,30 @@ const pageIndex = (
   }
 }
 
+const spinner = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case actions.SHOW_SPINNER:
+      return true
+    case actions.HIDE_SPINNER:
+      return false
+    default:
+      return state
+  }
+}
+
 const AppReducer = combineReducers({
   pageIndex,
   showAddEmptyList,
-  message
+  message,
+  spinner
 })
 
 export const getPageIndex = state => state.app.pageIndex
 export const getSystemMessage = state => state.app.message
 export const getShowAddEmptyList = state => state.app.showAddEmptyList
+export const getShowSpinner = state => state.app.spinner
 
 export default AppReducer

@@ -7,7 +7,7 @@ class Callback extends Component {
   render() {
     return (
       <div className="callback-container">
-        <Progress size={80} thickness={5} />
+        <Progress displayed={true} />
       </div>
     )
   }

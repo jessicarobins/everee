@@ -16,6 +16,7 @@ import Login from './pages/Login/Login'
 import List from './pages/List/List'
 import Explore from './pages/Explore/Explore'
 import Callback from './pages/Callback/Callback'
+import Spinner from './pages/Spinner/Spinner'
 
 import Auth from './services/Auth'
 
@@ -73,6 +74,7 @@ export const makeMainRoutes = () => {
           <Route path="/explore" render={(props) => (
             <Explore auth={auth} {...props} />
           )}/>
+          <Spinner />
         </div>
       </ConnectedRouter>
      </Provider>

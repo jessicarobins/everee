@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
+
 import CircularProgress from 'material-ui/CircularProgress'
+import muiThemeable from 'material-ui/styles/muiThemeable'
+
+import './Progress.css'
 
 class Progress extends Component {
-  render() {
 
+  render() {
+    const styles = {
+      color: this.props.muiTheme.palette.accent1Color
+    }
     return (
-      <div>
-        <CircularProgress size={80} thickness={5} />
-      </div>
+      this.props.displayed ?
+        <div className="progress-container">
+          <CircularProgress size={80} thickness={5} color={styles.color} />
+        </div> : null
     )
   }
 }
 
-export default Progress
+export default muiThemeable()(Progress)
