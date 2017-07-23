@@ -35,6 +35,8 @@ class List extends Component {
           auth={this.props.auth} />
         { this.props.list &&
           <ListPageContainer
+            authenticated={this.props.auth.isAuthenticated()}
+            cloneList={() => this.props.listActions.cloneListRequest(this.props.list.id)}
             canEdit={this.props.canEdit}
             addMessage={this.props.appActions.addMessage}
             addListItem={this.props.listActions.addListItemRequest}

@@ -52,3 +52,14 @@
   grid-row: 1 / 4;
   grid-column: 2 / 3;
 }
+
+.clone-list-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.do-this-too {
+  font-weight: 200;
+  font-size: 1.5em;
+}

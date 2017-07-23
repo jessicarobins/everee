@@ -170,3 +170,15 @@ export function fetchDemoLists() {
     })
   }
 }
+
+export function cloneListRequest(id) {
+  return (dispatch) => {
+    return api(`lists/${id}/clone`, {
+      method: 'post'
+    })
+    .then(res => {
+      dispatch(addList(res.list))
+      dispatch(push(`/lists/${res.list._id}`))
+    })
+  }
+}

@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
 import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import ListItems from '../../../components/ListItems/ListItems'
 import CreateListItemForm from '../../../components/CreateListItemForm/CreateListItemForm'
@@ -41,11 +42,24 @@ class ListPageContainer extends Component {
         {
           this.props.canEdit &&
           <Paper className="list-item-form list-detail">
+
             <CreateListItemForm
               addMessage={this.props.addMessage}
               addListItem={this.props.addListItem}
               list={list} />
           </Paper>
+        }
+        {
+          !this.props.canEdit && this.props.authenticated &&
+            <Paper className="list-detail">
+              <div className="clone-list-container">
+                <div className="do-this-too">Want to do this too?</div>
+                <RaisedButton
+                  onClick={this.props.cloneList}
+                  label="Clone this list"
+                  secondary={true} />
+              </div>
+            </Paper>
         }
         <ListItems
           canEdit={this.props.canEdit}

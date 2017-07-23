@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import muiThemeable from 'material-ui/styles/muiThemeable'
 import {grey400} from 'material-ui/styles/colors'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import IconButton from 'material-ui/IconButton'
@@ -38,8 +39,13 @@ class ListItems extends Component {
   }
 
   checkbox(item) {
+    const styles = {
+      fill: this.props.muiTheme.palette.accent1Color
+    }
+
     return (
       <Checkbox
+        iconStyle={styles}
         disabled={!this.props.canEdit}
         defaultChecked={item.complete} />
     )
@@ -82,4 +88,4 @@ class ListItems extends Component {
   }
 }
 
-export default ListItems
+export default muiThemeable()(ListItems)
