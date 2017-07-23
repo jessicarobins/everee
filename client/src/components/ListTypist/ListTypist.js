@@ -35,7 +35,7 @@ class ListTypist extends Component {
 
     return (
       <div className="typist-container">
-        <span className="i-want-to">I want to</span>
+        <div className="i-want-to">I want to</div>
         <RestartingTypist
           onTypingDone={this.changeList}>
           {this.currentList()}

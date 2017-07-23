@@ -28,7 +28,7 @@ class ListCard extends Component {
         }
         </CardText>
         <CardActions>
-          <FlatButton label="Go!" onClick={this.handleClickList} />
+          <FlatButton label="Go!" secondary={true} onClick={this.handleClickList} />
         </CardActions>
       </Card>
     )

@@ -38,5 +38,10 @@
   .login-hero-container {
     min-height: 95vh;
     height: auto;
+    padding: 0 20px;
+  }
+
+  .login-hero-container .tagline {
+    font-size: 1em;
   }
 }

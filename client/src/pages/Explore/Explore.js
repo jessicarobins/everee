@@ -20,7 +20,6 @@ class Explore extends Component {
 
   componentDidMount() {
     this.props.appActions.changePage(EXPLORE_INDEX)
-    this.props.listActions.fetchRecentLists()
   }
 
   render() {
@@ -30,6 +29,7 @@ class Explore extends Component {
           <AppBar auth={this.props.auth} />
         </Paper>
         <MasonryLayout
+          fetchLists={this.props.listActions.fetchRecentLists}
           pushState={this.props.pushState}
           lists={this.props.lists} />
         <BottomNav

@@ -23,6 +23,11 @@ const sizes = [{
 }]
 
 class MasonryLayout extends Component {
+
+  componentDidMount() {
+    this.props.fetchLists()
+  }
+
   render() {
 
     return (

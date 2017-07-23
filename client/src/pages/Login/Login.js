@@ -6,9 +6,10 @@ import { push } from 'react-router-redux'
 import AppBar from '../../components/AppBar/AppBar'
 import LoginHero from './LoginHero/LoginHero'
 import About from './About/About'
+import Explore from './Explore/Explore'
 import HowDoesItWork from './HowDoesItWork/HowDoesItWork'
 
-import { getDemoLists } from '../../reducers/ListReducer'
+import { getDemoLists, getRecentLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 
 import './Login.css'
@@ -25,6 +26,10 @@ class Login extends Component {
           fetchDemoLists={this.props.listActions.fetchDemoLists} />
         <About />
         <HowDoesItWork />
+        <Explore
+          fetchLists={this.props.listActions.fetchRecentLists}
+          pushState={this.props.pushState}
+          lists={this.props.recentLists} />
       </div>
     )
   }
@@ -33,6 +38,7 @@ class Login extends Component {
 function mapStateToProps(state) {
   return {
     demoLists: getDemoLists(state),
+    recentLists: getRecentLists(state),
   }
 }
 
