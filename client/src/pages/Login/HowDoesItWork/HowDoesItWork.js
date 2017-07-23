@@ -15,30 +15,19 @@ class HowDoesItWork extends Component {
     const { muiTheme } = this.props
 
     const styles = {
-      container: {
-        backgroundColor: muiTheme.palette.accent1Color,
+      title: {
+        backgroundColor: muiTheme.palette.accent3Color,
         color: muiTheme.palette.alternateTextColor
-      },
-      description: {
-        color: muiTheme.palette.accent1Color,
-        opacity: .7,
-        flex: 1,
-        padding: '20px',
-        position: 'absolute',
-        bottom: 0,
-        height: '76px',
-        display: 'flex',
-        alignItems: 'center'
       }
     }
 
     return (
       <Paper className="step-card">
-        <div style={styles.container} className="step-title">
+        <div style={styles.title} className="step-title">
           {text}
         </div>
         {icon}
-        <div style={styles.description}>{description}</div>
+        <div className="step-description">{description}</div>
       </Paper>
     )
   }
