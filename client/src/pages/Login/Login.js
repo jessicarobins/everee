@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 import AppBar from '../../components/AppBar/AppBar'
 import LoginHero from './LoginHero/LoginHero'
 import About from './About/About'
+import HowDoesItWork from './HowDoesItWork/HowDoesItWork'
 
 import { getDemoLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
@@ -23,6 +24,7 @@ class Login extends Component {
           lists={this.props.demoLists}
           fetchDemoLists={this.props.listActions.fetchDemoLists} />
         <About />
+        <HowDoesItWork />
       </div>
     )
   }
