@@ -1,8 +1,18 @@
 .how-does-it-work .container {
+  padding: 60px 20px;
+}
+
+.how-does-it-work .title {
+  font-size: 3em;
+  font-weight: 100;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.how-does-it-work .steps {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 60px 20px;
 }
 
 .how-does-it-work .step-card {

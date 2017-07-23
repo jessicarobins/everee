@@ -56,25 +56,28 @@ class HowDoesItWork extends Component {
     }
 
     return (
-      <div className="how-does-it-work" style={styles.container}>
+      <Paper className="how-does-it-work" style={styles.container} zDepth={0}>
         <div className="container">
-          {this.step({
-            text: 'Step 1: Add a new list',
-            icon: <AddIcon style={styles.icon} />,
-            description: 'Think of an action and a collection of things. For example, visit every continent, or say hello in every language.'
-          })}
-          {this.step({
-            text: 'Step 2: everee searches for your list',
-            icon: <SearchIcon style={styles.icon} />,
-            description: 'everee looks at existing lists that others have made to see if we have a collection of items that matches.'
-          })}
-          {this.step({
-            text: 'Step 3: Your list stays up-to-date',
-            icon: <UpdateIcon style={styles.icon} />,
-            description: 'When others add items to their list, the items get added to yours too.'
-          })}
+          <div className="title">How does it work?</div>
+          <div className="steps">
+            {this.step({
+              text: 'Step 1: Add a new list',
+              icon: <AddIcon style={styles.icon} />,
+              description: 'Think of an action and a collection of things. For example, visit every continent, or say hello in every language.'
+            })}
+            {this.step({
+              text: 'Step 2: everee searches for your list',
+              icon: <SearchIcon style={styles.icon} />,
+              description: 'everee looks at existing lists that others have made to see if we have a collection of items that matches.'
+            })}
+            {this.step({
+              text: 'Step 3: Your list stays up-to-date',
+              icon: <UpdateIcon style={styles.icon} />,
+              description: 'When others add items to their list, the items get added to yours too.'
+            })}
+          </div>
         </div>
-      </div>
+      </Paper>
     )
   }
 }
