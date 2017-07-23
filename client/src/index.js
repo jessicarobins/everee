@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import {amber500, green500, green700, green100, grey900, grey600, grey400} from 'material-ui/styles/colors'
+import {lightblue700, lightblue500, lightBlue100, deepPurpleA200, deepPurpleA400, deepPurpleA700} from 'material-ui/styles/colors'
 
 import Routes from './routes'
 
@@ -18,13 +18,12 @@ injectTapEventPlugin()
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: green500,
-    primary2Color: green700,
-    primary3Color: green100,
-    accent1Color: amber500,
-    textColor: grey900,
-    secondaryTextColor: grey600,
-    borderColor: grey400
+    primary1Color: lightblue500,
+    primary2Color: lightblue700,
+    primary3Color: lightBlue100,
+    accent1Color: deepPurpleA400,
+    accent2Color: deepPurpleA200,
+    accent3Color: deepPurpleA700
   }
 })
 
