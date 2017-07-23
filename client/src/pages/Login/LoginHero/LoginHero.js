@@ -17,6 +17,9 @@ class LoginHero extends Component {
       container: {
         backgroundColor: muiTheme.palette.primary1Color,
         color: muiTheme.palette.alternateTextColor
+      },
+      tagline: {
+        color: muiTheme.palette.primary3Color
       }
     }
 
@@ -26,10 +29,13 @@ class LoginHero extends Component {
           <ListTypist
             lists={this.props.lists}
             fetchDemoLists={this.props.fetchDemoLists} />
+          <p className="tagline" style={styles.tagline}>
+            Keep track of what you want to do &mdash; with help from the rest of the internet.
+          </p>
           <RaisedButton
             className="login-button"
             onClick={this.props.auth.login}
-            label='Login with Google'
+            label='Get started'
             secondary={true} />
         </div>
       </Paper>

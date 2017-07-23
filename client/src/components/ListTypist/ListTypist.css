@@ -2,11 +2,18 @@
   display: flex;
   flex-direction: column;
   font-size: 4rem;
-  flex-wrap: wrap;
   align-items: center;
   font-weight: 100;
   width: 100%;
   justify-content: flex-end;
+}
+
+.Typist {
+  font-weight: 200;
+}
+
+.i-want-to {
+  font-size: .8em;
 }
 
 @media only screen

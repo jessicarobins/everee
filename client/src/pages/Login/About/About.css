@@ -1,0 +1,19 @@
+.about-container .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.about-container .cta {
+  font-weight: 400;
+  font-size: 2em;
+  text-align: center;
+}
+
+.about-container .description {
+  font-size: 1.2em;
+  font-weight: 100;
+}

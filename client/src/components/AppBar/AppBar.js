@@ -18,6 +18,7 @@ class EvereeAppBar extends Component {
 
     return (
       <AppBar
+        style={this.props.appBarStyle}
         zDepth={this.props.zDepth}
         title="everee"
         showMenuIconButton={false}
