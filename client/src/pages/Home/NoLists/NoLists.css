@@ -1,0 +1,6 @@
+.no-lists-container {
+  margin-bottom: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -19,7 +19,7 @@ class LoginHero extends Component {
         color: muiTheme.palette.alternateTextColor
       },
       tagline: {
-        color: muiTheme.palette.secondaryTextColor
+        color: muiTheme.palette.primary2Color
       }
     }
 

@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
-import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 
 import * as _ from 'lodash'
@@ -16,45 +15,45 @@ class ListList extends Component {
     this.props.getLists()
   }
 
-  changeList = (list) => {
-    this.props.setList(list)
-    this.props.setCanEditList(true)
-    this.props.pushState(`/list/${list._id}`)
-  }
-
   renderListItem(item) {
     return (
       <div className="list-item">
-        {item.name}
-        <Chip>
-          {item.percentComplete} %
-        </Chip>
+        {this.props.displayFullName ? item.fullName : item.name}
+        {
+          this.props.showPercentComplete &&
+          <Chip>
+            {item.percentComplete} %
+          </Chip>
+        }
       </div>
     )
   }
 
   render() {
 
+    const { lists, max } = this.props
+
+    const displayLists = max ? _.take(lists, max) : lists
+
     return (
-      <div className='container'>
-        <Paper className='list-list-container'>
-          <List>
-            <Subheader>I want to...</Subheader>
-            {
-              _.map(this.props.lists, (list, index) => {
-                return (
-                  <div key={index}>
-                    <ListItem
-                      onClick={() => this.changeList(list)}
-                      primaryText={this.renderListItem(list)} />
-                    {(index !== this.props.lists.length-1) && <Divider />}
-                  </div>
-                )
-              })
-            }
-          </List>
-        </Paper>
-      </div>
+      <List>
+        {
+          this.props.subheaderText &&
+          <Subheader>{this.props.subheaderText}</Subheader>
+        }
+        {
+          _.map(displayLists, (list, index) => {
+            return (
+              <div key={index}>
+                <ListItem
+                  onClick={() => this.props.handleChangeList(list)}
+                  primaryText={this.renderListItem(list)} />
+                {(index !== displayLists.length-1) && <Divider />}
+              </div>
+            )
+          })
+        }
+      </List>
     )
   }
 }

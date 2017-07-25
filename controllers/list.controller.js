@@ -74,6 +74,7 @@ const getLists = (req, res) => {
       res.json({ lists })
     })
     .catch( (err) => {
+      console.log(err)
       res.status(422).send(err)
     })
 

@@ -53,6 +53,9 @@ class CreateListForm extends Component {
         backgroundColor: muiTheme.palette.primary1Color,
         color: muiTheme.palette.alternateTextColor
       },
+      menu: {
+        maxHeight: '300px'
+      },
       textField: {
         underlineStyle: {
           marginBottom: '-15px'
@@ -98,6 +101,7 @@ class CreateListForm extends Component {
               inputStyle={styles.textField.inputStyle} />
             every
              <AutoComplete
+              menuStyle={styles.menu}
               openOnFocus={true}
               onUpdateInput={(searchText) => this.setState({action: searchText})}
               textFieldStyle={styles.textField.container}
