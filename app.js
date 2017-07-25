@@ -1,13 +1,9 @@
 const express = require('express')
 const path = require('path')
-const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const jwt = require('express-jwt')
-const jwks = require('jwks-rsa')
-const jwtAuthz = require('express-jwt-authz')
 const cors = require('cors')
 
 mongoose.Promise = require('bluebird')
@@ -20,15 +16,12 @@ const templates = require('./routes/templates')
 const app = express()
 
 const whitelist = [
-  'http://everee-jrobins.c9users.io:8080',
-  'http://localhost:8080'
+  /everee-jrobins.c9users.io:*/,
+  /evereeapp.herokuapp.com:*/
 ]
 
 const corsOptions = {
-  origin: function(origin, callback){
-    const originIsWhitelisted = whitelist.indexOf(origin) !== -1
-    callback(null, originIsWhitelisted)
-  },
+  origin: whitelist,
   credentials: true
 }
 
@@ -51,8 +44,6 @@ mongoose.connect(mongoURL, {
   })
   .catch(console.error.bind(console, 'connection error:'))
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
