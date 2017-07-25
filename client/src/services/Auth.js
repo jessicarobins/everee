@@ -13,7 +13,7 @@ export default class Auth {
     audience: 'http://everee-jrobins.c9users.io:8081/api',
     domain: 'jrobins.auth0.com',
     clientID: 'rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
-    redirectUri: 'http://everee-jrobins.c9users.io:8080/callback',
+    redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URI,
     responseType: 'token id_token',
     scope: 'openid profile email'
   })
