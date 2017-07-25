@@ -1,10 +1,26 @@
 import React, { Component } from 'react'
 
+import RaisedButton from 'material-ui/RaisedButton'
+
 import ListListCard from '../../../components/ListListCard/ListListCard'
 
 import './NoLists.css'
 
 class NoLists extends Component {
+
+  handleButtonClick = () => {
+    this.props.pushState('/explore')
+  }
+
+  renderButton = () => {
+    return (
+      <RaisedButton
+        onClick={this.handleButtonClick}
+        fullWidth={true}
+        label='Explore More'
+        secondary={true} />
+    )
+  }
 
   render() {
     return (
@@ -14,8 +30,8 @@ class NoLists extends Component {
           handleChangeList={this.props.handleChangeList}
           subheaderText='Recently Created Lists'
           fetchLists={this.props.fetchLists}
-          pushState={this.props.pushState}
-          lists={this.props.lists} />
+          lists={this.props.lists}
+          button={this.renderButton()}/>
       </div>
     )
   }

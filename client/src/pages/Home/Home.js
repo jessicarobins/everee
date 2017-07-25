@@ -67,7 +67,7 @@ class Home extends Component {
           !this.showListList() && !this.props.spinner &&
           <NoLists
             handleChangeList={(list) => this.handleChangeList(list, false)}
-            pushState={this.props.appActions.pushState}
+            pushState={this.props.pushState}
             lists={this.props.recentLists}
             fetchLists={this.props.listActions.fetchRecentLists} />
         }
