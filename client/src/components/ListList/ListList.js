@@ -4,6 +4,7 @@ import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import Chip from 'material-ui/Chip'
+import Avatar from 'material-ui/Avatar'
 
 import * as _ from 'lodash'
 
@@ -18,7 +19,7 @@ class ListList extends Component {
   renderListItem(item) {
     return (
       <div className="list-item">
-        {this.props.displayFullName ? item.fullName : item.name}
+        {item.name}
         {
           this.props.showPercentComplete &&
           <Chip>
@@ -31,9 +32,11 @@ class ListList extends Component {
 
   render() {
 
-    const { lists, max } = this.props
+    const { lists, max, avatar } = this.props
 
     const displayLists = max ? _.take(lists, max) : lists
+
+
 
     return (
       <List>
@@ -43,11 +46,18 @@ class ListList extends Component {
         }
         {
           _.map(displayLists, (list, index) => {
+           const listItemProps = {
+              onClick: () => this.props.handleChangeList(list),
+              primaryText: this.renderListItem(list)
+            }
+
+            if (avatar) {
+              listItemProps.leftAvatar = <Avatar src={list._users[0].picture} />
+            }
+
             return (
               <div key={index}>
-                <ListItem
-                  onClick={() => this.props.handleChangeList(list)}
-                  primaryText={this.renderListItem(list)} />
+                <ListItem {...listItemProps} />
                 {(index !== displayLists.length-1) && <Divider />}
               </div>
             )
