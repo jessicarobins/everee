@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper'
 
 import ListTypist from '../../../components/ListTypist/ListTypist'
 
+import logo from '../../../assets/everee2.svg'
 import './LoginHero.css'
 
 class LoginHero extends Component {
@@ -26,6 +27,7 @@ class LoginHero extends Component {
     return (
       <Paper style={styles.container} className="login-hero-container">
         <div className="container">
+          <img src={logo} className="logo" alt="logo" />
           <ListTypist
             lists={this.props.lists}
             fetchDemoLists={this.props.fetchDemoLists} />

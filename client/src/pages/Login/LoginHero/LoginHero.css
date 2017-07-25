@@ -16,8 +16,11 @@
   margin-top: 84px;
 }
 
-.login-hero-container .typist-container {
-  flex: .75;
+.login-hero-container .logo {
+  height: 100px;
+  width: auto;
+  align-self: center;
+  flex: 1;
 }
 
 .login-hero-container .tagline {
