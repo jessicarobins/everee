@@ -7,7 +7,6 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { createLogger } from 'redux-logger'
 
 import reducers from './reducers'
 
@@ -27,7 +26,9 @@ const history = createHistory()
 const middleware = [thunk, routerMiddleware(history)]
 
 if (process.env.NODE_ENV === 'development') {
-  middleware.push(createLogger())
+  const { logger } = require('redux-logger')
+
+  middleware.push(logger)
 }
 
 // Add the reducer to your store on the `router` key
