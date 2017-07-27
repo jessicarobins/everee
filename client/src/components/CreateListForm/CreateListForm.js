@@ -124,7 +124,7 @@ class CreateListForm extends Component {
         <AddEmptyListDialog
           addEmptyList={this.addEmptyList}
           action={this.state.action}
-          handleClose={this.props.toggleAddEmptyList}
+          handleClose={this.props.hideAddEmptyList}
           open={this.props.showAddEmptyList} />
       </div>
     );

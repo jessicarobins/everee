@@ -46,7 +46,7 @@ class Home extends Component {
             fetchTemplates={this.props.templateActions.fetchTemplates}
             templates={this.props.templates}
             showAddEmptyList={this.props.showAddEmptyList}
-            toggleAddEmptyList={this.props.appActions.toggleAddEmptyList}
+            hideAddEmptyList={this.props.appActions.hideAddEmptyList}
             addMessage={this.props.appActions.addMessage}
             addList={this.props.listActions.addListRequest} />
         </Paper>
