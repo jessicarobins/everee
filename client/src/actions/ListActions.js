@@ -74,6 +74,7 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
       }
     }).then( ({list}) =>  {
       if(list){
+        dispatch(setCanEditList(true))
         dispatch(setList(list))
         dispatch(addMessage('List created.'))
         dispatch(push(`/list/${list._id}`))
