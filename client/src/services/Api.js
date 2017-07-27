@@ -3,7 +3,6 @@ import axios from 'axios'
 import Auth from './Auth'
 
 const auth = new Auth()
-export const API_URL = 'http://everee-jrobins.c9users.io:8081/api/'
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
@@ -16,7 +15,7 @@ export default function callApi(endpoint, {method = 'get', data, params} = {}) {
   }
 
   return axios({
-    baseURL: API_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     headers: headers,
     method: method,
     withCredentials: true,
