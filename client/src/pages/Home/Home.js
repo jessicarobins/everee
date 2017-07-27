@@ -17,6 +17,7 @@ import BottomNav from '../../components/BottomNav/BottomNav'
 import CreateListForm from '../../components/CreateListForm/CreateListForm'
 import NoLists from './NoLists/NoLists'
 import ListList from '../../components/ListList/ListList'
+import RecentListCard from '../../components/ListListCard/RecentListCard/RecentListCard'
 import SystemMessage from '../../components/SystemMessage/SystemMessage'
 
 class Home extends Component {
@@ -53,14 +54,20 @@ class Home extends Component {
         </Paper>
         {
           this.showListList() &&
-            <div className="container">
-              <Paper className="list-list-container">
+            <div className="container list-list-container">
+              <Paper className="list-list-paper">
                 <ListList
                   subheaderText='I want to...'
                   showPercentComplete={true}
                   handleChangeList={(list) => this.handleChangeList(list, true)}
                   lists={this.props.lists} />
               </Paper>
+              <RecentListCard
+                pushState={this.props.pushState}
+                handleChangeList={this.props.handleChangeList}
+                subheaderText='Recently Created Lists'
+                fetchLists={this.props.listActions.fetchRecentLists}
+                lists={this.props.recentLists} />
             </div>
         }
         {
