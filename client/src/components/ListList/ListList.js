@@ -13,7 +13,9 @@ import './ListList.css'
 class ListList extends Component {
 
   componentDidMount() {
-    this.props.getLists()
+    if (this.props.getLists) {
+      this.props.getLists()
+    }
   }
 
   renderListItem(item) {

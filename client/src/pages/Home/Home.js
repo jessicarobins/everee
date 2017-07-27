@@ -22,13 +22,14 @@ import SystemMessage from '../../components/SystemMessage/SystemMessage'
 class Home extends Component {
 
   componentDidMount() {
+    this.props.listActions.fetchLists()
     this.props.appActions.changePage(HOME_INDEX)
   }
 
   showListList = () => {
-    return this.props.list &&
-      this.props.list.length &&
-      this.props.spinner
+    return this.props.lists &&
+      this.props.lists.length &&
+      !this.props.spinner
   }
 
   handleChangeList = (list, canEdit) => {
@@ -58,8 +59,7 @@ class Home extends Component {
                   subheaderText='I want to...'
                   showPercentComplete={true}
                   handleChangeList={(list) => this.handleChangeList(list, true)}
-                  lists={this.props.lists}
-                  getLists={this.props.listActions.fetchLists} />
+                  lists={this.props.lists} />
               </Paper>
             </div>
         }
