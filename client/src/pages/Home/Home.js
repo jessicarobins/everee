@@ -64,7 +64,7 @@ class Home extends Component {
               </Paper>
               <RecentListCard
                 pushState={this.props.pushState}
-                handleChangeList={this.props.handleChangeList}
+                handleChangeList={(list) => this.handleChangeList(list, false)}
                 subheaderText='Recently Created Lists'
                 fetchLists={this.props.listActions.fetchRecentLists}
                 lists={this.props.recentLists} />
