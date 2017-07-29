@@ -2,7 +2,13 @@ import { push } from 'react-router-redux'
 
 import api from '../services/Api'
 import * as actions from './ActionTypes'
-import { addMessage, showAddEmptyList, hideAddEmptyList, showSpinner, hideSpinner } from './AppActions'
+import {
+  addMessage,
+  showAddEmptyList,
+  hideAddEmptyList,
+  showSpinner,
+  hideSpinner,
+  setMasonryLoading } from './AppActions'
 
 export function fetchRecentLists() {
   return (dispatch) => {
@@ -186,5 +192,26 @@ export function cloneListRequest(id) {
       dispatch(setList(list))
       dispatch(push(`/list/${list._id}`))
     })
+  }
+}
+
+export function addPaginatedLists(lists) {
+  return {
+    type: actions.ADD_PAGINATED_LISTS,
+    lists
+  }
+}
+
+export function fetchPaginatedLists(page) {
+
+  const pageToLoad = page || 1
+  return (dispatch) => {
+    dispatch(setMasonryLoading(true))
+
+    return api(`lists/recent/${pageToLoad}`)
+      .then(({lists}) => {
+        dispatch(addPaginatedLists(lists))
+        dispatch(setMasonryLoading(false))
+      })
   }
 }

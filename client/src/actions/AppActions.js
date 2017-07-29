@@ -37,3 +37,10 @@ export function hideSpinner() {
     type: actions.HIDE_SPINNER
   }
 }
+
+export function setMasonryLoading(loading) {
+  return {
+    type: actions.SET_MASONRY_LOADING,
+    loading
+  }
+}

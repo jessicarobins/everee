@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MasonryInfiniteScroller from 'react-masonry-infinite'
+import Masonry from 'react-masonry-layout'
 
 import ListCard from '../ListCard/ListCard'
 
@@ -24,18 +24,36 @@ const sizes = [{
 
 class MasonryLayout extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      page: 1
+    }
+  }
+
   componentDidMount() {
+    this.props.fetchLists()
+  }
+
+  loadMore = () => {
+    this.setState({
+      page: this.state.page + 1
+    })
+    console.log('loading more!')
+
     this.props.fetchLists()
   }
 
   render() {
 
     return (
-      <MasonryInfiniteScroller
+      <Masonry
+        id="items"
+        infiniteScroll={this.loadMore}
+        infiniteScrollLoading={this.props.isLoading}
         className="masonry-layout"
-        sizes={sizes}
-        hasMore={true}
-        loadMore={() => console.log('loading more!')}>
+        sizes={sizes}>
         {
           this.props.lists.map( (list, index) => (
             <ListCard
@@ -44,7 +62,7 @@ class MasonryLayout extends Component {
               list={list} />
           ))
         }
-      </MasonryInfiniteScroller>
+      </Masonry>
     )
   }
 }

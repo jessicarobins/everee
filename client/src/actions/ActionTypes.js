@@ -5,6 +5,7 @@ export const HIDE_ADD_EMPTY_LIST = 'HIDE_ADD_EMPTY_LIST'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 export const SHOW_SPINNER = 'SHOW_SPINNER'
 export const HIDE_SPINNER = 'HIDE_SPINNER'
+export const SET_MASONRY_LOADING = 'SET_MASONRY_LOADING'
 
 /** Lists **/
 

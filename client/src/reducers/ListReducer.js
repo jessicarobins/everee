@@ -78,8 +78,6 @@ const paginatedLists = (
   switch (action.type) {
     case actions.ADD_PAGINATED_LISTS :
       return [...state, ...action.lists]
-    case actions.RESET_PAGINATED_LISTS:
-      return [...action.lists]
     default:
       return state
   }

@@ -59,13 +59,27 @@ const spinner = (
   }
 }
 
+const masonryLoading = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case actions.SET_MASONRY_LOADING:
+      return action.loading
+    default:
+      return state
+  }
+}
+
 const AppReducer = combineReducers({
   pageIndex,
   showAddEmptyList,
+  masonryLoading,
   message,
   spinner
 })
 
+export const getMasonryLoading = state => state.app.masonryLoading
 export const getPageIndex = state => state.app.pageIndex
 export const getSystemMessage = state => state.app.message
 export const getShowAddEmptyList = state => state.app.showAddEmptyList

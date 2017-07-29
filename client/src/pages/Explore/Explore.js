@@ -5,9 +5,9 @@ import { push } from 'react-router-redux'
 
 import Paper from 'material-ui/Paper'
 
-import { getRecentLists } from '../../reducers/ListReducer'
+import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage, getPageIndex, EXPLORE_INDEX } from '../../reducers/AppReducer'
+import { getSystemMessage, getPageIndex, getMasonryLoading, EXPLORE_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
 import AppBar from '../../components/AppBar/AppBar'
@@ -29,7 +29,8 @@ class Explore extends Component {
           <AppBar auth={this.props.auth} />
         </Paper>
         <MasonryLayout
-          fetchLists={this.props.listActions.fetchRecentLists}
+          isLoading={this.props.isLoading}
+          fetchLists={this.props.listActions.fetchPaginatedLists}
           pushState={this.props.pushState}
           lists={this.props.lists} />
         <BottomNav
@@ -45,9 +46,10 @@ class Explore extends Component {
 
 function mapStateToProps(state) {
   return {
-    lists: getRecentLists(state),
+    lists: getPaginatedLists(state),
     message: getSystemMessage(state),
-    pageIndex: getPageIndex(state)
+    pageIndex: getPageIndex(state),
+    isLoading: getMasonryLoading(state)
   }
 }
 

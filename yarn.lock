@@ -253,7 +253,7 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
-bricks.js@^1.7.0:
+bricks.js@^1.1.2, bricks.js@^1.7.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/bricks.js/-/bricks.js-1.8.0.tgz#8fdeb3c0226af251f4d5727a7df7f9ac0092b4b2"
   dependencies:
@@ -1791,6 +1791,12 @@ react-masonry-infinite@^1.2.1:
     bricks.js "^1.7.0"
     prop-types "^15.5.10"
     react-infinite-scroller "^1.0.12"
+
+react-masonry-layout@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-masonry-layout/-/react-masonry-layout-0.2.3.tgz#3f931ceb1ac71bfa01373d1ad2ffe8f738bec56d"
+  dependencies:
+    bricks.js "^1.1.2"
 
 react-typist@^1.1.1:
   version "1.1.1"
