@@ -12,26 +12,23 @@ const getDemoLists = (req, res) => {
   res.json( {lists: List.demoLists() })
 }
 
-const cloneList = (req, res) => {
+const cloneList = async (req, res) => {
   if (!req.user) {
     res.status(401).send('Unauthorized')
   }
 
-  List.findOne({ _id: req.params._id })
-    .exec()
-    .then( (list) => {
-      return list.cloneForUser(req.user)
-    })
-    .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture username'})
-    })
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      console.log('error? ', err)
-      res.status(422).send(err)
-    })
+  try {
+    const user = await User.find()
+      .findByAuth0(req.user).exec()
+
+    let list = await List.findById(req.params.id).exec()
+    list = await list.cloneForUser(user)
+    list = await List.populate(list, {path:'_users', select: 'name picture username'})
+    res.json({ list })
+  } catch(err) {
+    console.log('error? ', err)
+    res.status(422).send(err)
+  }
 }
 
 const getRecentLists = (req, res) => {

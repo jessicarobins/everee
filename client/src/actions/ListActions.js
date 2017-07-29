@@ -181,9 +181,10 @@ export function cloneListRequest(id) {
     return api(`lists/${id}/clone`, {
       method: 'post'
     })
-    .then(res => {
-      dispatch(addList(res.list))
-      dispatch(push(`/lists/${res.list._id}`))
+    .then(({list}) => {
+      dispatch(setCanEditList(true))
+      dispatch(setList(list))
+      dispatch(push(`/list/${list._id}`))
     })
   }
 }
