@@ -6,6 +6,7 @@ export const CHANGE_PAGE = 'CHANGE_PAGE'
 export const SHOW_SPINNER = 'SHOW_SPINNER'
 export const HIDE_SPINNER = 'HIDE_SPINNER'
 export const SET_MASONRY_LOADING = 'SET_MASONRY_LOADING'
+export const SET_OUT_OF_PAGES = 'SET_OUT_OF_PAGES'
 
 /** Lists **/
 

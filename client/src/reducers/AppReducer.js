@@ -71,14 +71,28 @@ const masonryLoading = (
   }
 }
 
+const outOfPages = (
+  state = false,
+  action
+) => {
+  switch (action.type) {
+    case actions.SET_OUT_OF_PAGES:
+      return true
+    default:
+      return state
+  }
+}
+
 const AppReducer = combineReducers({
   pageIndex,
   showAddEmptyList,
   masonryLoading,
   message,
+  outOfPages,
   spinner
 })
 
+export const getOutOfPages = state => state.app.outOfPages
 export const getMasonryLoading = state => state.app.masonryLoading
 export const getPageIndex = state => state.app.pageIndex
 export const getSystemMessage = state => state.app.message

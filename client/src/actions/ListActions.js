@@ -8,7 +8,8 @@ import {
   hideAddEmptyList,
   showSpinner,
   hideSpinner,
-  setMasonryLoading } from './AppActions'
+  setMasonryLoading,
+  setOutOfPages } from './AppActions'
 
 export function fetchRecentLists() {
   return (dispatch) => {
@@ -210,7 +211,13 @@ export function fetchPaginatedLists(page) {
 
     return api(`lists/recent/${pageToLoad}`)
       .then(({lists}) => {
-        dispatch(addPaginatedLists(lists))
+        if (lists && lists.length) {
+          dispatch(addPaginatedLists(lists))
+        }
+        else {
+          dispatch(setOutOfPages())
+        }
+
         dispatch(setMasonryLoading(false))
       })
   }

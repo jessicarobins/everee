@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Masonry from 'react-masonry-layout'
 
+import Progress from '../Progress/Progress'
 import ListCard from '../ListCard/ListCard'
 
 import './MasonryLayout.css'
@@ -40,9 +41,8 @@ class MasonryLayout extends Component {
     this.setState({
       page: this.state.page + 1
     })
-    console.log('loading more!')
 
-    this.props.fetchLists()
+    this.props.fetchLists(this.state.page)
   }
 
   render() {
@@ -52,6 +52,8 @@ class MasonryLayout extends Component {
         id="items"
         infiniteScroll={this.loadMore}
         infiniteScrollLoading={this.props.isLoading}
+        infiniteScrollEnd={this.props.isOutOfPages}
+        infiniteScrollSpinner={<Progress displayed />}
         className="masonry-layout"
         sizes={sizes}>
         {

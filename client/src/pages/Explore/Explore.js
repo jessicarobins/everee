@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper'
 
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage, getPageIndex, getMasonryLoading, EXPLORE_INDEX } from '../../reducers/AppReducer'
+import { getSystemMessage, getPageIndex, getMasonryLoading, getOutOfPages, EXPLORE_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
 import AppBar from '../../components/AppBar/AppBar'
@@ -29,6 +29,7 @@ class Explore extends Component {
           <AppBar auth={this.props.auth} />
         </Paper>
         <MasonryLayout
+          isOutOfPages={this.props.isOutOfPages}
           isLoading={this.props.isLoading}
           fetchLists={this.props.listActions.fetchPaginatedLists}
           pushState={this.props.pushState}
@@ -49,7 +50,8 @@ function mapStateToProps(state) {
     lists: getPaginatedLists(state),
     message: getSystemMessage(state),
     pageIndex: getPageIndex(state),
-    isLoading: getMasonryLoading(state)
+    isLoading: getMasonryLoading(state),
+    isOutOfPages: getOutOfPages(state)
   }
 }
 
