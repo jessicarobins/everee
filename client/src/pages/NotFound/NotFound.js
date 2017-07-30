@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { push } from 'react-router-redux'
-
-import Paper from 'material-ui/Paper'
 
 import { getSystemMessage, getPageIndex, LIST_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
-import AppBar from '../../components/AppBar/AppBar'
-import BottomNav from '../../components/BottomNav/BottomNav'
-import SystemMessage from '../../components/SystemMessage/SystemMessage'
+import Page from '../Page'
 
 import './NotFound.css'
 
@@ -22,21 +17,12 @@ class NotFound extends Component {
 
   render() {
     return (
-      <div>
-        <Paper zDepth={2}>
-          <AppBar auth={this.props.auth} />
-        </Paper>
+      <Page>
         <div className="not-found-container container">
           <div className="huge-text">404</div>
           <h1>Uh oh. Something's gone wrong.</h1>
         </div>
-        <BottomNav
-          changePage={this.props.pushState}
-          index={this.props.pageIndex} />
-        <SystemMessage
-          addMessage={this.props.appActions.addMessage}
-          message={this.props.message} />
-      </div>
+      </Page>
     )
   }
 }
@@ -51,7 +37,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
-    pushState: bindActionCreators(push, dispatch)
   }
 }
 
