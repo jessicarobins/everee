@@ -54,6 +54,7 @@ class MasonryLayout extends Component {
         infiniteScrollLoading={this.props.isLoading}
         infiniteScrollEnd={this.props.isOutOfPages}
         infiniteScrollSpinner={<Progress displayed />}
+        infiniteScrollEndIndicator={<div></div>}
         className="masonry-layout"
         sizes={sizes}>
         {

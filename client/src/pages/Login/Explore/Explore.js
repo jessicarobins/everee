@@ -30,6 +30,7 @@ class Explore extends Component {
         style={styles.container}
         className="explore-container">
         <MasonryLayout
+          isOutOfPages={true}
           fetchLists={this.props.fetchLists}
           pushState={this.props.pushState}
           lists={this.props.lists} />
