@@ -11,6 +11,7 @@ import HowDoesItWork from './HowDoesItWork/HowDoesItWork'
 
 import { getDemoLists, getRecentLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
+import * as userActions from '../../actions/UserActions'
 
 import './Login.css'
 
@@ -19,7 +20,11 @@ class Login extends Component {
   render() {
     return (
       <div className="login-page">
-        <AppBar auth={this.props.auth} appBarStyle={{position: 'fixed', top: 0}} />
+        <AppBar
+          doAuthentication={this.props.userActions.doAuthentication}
+          login={this.props.userActions.login}
+          auth={this.props.auth}
+          appBarStyle={{position: 'fixed', top: 0}} />
         <LoginHero
           auth={this.props.auth}
           lists={this.props.demoLists}
@@ -45,7 +50,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     listActions: bindActionCreators(listActions, dispatch),
-    pushState: bindActionCreators(push, dispatch)
+    pushState: bindActionCreators(push, dispatch),
+    userActions: bindActionCreators(userActions, dispatch)
   }
 }
 

@@ -10,8 +10,10 @@ const headers = {
 
 export default function callApi(endpoint, {method = 'get', data, params} = {}) {
 
-  if (auth.isAuthenticated()) {
-    headers['Authorization'] = 'Bearer ' + auth.getAccessToken()
+  const token = localStorage.getItem('id_token') || null
+
+  if(token) {
+    headers['Authorization'] =  `Bearer ${token}`
   }
 
   return axios({

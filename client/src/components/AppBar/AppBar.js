@@ -8,6 +8,11 @@ import logo from '../../assets/everee2.svg'
 
 class EvereeAppBar extends Component {
 
+  constructor(props) {
+    super(props)
+    props.doAuthentication()
+  }
+
   iconElementRight = () => {
     const { auth } = this.props
 
@@ -15,7 +20,7 @@ class EvereeAppBar extends Component {
       return <FlatButton label="logout" onClick={this.props.auth.logout} />
     }
 
-    return <FlatButton label="login" onClick={this.props.auth.login} />
+    return <FlatButton label="login" onClick={(creds) => this.props.login(creds)} />
   }
 
   render() {
