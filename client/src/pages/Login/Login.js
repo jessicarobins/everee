@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
+import Page from '../Page'
+
 import AppBar from '../../components/AppBar/AppBar'
 import LoginHero from './LoginHero/LoginHero'
 import About from './About/About'
@@ -19,7 +21,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-page">
+      <Page
+        hideTopPaper={true}
+        hideBottomBar={true}
+        className="login-page">
         <AppBar
           doAuthentication={this.props.userActions.doAuthentication}
           login={this.props.userActions.login}
@@ -35,7 +40,7 @@ class Login extends Component {
           fetchLists={this.props.listActions.fetchRecentLists}
           pushState={this.props.pushState}
           lists={this.props.recentLists} />
-      </div>
+      </Page>
     )
   }
 }

@@ -15,21 +15,39 @@ import SystemMessage from '../components/SystemMessage/SystemMessage'
 
 class Page extends Component {
 
-  render() {
+  renderAppBar = () => {
     return (
-      <div>
-        <Paper zDepth={2}>
-          <AppBar
-            doAuthentication={this.props.userActions.doAuthentication}
-            login={this.props.userActions.login}
-            logout={this.props.userActions.logout}
-            auth={this.props.auth} />
-          {this.props.topPaper}
-        </Paper>
-        {this.props.children}
-        <BottomNav
-          changePage={this.props.pushState}
-          index={this.props.pageIndex} />
+      <AppBar
+        doAuthentication={this.props.userActions.doAuthentication}
+        login={this.props.userActions.login}
+        logout={this.props.userActions.logout}
+        auth={this.props.auth} />
+    )
+  }
+
+  render() {
+    const {
+      children,
+      topPaper,
+      hideTopPaper,
+      hideBottomBar,
+      className
+    } = this.props
+
+    return (
+      <div className={className}>
+        { !hideTopPaper ?
+          <Paper zDepth={2}>
+            {this.renderAppBar()}
+            {topPaper}
+          </Paper> : this.renderAppBar()
+        }
+        {children}
+        { !hideBottomBar &&
+          <BottomNav
+            changePage={this.props.pushState}
+            index={this.props.pageIndex} />
+        }
         <SystemMessage
           addMessage={this.props.appActions.addMessage}
           message={this.props.message} />
