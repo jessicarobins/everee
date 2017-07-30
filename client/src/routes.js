@@ -3,6 +3,7 @@ import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import { Route, Redirect } from 'react-router'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
+import { Switch } from 'react-router-dom'
 
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -16,6 +17,7 @@ import List from './pages/List/List'
 import Explore from './pages/Explore/Explore'
 import Callback from './pages/Callback/Callback'
 import Spinner from './pages/Spinner/Spinner'
+import NotFound from './pages/NotFound/NotFound'
 
 import Auth from './services/Auth'
 
@@ -50,7 +52,7 @@ export const makeMainRoutes = () => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div>
+        <Switch>
           <Route exact path="/" render={(props) => (
               !auth.isAuthenticated() ? (
                 <Redirect to="/login"/>
@@ -75,8 +77,11 @@ export const makeMainRoutes = () => {
           <Route path="/explore" render={(props) => (
             <Explore auth={auth} {...props} />
           )}/>
+          <Route render={(props) => (
+            <NotFound auth={auth} {...props} />
+          )}/>
           <Spinner />
-        </div>
+        </Switch>
       </ConnectedRouter>
      </Provider>
   )

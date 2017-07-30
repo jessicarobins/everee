@@ -11,6 +11,12 @@ body {
   margin-right: auto;
 }
 
-h2 {
+h1, h2 {
   font-weight: 100;
+}
+
+.huge-text {
+  font-size: 5em;
+  font-weight: 200;
+  margin-top: 1em;
 }

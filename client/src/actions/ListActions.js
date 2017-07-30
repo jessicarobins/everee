@@ -56,6 +56,9 @@ export function fetchList(id) {
         dispatch(setList(res.list))
         dispatch(setCanEditList(res.authenticated))
       })
+      .catch(err => {
+        dispatch(push('/404'))
+      })
   }
 }
 
