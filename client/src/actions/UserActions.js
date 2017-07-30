@@ -1,9 +1,20 @@
+import { push } from 'react-router-redux'
 import Auth0Lock from 'auth0-lock'
 
 import * as actions from './ActionTypes'
 
-const lock = new Auth0Lock('rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
-    'jrobins.auth0.com')
+const lockOptions = {
+  auth: {
+    params: {
+	    audience: 'http://everee-jrobins.c9users.io:8081/api'
+    }
+  }
+}
+
+const lock = new Auth0Lock(
+  'rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
+  'jrobins.auth0.com'
+)
 
 function showLock() {
   return {
@@ -33,11 +44,22 @@ export function login() {
   }
 }
 
+export function logout() {
+  return dispatch => {
+    dispatch(requestLogout())
+    localStorage.removeItem('id_token')
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('profile')
+    dispatch(receiveLogout())
+    dispatch(push('/login'))
+  }
+}
+
 // Listen to authenticated event and get the profile of the user
 export function doAuthentication() {
   return dispatch => {
     lock.on("authenticated", function(authResult) {
-      lock.getProfile(authResult.idToken, function(error, profile) {
+      lock.getUserInfo(authResult.accessToken, function(error, profile) {
 
         if (error) {
           // handle error
@@ -45,6 +67,7 @@ export function doAuthentication() {
         }
 
         localStorage.setItem('profile', JSON.stringify(profile))
+        localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
         return dispatch(lockSuccess(profile))
       })
@@ -68,11 +91,3 @@ function receiveLogout() {
   }
 }
 
-// Logs the user out
-export function logoutUser() {
-  return dispatch => {
-    dispatch(requestLogout())
-    localStorage.removeItem('id_token')
-    dispatch(receiveLogout())
-  }
-}

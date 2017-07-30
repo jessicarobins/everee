@@ -2,7 +2,6 @@ import axios from 'axios'
 
 import Auth from './Auth'
 
-const auth = new Auth()
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'

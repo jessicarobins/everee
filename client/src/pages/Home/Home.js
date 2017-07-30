@@ -12,6 +12,7 @@ import * as appActions from '../../actions/AppActions'
 import { getTemplates } from '../../reducers/TemplateReducer'
 import * as templateActions from '../../actions/TemplateActions'
 
+import Page from '../Page'
 import AppBar from '../../components/AppBar/AppBar'
 import BottomNav from '../../components/BottomNav/BottomNav'
 import CreateListForm from '../../components/CreateListForm/CreateListForm'
@@ -41,17 +42,15 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <Paper zDepth={2}>
-          <AppBar auth={this.props.auth} />
+      <Page
+        topPaper={
           <CreateListForm
             fetchTemplates={this.props.templateActions.fetchTemplates}
             templates={this.props.templates}
             showAddEmptyList={this.props.showAddEmptyList}
             hideAddEmptyList={this.props.appActions.hideAddEmptyList}
             addMessage={this.props.appActions.addMessage}
-            addList={this.props.listActions.addListRequest} />
-        </Paper>
+            addList={this.props.listActions.addListRequest} />}>
         {
           this.showListList() &&
             <div className="container list-list-container">
@@ -78,13 +77,7 @@ class Home extends Component {
             lists={this.props.recentLists}
             fetchLists={this.props.listActions.fetchRecentLists} />
         }
-        <BottomNav
-          changePage={this.props.pushState}
-          index={this.props.pageIndex} />
-        <SystemMessage
-          addMessage={this.props.appActions.addMessage}
-          message={this.props.message} />
-      </div>
+      </Page>
     )
   }
 }
