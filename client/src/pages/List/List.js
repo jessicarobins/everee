@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { push } from 'react-router-redux'
 
 import { getList, canEditList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage, getPageIndex, LIST_INDEX } from '../../reducers/AppReducer'
+import { LIST_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 
-import AppBar from '../../components/AppBar/AppBar'
-import BottomNav from '../../components/BottomNav/BottomNav'
-import SystemMessage from '../../components/SystemMessage/SystemMessage'
+import Page from '../Page'
+
 import ListPageContainer from './ListPageContainer/ListPageContainer'
 
 class List extends Component {
@@ -29,10 +27,7 @@ class List extends Component {
 
   render() {
     return (
-      <div>
-        <AppBar
-          zDepth={2}
-          auth={this.props.auth} />
+      <Page>
         { this.props.list &&
           <ListPageContainer
             authenticated={this.props.auth.isAuthenticated()}
@@ -44,13 +39,7 @@ class List extends Component {
             toggleListItem={this.props.listActions.toggleListItemRequest}
             list={this.props.list} />
         }
-        <BottomNav
-          changePage={this.props.pushState}
-          index={this.props.pageIndex} />
-        <SystemMessage
-          addMessage={this.props.appActions.addMessage}
-          message={this.props.message} />
-      </div>
+      </Page>
     )
   }
 }
@@ -58,17 +47,14 @@ class List extends Component {
 function mapStateToProps(state, props) {
   return {
     list: getList(state, props.match.params.id),
-    canEdit: canEditList(state),
-    message: getSystemMessage(state),
-    pageIndex: getPageIndex(state)
+    canEdit: canEditList(state)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
-    listActions: bindActionCreators(listActions, dispatch),
-    pushState: bindActionCreators(push, dispatch)
+    listActions: bindActionCreators(listActions, dispatch)
   }
 }
 

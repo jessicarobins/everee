@@ -7,19 +7,16 @@ import Paper from 'material-ui/Paper'
 
 import { getMyLists, getRecentLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getSystemMessage, getShowAddEmptyList, getPageIndex, getShowSpinner, HOME_INDEX } from '../../reducers/AppReducer'
+import { getShowAddEmptyList, getShowSpinner, HOME_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 import { getTemplates } from '../../reducers/TemplateReducer'
 import * as templateActions from '../../actions/TemplateActions'
 
 import Page from '../Page'
-import AppBar from '../../components/AppBar/AppBar'
-import BottomNav from '../../components/BottomNav/BottomNav'
 import CreateListForm from '../../components/CreateListForm/CreateListForm'
 import NoLists from './NoLists/NoLists'
 import ListList from '../../components/ListList/ListList'
 import RecentListCard from '../../components/ListListCard/RecentListCard/RecentListCard'
-import SystemMessage from '../../components/SystemMessage/SystemMessage'
 
 class Home extends Component {
 
@@ -86,9 +83,7 @@ function mapStateToProps(state) {
   return {
     lists: getMyLists(state),
     templates: getTemplates(state),
-    message: getSystemMessage(state),
     showAddEmptyList: getShowAddEmptyList(state),
-    pageIndex: getPageIndex(state),
     spinner: getShowSpinner(state),
     recentLists: getRecentLists(state)
   }

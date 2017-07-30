@@ -8,7 +8,7 @@ const history = createHistory({
 })
 
 export function isAuthenticated() {
-  return !!localStorage.getItem('access_token')
+  return !!localStorage.getItem('id_token')
 }
 
 export default class Auth {

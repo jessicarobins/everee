@@ -16,8 +16,6 @@ class EvereeAppBar extends Component {
   }
 
   iconElementRight = () => {
-    const { auth } = this.props
-
     if (isAuthenticated()) {
       return <FlatButton label="logout" onClick={this.props.logout} />
     }
