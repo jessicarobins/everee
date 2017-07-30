@@ -6,21 +6,16 @@ import * as actions from './ActionTypes'
 const lockOptions = {
   auth: {
     params: {
-	    audience: 'http://everee-jrobins.c9users.io:8081/api'
+      scope: 'openid profile email'
     }
   }
 }
 
 const lock = new Auth0Lock(
   'rwFEnmblzq90XMcfNAjxRzcLd6T4HCOM',
-  'jrobins.auth0.com'
+  'jrobins.auth0.com',
+  lockOptions
 )
-
-function showLock() {
-  return {
-    type: actions.SHOW_LOCK
-  }
-}
 
 function lockSuccess(profile, token) {
   return {

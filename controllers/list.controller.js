@@ -152,6 +152,8 @@ const findOrCreateListTemplate = async (req, res) => {
 
 const getList = async (req, res) => {
 
+  console.log('req.user?? ', req.user)
+
   let user
   if (req.user) {
     user = await User.find().findByAuth0(req.user).exec()

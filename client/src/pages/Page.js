@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper'
 
 import { getSystemMessage, getPageIndex, getShowSpinner } from '../reducers/AppReducer'
 import * as appActions from '../actions/AppActions'
+import { isAuthenticated } from '../reducers/UserReducer'
 import * as userActions from '../actions/UserActions'
 
 import AppBar from '../components/AppBar/AppBar'
@@ -21,7 +22,7 @@ class Page extends Component {
         doAuthentication={this.props.userActions.doAuthentication}
         login={this.props.userActions.login}
         logout={this.props.userActions.logout}
-        auth={this.props.auth} />
+        isAuthenticated={this.props.isAuthenticated} />
     )
   }
 
@@ -60,7 +61,8 @@ function mapStateToProps(state) {
   return {
     message: getSystemMessage(state),
     pageIndex: getPageIndex(state),
-    spinner: getShowSpinner(state)
+    spinner: getShowSpinner(state),
+    isAuthenticated: isAuthenticated(state)
   }
 }
 

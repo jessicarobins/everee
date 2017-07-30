@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import { isAuthenticated } from '../../services/Auth'
-
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -16,7 +14,7 @@ class EvereeAppBar extends Component {
   }
 
   iconElementRight = () => {
-    if (isAuthenticated()) {
+    if (this.props.isAuthenticated) {
       return <FlatButton label="logout" onClick={this.props.logout} />
     }
 

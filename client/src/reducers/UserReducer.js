@@ -2,14 +2,15 @@ import { combineReducers } from 'redux'
 
 import * as actions from '../actions/ActionTypes'
 
-
-const user = (
+const profile = (
   state = null,
   action
 ) => {
   switch (action.type) {
-    case actions.SET_USER:
-      return action.user
+    case actions.LOCK_SUCCESS:
+      return action.profile
+    case actions.LOCK_ERROR:
+      return null
     default:
       return state
   }
@@ -29,13 +30,15 @@ const isFetching = (
   }
 }
 
-const isAuthenticated = (
+const authenticated = (
   state = localStorage.getItem('id_token') ? true : false,
   action
 ) => {
   switch (action.type) {
     case actions.LOCK_SUCCESS:
       return true
+    case actions.LOCK_ERROR:
+      return false
     case actions.LOGOUT_SUCCESS:
       return false
     default:
@@ -44,11 +47,13 @@ const isAuthenticated = (
 }
 
 const UserReducer = combineReducers({
+  authenticated,
   isFetching,
-  user
+  profile
 })
 
-export const getUser = state => state.user.user
+export const getUser = state => state.user.profile
 export const getIsFetching = state => state.user.isFetching
+export const isAuthenticated = state => state.user.authenticated
 
 export default UserReducer

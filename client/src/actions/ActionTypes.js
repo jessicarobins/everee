@@ -41,7 +41,6 @@ export const ADD_RANDOM_LIST = 'ADD_RANDOM_LIST'
 export const ADD_TEMPLATES = 'ADD_TEMPLATES'
 
 /** User **/
-export const SHOW_LOCK = 'SHOW_LOCK'
 export const LOCK_SUCCESS = 'LOCK_SUCCESS'
 export const LOCK_ERROR = 'LOCK_ERROR'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
