@@ -15,11 +15,8 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import List from './pages/List/List'
 import Explore from './pages/Explore/Explore'
-import Callback from './pages/Callback/Callback'
 import Spinner from './pages/Spinner/Spinner'
 import NotFound from './pages/NotFound/NotFound'
-
-import Auth from './services/Auth'
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -40,12 +37,8 @@ const store = createStore(
   applyMiddleware(...middleware)
 )
 
-const auth = new Auth()
-
-const handleAuthentication = (nextState, replace) => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    auth.handleAuthentication()
-  }
+export function isAuthenticated() {
+  return !!localStorage.getItem('id_token')
 }
 
 export const makeMainRoutes = () => {
@@ -54,32 +47,22 @@ export const makeMainRoutes = () => {
       <ConnectedRouter history={history}>
         <Switch>
           <Route exact path="/" render={(props) => (
-              !auth.isAuthenticated() ? (
+              !isAuthenticated() ? (
                 <Redirect to="/login"/>
               ) : (
-                <Home auth={auth} {...props} />
+                <Home {...props} />
               )
             )} />
           <Route path="/login" render={(props) => (
-              auth.isAuthenticated() ? (
-                <Redirect to="/"/>
+              isAuthenticated() ? (
+                <Redirect to="/" />
               ) : (
-                <Login auth={auth} {...props} />
+                <Login {...props} />
               )
             )} />
-          <Route path="/callback" render={(props) => {
-            handleAuthentication(props)
-            return <Callback {...props} />
-          }}/>
-          <Route path="/list/:id" render={(props) => (
-            <List auth={auth} {...props} />
-          )}/>
-          <Route path="/explore" render={(props) => (
-            <Explore auth={auth} {...props} />
-          )}/>
-          <Route render={(props) => (
-            <NotFound auth={auth} {...props} />
-          )}/>
+          <Route path="/list/:id" component={List} />
+          <Route path="/explore" component={Explore} />
+          <Route component={NotFound} />
           <Spinner />
         </Switch>
       </ConnectedRouter>

@@ -14,6 +14,8 @@ const message = (
   switch (action.type) {
     case actions.ADD_SYSTEM_MESSAGE:
       return action.message
+    case actions.LOCK_ERROR:
+      return 'Login failed. Please try again.'
     default:
       return state
   }
