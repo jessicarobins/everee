@@ -36,7 +36,7 @@ class LoginHero extends Component {
           </p>
           <RaisedButton
             className="login-button"
-            onClick={this.props.auth.login}
+            onClick={(creds) => this.props.login(creds)}
             label='Get started'
             secondary={true} />
         </div>

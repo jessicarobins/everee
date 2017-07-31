@@ -5,7 +5,6 @@ import { push } from 'react-router-redux'
 
 import Page from '../Page'
 
-import AppBar from '../../components/AppBar/AppBar'
 import LoginHero from './LoginHero/LoginHero'
 import About from './About/About'
 import Explore from './Explore/Explore'
@@ -22,16 +21,12 @@ class Login extends Component {
   render() {
     return (
       <Page
+        appBarStyle={{position: 'fixed', top: 0}}
         hideTopPaper={true}
         hideBottomBar={true}
         className="login-page">
-        <AppBar
-          doAuthentication={this.props.userActions.doAuthentication}
-          login={this.props.userActions.login}
-          auth={this.props.auth}
-          appBarStyle={{position: 'fixed', top: 0}} />
         <LoginHero
-          auth={this.props.auth}
+          login={this.props.userActions.login}
           lists={this.props.demoLists}
           fetchDemoLists={this.props.listActions.fetchDemoLists} />
         <About />

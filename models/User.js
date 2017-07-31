@@ -24,22 +24,23 @@ userSchema.query.findByAuth0 = function(user) {
   return this.findOne({auth0Id: user.sub})
 }
 
-userSchema.statics.findOrCreate = async function(auth0User, userData) {
-  if (auth0User && userData) {
+userSchema.statics.findOrCreate = async function(auth0User) {
+  if (auth0User) {
     let localUser = await this.findOne({ auth0Id: auth0User.sub }).exec()
 
     if (localUser !== null) {
       console.log('user already exists in db')
-      localUser.name = userData.name
-      localUser.picture = userData.picture
+      localUser.name = auth0User.name
+      localUser.picture = auth0User.picture,
+      localUser.email = auth0User.email
     }
     else {
       console.log('user does not exist in db. creating a new user')
       localUser = new this({
         auth0Id: auth0User.sub,
-        name: userData.name,
-        picture: userData.picture,
-        email: userData.email
+        name: auth0User.name,
+        picture: auth0User.picture,
+        email: auth0User.email
       })
     }
 

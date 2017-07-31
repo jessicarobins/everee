@@ -7,24 +7,10 @@ const profile = (
   action
 ) => {
   switch (action.type) {
-    case actions.LOCK_SUCCESS:
-      return action.profile
+    case actions.LOGIN_SUCCESS:
+      return action.user
     case actions.LOCK_ERROR:
       return null
-    default:
-      return state
-  }
-}
-
-const isFetching = (
-  state = false,
-  action
-) => {
-  switch (action.type) {
-    case actions.LOCK_SUCCESS:
-      return false
-    case actions.LOGOUT_SUCCESS:
-      return true
     default:
       return state
   }
@@ -35,7 +21,7 @@ const authenticated = (
   action
 ) => {
   switch (action.type) {
-    case actions.LOCK_SUCCESS:
+    case actions.LOGIN_SUCCESS:
       return true
     case actions.LOCK_ERROR:
       return false
@@ -48,12 +34,10 @@ const authenticated = (
 
 const UserReducer = combineReducers({
   authenticated,
-  isFetching,
   profile
 })
 
 export const getUser = state => state.user.profile
-export const getIsFetching = state => state.user.isFetching
 export const isAuthenticated = state => state.user.authenticated
 
 export default UserReducer

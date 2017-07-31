@@ -19,6 +19,7 @@ class Page extends Component {
   renderAppBar = () => {
     return (
       <AppBar
+        appBarStyle={this.props.appBarStyle}
         doAuthentication={this.props.userActions.doAuthentication}
         login={this.props.userActions.login}
         logout={this.props.userActions.logout}

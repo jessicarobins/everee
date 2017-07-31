@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux'
 import Auth0Lock from 'auth0-lock'
 
+import api from '../services/Api'
 import * as actions from './ActionTypes'
 
 const lockOptions = {
@@ -16,14 +17,6 @@ const lock = new Auth0Lock(
   'jrobins.auth0.com',
   lockOptions
 )
-
-function lockSuccess(profile, token) {
-  return {
-    type: actions.LOCK_SUCCESS,
-    profile,
-    token
-  }
-}
 
 function lockError(err) {
   return {
@@ -41,11 +34,10 @@ export function login() {
 
 export function logout() {
   return dispatch => {
-    dispatch(requestLogout())
     localStorage.removeItem('id_token')
     localStorage.removeItem('access_token')
     localStorage.removeItem('profile')
-    dispatch(receiveLogout())
+    dispatch(logoutSuccess())
     dispatch(push('/login'))
   }
 }
@@ -64,25 +56,30 @@ export function doAuthentication() {
         localStorage.setItem('profile', JSON.stringify(profile))
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
-        return dispatch(lockSuccess(profile))
+        dispatch(updateUserProfile())
+        return dispatch(loginSuccess(profile))
       })
     })
   }
 }
 
-function requestLogout() {
+function logoutSuccess() {
   return {
-    type: actions.LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
+    type: actions.LOGOUT_SUCCESS
   }
 }
 
-function receiveLogout() {
+function loginSuccess(user) {
   return {
-    type: actions.LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false
+    type: actions.LOGIN_SUCCESS,
+    user
   }
 }
 
+export function updateUserProfile() {
+  return (dispatch) => {
+    return api('users', {
+      method: 'put'
+    })
+  }
+}

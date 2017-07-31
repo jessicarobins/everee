@@ -24,7 +24,7 @@ exports.setUsername = (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    await User.findOrCreate(req.user, req.body.userData)
+    await User.findOrCreate(req.user)
     res.status(200).end()
   } catch(err) {
     console.log(err)
