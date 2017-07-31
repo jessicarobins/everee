@@ -17,7 +17,8 @@ const lockOptions = {
   auth: {
     params: {
       scope: 'openid profile email'
-    }
+    },
+    redirect: false
   }
 }
 
@@ -66,7 +67,9 @@ export function doAuthentication() {
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
         dispatch(updateUserProfile())
-        return dispatch(loginSuccess(profile))
+        dispatch(loginSuccess(profile))
+        dispatch(push('/'))
+        lock.hide()
       })
     })
   }

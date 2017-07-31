@@ -19,11 +19,11 @@ class Page extends Component {
   renderAppBar = () => {
     return (
       <AppBar
+        authenticated={this.props.isAuthenticated}
         appBarStyle={this.props.appBarStyle}
         doAuthentication={this.props.userActions.doAuthentication}
         login={this.props.userActions.login}
-        logout={this.props.userActions.logout}
-        isAuthenticated={this.props.isAuthenticated} />
+        logout={this.props.userActions.logout} />
     )
   }
 

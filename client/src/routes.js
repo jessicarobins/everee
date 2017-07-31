@@ -11,6 +11,7 @@ import thunk from 'redux-thunk'
 
 import reducers from './reducers'
 
+import Callback from './pages/Callback/Callback'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import List from './pages/List/List'
@@ -62,6 +63,7 @@ export const makeMainRoutes = () => {
             )} />
           <Route path="/list/:id" component={List} />
           <Route path="/explore" component={Explore} />
+          <Route path="/callback" component={Callback} />
           <Route component={NotFound} />
           <Spinner />
         </Switch>

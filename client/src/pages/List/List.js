@@ -6,6 +6,7 @@ import { getList, canEditList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import { LIST_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
+import { isAuthenticated } from '../../reducers/UserReducer'
 
 import Page from '../Page'
 
@@ -30,7 +31,7 @@ class List extends Component {
       <Page>
         { this.props.list &&
           <ListPageContainer
-            authenticated={this.props.auth.isAuthenticated()}
+            authenticated={this.props.isAuthenticated}
             cloneList={() => this.props.listActions.cloneListRequest(this.props.list.id)}
             canEdit={this.props.canEdit}
             addMessage={this.props.appActions.addMessage}
@@ -46,6 +47,7 @@ class List extends Component {
 
 function mapStateToProps(state, props) {
   return {
+    isAuthenticated: isAuthenticated(state),
     list: getList(state, props.match.params.id),
     canEdit: canEditList(state)
   }
