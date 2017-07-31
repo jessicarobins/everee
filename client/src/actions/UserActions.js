@@ -4,7 +4,16 @@ import Auth0Lock from 'auth0-lock'
 import api from '../services/Api'
 import * as actions from './ActionTypes'
 
+import logo from '../assets/everee.svg'
+
 const lockOptions = {
+  theme: {
+    logo: logo,
+    primaryColor: '#00a9f4'
+  },
+  languageDictionary: {
+    title: 'everee'
+  },
   auth: {
     params: {
       scope: 'openid profile email'
