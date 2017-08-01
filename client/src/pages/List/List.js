@@ -18,6 +18,7 @@ class List extends Component {
     super(props)
 
     if (!props.list) {
+      this.props.appActions.showSpinner()
       this.props.listActions.fetchList(props.match.params.id)
     }
   }

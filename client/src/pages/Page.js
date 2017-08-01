@@ -13,6 +13,7 @@ import * as userActions from '../actions/UserActions'
 import AppBar from '../components/AppBar/AppBar'
 import BottomNav from '../components/BottomNav/BottomNav'
 import SystemMessage from '../components/SystemMessage/SystemMessage'
+import Progress from '../components/Progress/Progress'
 
 class Page extends Component {
 
@@ -54,6 +55,7 @@ class Page extends Component {
         <SystemMessage
           addMessage={this.props.appActions.addMessage}
           message={this.props.message} />
+        <Progress displayed={this.props.spinner} />
       </div>
     )
   }

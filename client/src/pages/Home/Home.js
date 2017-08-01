@@ -21,6 +21,7 @@ import RecentListCard from '../../components/ListListCard/RecentListCard/RecentL
 class Home extends Component {
 
   componentDidMount() {
+    this.props.appActions.showSpinner()
     this.props.listActions.fetchLists()
     this.props.appActions.changePage(HOME_INDEX)
   }

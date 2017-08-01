@@ -16,7 +16,6 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import List from './pages/List/List'
 import Explore from './pages/Explore/Explore'
-import Spinner from './pages/Spinner/Spinner'
 import NotFound from './pages/NotFound/NotFound'
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -65,7 +64,6 @@ export const makeMainRoutes = () => {
           <Route path="/explore" component={Explore} />
           <Route path="/callback" component={Callback} />
           <Route component={NotFound} />
-          <Spinner />
         </Switch>
       </ConnectedRouter>
      </Provider>

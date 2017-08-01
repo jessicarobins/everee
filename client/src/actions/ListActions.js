@@ -59,6 +59,9 @@ export function fetchList(id) {
       .catch(err => {
         dispatch(push('/404'))
       })
+      .then(() => {
+        dispatch(hideSpinner())
+      })
   }
 }
 
@@ -67,6 +70,12 @@ export function fetchLists() {
     return api('lists')
       .then(res => {
         dispatch(addLists(res.lists))
+      })
+      .catch(err => {
+        dispatch(addMessage(err))
+      })
+      .then(() => {
+        dispatch(hideSpinner())
       })
   }
 }
