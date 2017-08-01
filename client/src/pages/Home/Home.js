@@ -27,8 +27,12 @@ class Home extends Component {
 
   showListList = () => {
     return this.props.lists &&
-      this.props.lists.length &&
+      !!this.props.lists.length &&
       !this.props.spinner
+  }
+
+  showNoLists = () => {
+    return !this.showListList() && !this.props.spinner
   }
 
   handleChangeList = (list, canEdit) => {
@@ -67,7 +71,7 @@ class Home extends Component {
             </div>
         }
         {
-          !this.showListList() && !this.props.spinner &&
+          this.showNoLists() &&
           <NoLists
             handleChangeList={(list) => this.handleChangeList(list, false)}
             pushState={this.props.pushState}
