@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import * as actions from '../actions/ActionTypes'
 
 const profile = (
-  state = null,
+  state = JSON.parse(localStorage.getItem('profile')),
   action
 ) => {
   switch (action.type) {
