@@ -6,6 +6,8 @@ import HotIcon from 'material-ui/svg-icons/social/whatshot'
 import NewIcon from 'material-ui/svg-icons/av/new-releases'
 import CompleteIcon from 'material-ui/svg-icons/action/done'
 
+import UserMenu from '../../../components/UserMenu/UserMenu'
+
 import logo from '../../../assets/everee2.svg'
 
 class ExploreTabs extends Component {
@@ -75,6 +77,12 @@ class ExploreTabs extends Component {
             label="COMPLETE"
           />
         </Tabs>
+        {
+          this.state.sticky &&
+            <UserMenu
+              logout={this.props.logout}
+              picture={this.props.picture} />
+        }
       </div>
     )
   }
