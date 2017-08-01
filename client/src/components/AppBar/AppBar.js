@@ -7,7 +7,6 @@ import IconButton from 'material-ui/IconButton'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 
-import './AppBar.css'
 import logo from '../../assets/everee2.svg'
 
 class EvereeAppBar extends Component {
@@ -54,7 +53,7 @@ class EvereeAppBar extends Component {
         style={this.props.appBarStyle}
         zDepth={this.props.zDepth}
         title="everee"
-        iconElementLeft={<img src={logo} alt="logo" className="logo" />}
+        iconElementLeft={<img src={logo} alt="logo" className="small-logo" />}
         iconElementRight={this.iconElementRight()}
       />
     )

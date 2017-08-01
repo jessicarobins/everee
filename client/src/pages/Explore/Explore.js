@@ -9,6 +9,7 @@ import { getMasonryLoading, getOutOfPages, EXPLORE_INDEX } from '../../reducers/
 import * as appActions from '../../actions/AppActions'
 
 import Page from '../Page'
+import Tabs from './Tabs/Tabs'
 
 import MasonryLayout from '../../components/MasonryLayout/MasonryLayout'
 
@@ -21,6 +22,7 @@ class Explore extends Component {
   render() {
     return (
       <Page>
+        <Tabs />
         <MasonryLayout
           isOutOfPages={this.props.isOutOfPages}
           isLoading={this.props.isLoading}
