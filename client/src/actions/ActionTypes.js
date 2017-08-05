@@ -28,12 +28,12 @@ export const ADD_DEMO_LISTS = 'ADD_DEMO_LISTS'
 // recent lists
 export const ADD_RECENT_LISTS = 'ADD_RECENT_LISTS'
 
+// popular lists
+export const ADD_POPULAR_LISTS = 'ADD_POPULAR_LISTS'
+
 // paginated lists
 export const ADD_PAGINATED_LISTS = 'ADD_PAGINATED_LISTS'
 export const REPLACE_PAGINATED_LISTS = 'REPLACE_PAGINATED_LISTS'
-
-// ??
-// count??
 
 // random list
 export const ADD_RANDOM_LIST = 'ADD_RANDOM_LIST'

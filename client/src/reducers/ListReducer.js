@@ -71,6 +71,18 @@ const recentLists = (
   }
 }
 
+const popularLists = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case actions.ADD_POPULAR_LISTS :
+      return action.lists
+    default:
+      return state
+  }
+}
+
 const paginatedLists = (
   state = [],
   action
@@ -84,18 +96,6 @@ const paginatedLists = (
       return state
   }
 }
-
-// const count = (
-//   state = 0,
-//   action
-// ) => {
-//   switch (action.type) {
-//     case actions.SET_COUNT :
-//       return action.count
-//     default:
-//       return state
-//   }
-// }
 
 const randomList = (
   state = '',
@@ -116,6 +116,7 @@ const ListReducer = combineReducers({
   demoLists,
   recentLists,
   paginatedLists,
+  popularLists,
   randomList
 })
 
@@ -129,7 +130,8 @@ export const canEditList = state => state.lists.canEditCurrentList
 export const getDemoLists = state => state.lists.demoLists
 export const getRecentLists = state => state.lists.recentLists
 export const getPaginatedLists = state => state.lists.paginatedLists
-export const getCount = state => state.lists.count
+export const getPopularLists = state => state.lists.getPopularLists
+
 export const getRandomList = state => state.lists.randomList
 
 // Export Reducer

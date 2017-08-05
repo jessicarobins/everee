@@ -14,9 +14,13 @@ class ListCard extends Component {
   render() {
     const { list } = this.props
 
+    const numItems = list.items.length
+    const title = list.fullName || `${list.verb} every ${list.action}`
     return (
       <Card className="list-card">
-        <CardTitle title={list.fullName} subtitle={`${list.fractionComplete.denominator} items`} />
+        <CardTitle
+          title={title}
+          subtitle={`${numItems} item${numItems === 1 ? '' : 's'}`} />
         <CardText>
           <LinearProgress mode="determinate" value={list.percentComplete} />
         </CardText>

@@ -11,7 +11,7 @@ import {
   getOutOfPages,
   getShowSpinner,
   EXPLORE_INDEX,
-  POPULAR_TAB,
+  RECENT_TAB,
   COMPLETE_TAB } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 import { getUser } from '../../reducers/UserReducer'
@@ -41,8 +41,11 @@ class Explore extends Component {
     if (this.props.tab === COMPLETE_TAB) {
       masonryProps.fetchLists = (page) => this.props.listActions.fetchPaginatedLists(page, {complete: true})
     }
-    else {
+    else if (this.props.tab === RECENT_TAB) {
       masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
+    }
+    else {
+      masonryProps.fetchLists = this.props.listActions.fetchPopularLists
     }
 
     return <MasonryLayout {...masonryProps} />

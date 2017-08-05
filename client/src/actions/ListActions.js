@@ -237,12 +237,28 @@ export function fetchPaginatedLists(page, params = {}) {
           }
           else {
             dispatch(replacePaginatedLists(lists))
+            dispatch(setOutOfPages(false))
           }
         }
         else {
-          dispatch(setOutOfPages())
+          dispatch(setOutOfPages(true))
         }
 
+        dispatch(hideSpinner())
+        dispatch(setMasonryLoading(false))
+      })
+  }
+}
+
+export function fetchPopularLists() {
+
+  return (dispatch) => {
+
+    dispatch(setMasonryLoading(true))
+    return api(`lists/popular`)
+      .then(({lists}) => {
+        dispatch(setOutOfPages(true))
+        dispatch(replacePaginatedLists(lists))
         dispatch(hideSpinner())
         dispatch(setMasonryLoading(false))
       })

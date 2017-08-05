@@ -45,9 +45,10 @@ export function setMasonryLoading(loading) {
   }
 }
 
-export function setOutOfPages() {
+export function setOutOfPages(out) {
   return {
-    type: actions.SET_OUT_OF_PAGES
+    type: actions.SET_OUT_OF_PAGES,
+    out
   }
 }
 

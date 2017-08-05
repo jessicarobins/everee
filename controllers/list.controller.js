@@ -222,6 +222,25 @@ const getCompleteLists = async (req, res) => {
   }
 }
 
+const getPopularLists = async (req, res) => {
+  try {
+    const lists = await List.aggregate()
+      .group({
+        _id: '$_template',
+        count: { $sum: 1 },
+        action: { $first: '$action' },
+        verb: { $first: '$verb' },
+        items: { $first: '$items' },
+        listId: { $first: '$_id' }
+      })
+      .exec()
+    res.json({lists: lists})
+  } catch(err) {
+    console.log(err)
+    res.status(500).send(err)
+  }
+}
+
 const count = (req, res) => {
   List.count()
     .then( count => {
@@ -314,6 +333,7 @@ module.exports = {
   getDemoLists: getDemoLists,
   getList: getList,
   getLists: getLists,
+  getPopularLists: getPopularLists,
   getRecentLists: getRecentLists,
   paginateLists: paginateLists,
   random: random,

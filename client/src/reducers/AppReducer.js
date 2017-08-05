@@ -83,7 +83,7 @@ const outOfPages = (
 ) => {
   switch (action.type) {
     case actions.SET_OUT_OF_PAGES:
-      return true
+      return action.out
     default:
       return state
   }
