@@ -215,21 +215,35 @@ export function addPaginatedLists(lists) {
   }
 }
 
+export function replacePaginatedLists(lists) {
+  return {
+    type: actions.REPLACE_PAGINATED_LISTS,
+    lists
+  }
+}
+
 export function fetchPaginatedLists(page, params = {}) {
 
   const pageToLoad = page || 1
-  return (dispatch) => {
-    dispatch(setMasonryLoading(true))
 
+  return (dispatch) => {
+
+    dispatch(setMasonryLoading(true))
     return api(`lists/recent/${pageToLoad}`, { params })
       .then(({lists}) => {
         if (lists && lists.length) {
-          dispatch(addPaginatedLists(lists))
+          if (page) {
+            dispatch(addPaginatedLists(lists))
+          }
+          else {
+            dispatch(replacePaginatedLists(lists))
+          }
         }
         else {
           dispatch(setOutOfPages())
         }
 
+        dispatch(hideSpinner())
         dispatch(setMasonryLoading(false))
       })
   }

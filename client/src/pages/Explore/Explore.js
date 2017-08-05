@@ -5,7 +5,14 @@ import { push } from 'react-router-redux'
 
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getExploreTab, getMasonryLoading, getOutOfPages, EXPLORE_INDEX } from '../../reducers/AppReducer'
+import {
+  getExploreTab,
+  getMasonryLoading,
+  getOutOfPages,
+  getShowSpinner,
+  EXPLORE_INDEX,
+  POPULAR_TAB,
+  COMPLETE_TAB } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 import { getUser } from '../../reducers/UserReducer'
 import * as userActions from '../../actions/UserActions'
@@ -21,20 +28,40 @@ class Explore extends Component {
     this.props.appActions.changePage(EXPLORE_INDEX)
   }
 
+  renderMasonry = () => {
+    const masonryProps = {
+      isOutOfPages: this.props.isOutOfPages,
+      isLoading: this.props.isLoading,
+      pushState: this.props.pushState,
+      lists: this.props.lists,
+      spinner: this.props.spinner,
+      tab: this.props.tab
+    }
+
+    if (this.props.tab === COMPLETE_TAB) {
+      masonryProps.fetchLists = (page) => this.props.listActions.fetchPaginatedLists(page, {complete: true})
+    }
+    else {
+      masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
+    }
+
+    return <MasonryLayout {...masonryProps} />
+  }
+
+  handleChangeTab = (tab) => {
+    this.props.appActions.showSpinner()
+    this.props.appActions.changeTab(tab)
+  }
+
   render() {
     return (
       <Page>
         <Tabs
           tab={this.props.tab}
-          changeTab={this.props.appActions.changeTab}
+          changeTab={this.handleChangeTab}
           picture={this.props.user.picture}
           logout={this.props.userActions.logout} />
-        <MasonryLayout
-          isOutOfPages={this.props.isOutOfPages}
-          isLoading={this.props.isLoading}
-          fetchLists={this.props.listActions.fetchPaginatedLists}
-          pushState={this.props.pushState}
-          lists={this.props.lists} />
+        {this.renderMasonry()}
       </Page>
     )
   }
@@ -45,6 +72,7 @@ function mapStateToProps(state) {
     lists: getPaginatedLists(state),
     isLoading: getMasonryLoading(state),
     isOutOfPages: getOutOfPages(state),
+    spinner: getShowSpinner(state),
     tab: getExploreTab(state),
     user: getUser(state)
   }

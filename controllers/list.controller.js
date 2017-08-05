@@ -206,7 +206,7 @@ const deleteListItem = async (req, res) => {
 
 const paginateLists = async (req, res) => {
   try {
-    const lists = await List.find().byPage(req.params.page, req.params.query)
+    const lists = await List.find().byPage(req.params.page, req.query)
     res.json({lists: lists})
   } catch(err) {
     res.status(500).send(err)

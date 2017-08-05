@@ -37,6 +37,16 @@ class MasonryLayout extends Component {
     this.props.fetchLists()
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.tab !== nextProps.tab) {
+      this.setState({
+        page: 1
+      })
+
+      nextProps.fetchLists()
+    }
+  }
+
   loadMore = () => {
     this.setState({
       page: this.state.page + 1
@@ -48,24 +58,28 @@ class MasonryLayout extends Component {
   render() {
 
     return (
-      <Masonry
-        id="items"
-        infiniteScroll={this.loadMore}
-        infiniteScrollLoading={this.props.isLoading}
-        infiniteScrollEnd={this.props.isOutOfPages}
-        infiniteScrollSpinner={<Progress displayed />}
-        infiniteScrollEndIndicator={<div></div>}
-        className="masonry-layout"
-        sizes={sizes}>
-        {
-          this.props.lists.map( (list, index) => (
-            <ListCard
-              pushState={this.props.pushState}
-              key={index}
-              list={list} />
-          ))
+      <div>
+        { !this.props.spinner &&
+          <Masonry
+            id="items"
+            infiniteScroll={this.loadMore}
+            infiniteScrollLoading={this.props.isLoading}
+            infiniteScrollEnd={this.props.isOutOfPages}
+            infiniteScrollSpinner={<Progress displayed />}
+            infiniteScrollEndIndicator={<div></div>}
+            className="masonry-layout"
+            sizes={sizes}>
+            {
+              this.props.lists.map( (list, index) => (
+                <ListCard
+                  pushState={this.props.pushState}
+                  key={index}
+                  list={list} />
+              ))
+            }
+          </Masonry>
         }
-      </Masonry>
+      </div>
     )
   }
 }

@@ -30,7 +30,7 @@ export const ADD_RECENT_LISTS = 'ADD_RECENT_LISTS'
 
 // paginated lists
 export const ADD_PAGINATED_LISTS = 'ADD_PAGINATED_LISTS'
-export const RESET_PAGINATED_LISTS = 'RESET_PAGINATED_LISTS'
+export const REPLACE_PAGINATED_LISTS = 'REPLACE_PAGINATED_LISTS'
 
 // ??
 // count??
