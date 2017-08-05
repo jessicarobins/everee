@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { getMasonryLoading, getOutOfPages, EXPLORE_INDEX } from '../../reducers/AppReducer'
+import { getExploreTab, getMasonryLoading, getOutOfPages, EXPLORE_INDEX } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 import { getUser } from '../../reducers/UserReducer'
 import * as userActions from '../../actions/UserActions'
@@ -25,6 +25,8 @@ class Explore extends Component {
     return (
       <Page>
         <Tabs
+          tab={this.props.tab}
+          changeTab={this.props.appActions.changeTab}
           picture={this.props.user.picture}
           logout={this.props.userActions.logout} />
         <MasonryLayout
@@ -43,6 +45,7 @@ function mapStateToProps(state) {
     lists: getPaginatedLists(state),
     isLoading: getMasonryLoading(state),
     isOutOfPages: getOutOfPages(state),
+    tab: getExploreTab(state),
     user: getUser(state)
   }
 }

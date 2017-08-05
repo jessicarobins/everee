@@ -204,14 +204,22 @@ const deleteListItem = async (req, res) => {
   }
 }
 
-const paginateLists = (req, res) => {
-  List.find().byPage(req.params.page)
-    .then( lists => {
-      res.json({lists: lists})
-    })
-    .catch( err => {
-      res.status(500).send(err)
-    })
+const paginateLists = async (req, res) => {
+  try {
+    const lists = await List.find().byPage(req.params.page, req.params.query)
+    res.json({lists: lists})
+  } catch(err) {
+    res.status(500).send(err)
+  }
+}
+
+const getCompleteLists = async (req, res) => {
+  try {
+    const lists = await List.find().complete()
+    res.json({lists: lists})
+  } catch(err) {
+    res.status(500).send(err)
+  }
 }
 
 const count = (req, res) => {
@@ -302,6 +310,7 @@ module.exports = {
   deleteList: deleteList,
   deleteListItem: deleteListItem,
   findOrCreateListTemplate: findOrCreateListTemplate,
+  getCompleteLists: getCompleteLists,
   getDemoLists: getDemoLists,
   getList: getList,
   getLists: getLists,

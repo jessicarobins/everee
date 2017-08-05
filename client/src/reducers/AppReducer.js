@@ -7,6 +7,10 @@ export const HOME_INDEX = 0
 export const EXPLORE_INDEX = 1
 export const LIST_INDEX = -1
 
+export const RECENT_TAB = 'recent'
+export const COMPLETE_TAB = 'complete'
+export const POPULAR_TAB = 'popular'
+
 const message = (
   state = '',
   action
@@ -85,7 +89,20 @@ const outOfPages = (
   }
 }
 
+const exploreTab = (
+  state = RECENT_TAB,
+  action
+) => {
+  switch (action.type) {
+    case actions.CHANGE_EXPLORE_TAB:
+      return action.tab
+    default:
+      return state
+  }
+}
+
 const AppReducer = combineReducers({
+  exploreTab,
   pageIndex,
   showAddEmptyList,
   masonryLoading,
@@ -94,6 +111,7 @@ const AppReducer = combineReducers({
   spinner
 })
 
+export const getExploreTab = state => state.app.exploreTab
 export const getOutOfPages = state => state.app.outOfPages
 export const getMasonryLoading = state => state.app.masonryLoading
 export const getPageIndex = state => state.app.pageIndex

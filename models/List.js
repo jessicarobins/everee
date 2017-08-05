@@ -52,6 +52,12 @@ listSchema.query.forUser = function(user) {
   return this.find({_users: user._id})
 }
 
+listSchema.query.complete = function() {
+  return this.find()
+    .gt('items', [])
+    .ne('items.complete', false)
+}
+
 listSchema.query.byRecent = function() {
   return this
           .find()
@@ -59,11 +65,15 @@ listSchema.query.byRecent = function() {
           .limit(20)
 }
 
-listSchema.query.byPage = function(page, limit=15) {
+listSchema.query.byPage = function(page, queryParams={}, limit=15) {
   const skipped = (page-1)*limit
-  return this
-          .find()
-          .sort('-dateAdded')
+  let query = this.find()
+
+  if (queryParams.complete) {
+    query = query.complete()
+  }
+
+  return query.sort('-dateAdded')
           .skip(skipped)
           .limit(limit)
           .populate('_users', 'name picture username')

@@ -215,13 +215,13 @@ export function addPaginatedLists(lists) {
   }
 }
 
-export function fetchPaginatedLists(page) {
+export function fetchPaginatedLists(page, params = {}) {
 
   const pageToLoad = page || 1
   return (dispatch) => {
     dispatch(setMasonryLoading(true))
 
-    return api(`lists/recent/${pageToLoad}`)
+    return api(`lists/recent/${pageToLoad}`, { params })
       .then(({lists}) => {
         if (lists && lists.length) {
           dispatch(addPaginatedLists(lists))

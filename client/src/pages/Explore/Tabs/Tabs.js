@@ -6,6 +6,8 @@ import HotIcon from 'material-ui/svg-icons/social/whatshot'
 import NewIcon from 'material-ui/svg-icons/av/new-releases'
 import CompleteIcon from 'material-ui/svg-icons/action/done'
 
+import { RECENT_TAB, COMPLETE_TAB, POPULAR_TAB } from '../../../reducers/AppReducer'
+
 import UserMenu from '../../../components/UserMenu/UserMenu'
 
 import logo from '../../../assets/everee2.svg'
@@ -63,16 +65,23 @@ class ExploreTabs extends Component {
         {
           this.state.sticky && <img src={logo} alt="logo" className="small-logo" />
         }
-        <Tabs className="container" style={styles.tabs}>
+        <Tabs
+          value={this.props.tab}
+          onChange={this.props.changeTab}
+          className="container"
+          style={styles.tabs}>
           <Tab
+            value={RECENT_TAB}
             icon={<NewIcon />}
             label="RECENT"
           />
           <Tab
+            value={POPULAR_TAB}
             icon={<HotIcon />}
             label="POPULAR"
           />
           <Tab
+            value={COMPLETE_TAB}
             icon={<CompleteIcon />}
             label="COMPLETE"
           />
