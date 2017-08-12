@@ -89,6 +89,7 @@ class ExploreTabs extends Component {
         {
           this.state.sticky &&
             <UserMenu
+              logoutButtonStyle={{marginTop: '0', marginRight: '5px'}}
               logout={this.props.logout}
               user={this.props.user} />
         }

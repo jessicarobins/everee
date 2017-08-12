@@ -31,6 +31,7 @@ class UserMenu extends Component {
 
   loggedOut() {
     return <RaisedButton
+      style={this.props.logoutButtonStyle}
       secondary={true}
       label="login"
       onClick={(creds) => this.props.login(creds)} />
@@ -42,3 +43,9 @@ class UserMenu extends Component {
 }
 
 export default UserMenu
+
+UserMenu.defaultProps = {
+  logoutButtonStyle: {
+    marginTop: '14px'
+  }
+}
