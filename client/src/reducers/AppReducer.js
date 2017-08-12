@@ -89,20 +89,7 @@ const outOfPages = (
   }
 }
 
-const exploreTab = (
-  state = RECENT_TAB,
-  action
-) => {
-  switch (action.type) {
-    case actions.CHANGE_EXPLORE_TAB:
-      return action.tab
-    default:
-      return state
-  }
-}
-
 const AppReducer = combineReducers({
-  exploreTab,
   pageIndex,
   showAddEmptyList,
   masonryLoading,
@@ -111,7 +98,6 @@ const AppReducer = combineReducers({
   spinner
 })
 
-export const getExploreTab = state => state.app.exploreTab
 export const getOutOfPages = state => state.app.outOfPages
 export const getMasonryLoading = state => state.app.masonryLoading
 export const getPageIndex = state => state.app.pageIndex

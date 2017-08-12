@@ -7,7 +7,6 @@ export const SHOW_SPINNER = 'SHOW_SPINNER'
 export const HIDE_SPINNER = 'HIDE_SPINNER'
 export const SET_MASONRY_LOADING = 'SET_MASONRY_LOADING'
 export const SET_OUT_OF_PAGES = 'SET_OUT_OF_PAGES'
-export const CHANGE_EXPLORE_TAB = 'CHANGE_EXPLORE_TAB'
 
 /** Lists **/
 

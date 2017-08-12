@@ -51,10 +51,3 @@ export function setOutOfPages(out) {
     out
   }
 }
-
-export function changeTab(tab) {
-  return {
-    type: actions.CHANGE_EXPLORE_TAB,
-    tab
-  }
-}

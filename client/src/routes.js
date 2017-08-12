@@ -61,7 +61,16 @@ export const makeMainRoutes = () => {
               )
             )} />
           <Route path="/list/:id" component={List} />
-          <Route path="/explore" component={Explore} />
+          <Route exact path="/explore" render={() => <Redirect to="/explore/recent" />} />
+          <Route
+            path="/explore/recent"
+            render={(props) => <Explore tab='recent' {...props} />} />
+          <Route
+            path="/explore/popular"
+            render={(props) => <Explore tab='popular' {...props} />} />
+          <Route
+            path="/explore/complete"
+            render={(props) => <Explore tab='complete' {...props} />} />
           <Route path="/callback" component={Callback} />
           <Route component={NotFound} />
         </Switch>

@@ -9,7 +9,6 @@ import { CardHeader } from 'material-ui/Card'
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import {
-  getExploreTab,
   getMasonryLoading,
   getOutOfPages,
   getShowSpinner,
@@ -65,7 +64,7 @@ class Explore extends Component {
 
   handleChangeTab = (tab) => {
     this.props.appActions.showSpinner()
-    this.props.appActions.changeTab(tab)
+    this.props.pushState(`/explore/${tab}`)
   }
 
   render() {
@@ -89,7 +88,6 @@ function mapStateToProps(state) {
     isLoading: getMasonryLoading(state),
     isOutOfPages: getOutOfPages(state),
     spinner: getShowSpinner(state),
-    tab: getExploreTab(state),
     user: getUser(state)
   }
 }
