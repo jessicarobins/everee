@@ -46,6 +46,6 @@ export default UserMenu
 
 UserMenu.defaultProps = {
   logoutButtonStyle: {
-    marginTop: '14px'
+    marginTop: '7px'
   }
 }
