@@ -8,11 +8,6 @@ import logo from '../../assets/everee2.svg'
 
 class EvereeAppBar extends Component {
 
-  constructor(props) {
-    super(props)
-    props.doAuthentication()
-  }
-
   render() {
 
     return (

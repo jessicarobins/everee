@@ -17,13 +17,21 @@ import Progress from '../components/Progress/Progress'
 
 class Page extends Component {
 
+  constructor(props) {
+    super(props)
+    props.userActions.doAuthentication()
+  }
+
+  componentWillUnmount() {
+   this.props.userActions.removeLockListeners()
+  }
+
   renderAppBar = () => {
     return (
       <AppBar
         user={this.props.user}
         authenticated={this.props.isAuthenticated}
         appBarStyle={this.props.appBarStyle}
-        doAuthentication={this.props.userActions.doAuthentication}
         login={this.props.userActions.login}
         logout={this.props.userActions.logout} />
     )

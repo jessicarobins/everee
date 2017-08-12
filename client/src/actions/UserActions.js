@@ -75,6 +75,12 @@ export function doAuthentication() {
   }
 }
 
+export function removeLockListeners() {
+  return dispatch => {
+    lock.removeAllListeners()
+  }
+}
+
 function logoutSuccess() {
   return {
     type: actions.LOGOUT_SUCCESS
