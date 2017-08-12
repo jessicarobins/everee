@@ -4,11 +4,12 @@ import Avatar from 'material-ui/Avatar'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
+import FlatButton from 'material-ui/FlatButton'
 
 class UserMenu extends Component {
 
-  render() {
-   const styles = {
+  loggedIn() {
+    const styles = {
       iconButton: {
         display: 'flex',
         margin: 0,
@@ -20,12 +21,20 @@ class UserMenu extends Component {
 
     return (
       <IconMenu
-        iconButtonElement={<IconButton style={styles.iconButton}><Avatar src={this.props.picture} /></IconButton>}
+        iconButtonElement={<IconButton style={styles.iconButton}><Avatar src={this.props.user.picture} /></IconButton>}
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}>
         <MenuItem primaryText="Logout" onClick={this.props.logout} />
       </IconMenu>
     )
+  }
+
+  loggedOut() {
+    return <FlatButton label="login" onClick={(creds) => this.props.login(creds)} />
+  }
+
+  render() {
+    return this.props.user ? this.loggedIn() : this.loggedOut()
   }
 }
 

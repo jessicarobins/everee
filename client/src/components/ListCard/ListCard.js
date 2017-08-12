@@ -12,25 +12,34 @@ class ListCard extends Component {
   }
 
   render() {
-    const { list } = this.props
+    const { list, hideProgress, header} = this.props
 
     const numItems = list.items.length
     const title = list.fullName || `${list.verb} every ${list.action}`
     return (
       <Card className="list-card">
-        <CardTitle
-          title={title}
-          subtitle={`${numItems} item${numItems === 1 ? '' : 's'}`} />
-        <CardText>
-          <LinearProgress mode="determinate" value={list.percentComplete} />
-        </CardText>
-        <CardText className="list-card-text">
-        {
-          list.items.map( (item, index) => {
-            return `${item.text}${index === list.items.length - 1 ? '' : ', '}`
-          })
+        <div>
+          {
+            header && header()
+          }
+          <CardTitle
+            title={title}
+            subtitle={`${numItems} item${numItems === 1 ? '' : 's'}`} />
+        </div>
+        { !hideProgress &&
+          <CardText>
+            <LinearProgress mode="determinate" value={list.percentComplete} />
+          </CardText>
         }
-        </CardText>
+        {
+          !!list.items.length && <CardText className="list-card-text">
+          {
+            list.items.map( (item, index) => {
+              return `${item.text}${index === list.items.length - 1 ? '' : ', '}`
+            })
+          }
+          </CardText>
+        }
         <CardActions>
           <FlatButton label="Go!" secondary={true} onClick={this.handleClickList} />
         </CardActions>

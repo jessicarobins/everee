@@ -90,7 +90,7 @@ class ExploreTabs extends Component {
           this.state.sticky &&
             <UserMenu
               logout={this.props.logout}
-              picture={this.props.picture} />
+              user={this.props.user} />
         }
       </div>
     )

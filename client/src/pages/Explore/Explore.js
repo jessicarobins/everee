@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
+import Avatar from 'material-ui/Avatar'
+import { CardHeader } from 'material-ui/Card'
+
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import {
@@ -30,6 +33,7 @@ class Explore extends Component {
 
   renderMasonry = () => {
     const masonryProps = {
+      hideProgress: true,
       isOutOfPages: this.props.isOutOfPages,
       isLoading: this.props.isLoading,
       pushState: this.props.pushState,
@@ -42,9 +46,14 @@ class Explore extends Component {
       masonryProps.fetchLists = (page) => this.props.listActions.fetchPaginatedLists(page, {complete: true})
     }
     else if (this.props.tab === RECENT_TAB) {
+      masonryProps.hideProgress = false
       masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
     }
     else {
+      masonryProps.cardHeader = (list) =>
+        <CardHeader
+          avatar={<Avatar>{list.count}</Avatar>}
+        />
       masonryProps.fetchLists = this.props.listActions.fetchPopularLists
     }
 
@@ -62,7 +71,8 @@ class Explore extends Component {
         <Tabs
           tab={this.props.tab}
           changeTab={this.handleChangeTab}
-          picture={this.props.user.picture}
+          user={this.props.user}
+          login={this.props.userActions.login}
           logout={this.props.userActions.logout} />
         {this.renderMasonry()}
       </Page>

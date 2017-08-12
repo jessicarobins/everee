@@ -15,15 +15,12 @@ class EvereeAppBar extends Component {
   }
 
   iconElementRight = () => {
-    if (this.props.authenticated) {
-      return (
-        <UserMenu
-          picture={this.props.user.picture}
-          logout={this.props.logout} />
-      )
-    }
-
-    return <FlatButton label="login" onClick={(creds) => this.props.login(creds)} />
+    return (
+      <UserMenu
+        user={this.props.user}
+        login={this.props.login}
+        logout={this.props.logout} />
+    )
   }
 
   render() {

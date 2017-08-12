@@ -233,6 +233,7 @@ const getPopularLists = async (req, res) => {
         items: { $first: '$items' },
         listId: { $first: '$_id' }
       })
+      .sort('-count')
       .exec()
     res.json({lists: lists})
   } catch(err) {
