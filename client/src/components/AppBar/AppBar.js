@@ -13,15 +13,6 @@ class EvereeAppBar extends Component {
     props.doAuthentication()
   }
 
-  iconElementRight = () => {
-    return (
-      <UserMenu
-        user={this.props.user}
-        login={this.props.login}
-        logout={this.props.logout} />
-    )
-  }
-
   render() {
 
     return (
@@ -31,7 +22,10 @@ class EvereeAppBar extends Component {
         zDepth={this.props.zDepth}
         title="everee"
         iconElementLeft={<img src={logo} alt="logo" className="small-logo" />}
-        iconElementRight={this.iconElementRight()}
+        iconElementRight={<UserMenu
+          user={this.props.user}
+          login={this.props.login}
+          logout={this.props.logout} />}
       />
     )
   }

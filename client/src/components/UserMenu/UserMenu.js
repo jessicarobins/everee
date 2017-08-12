@@ -4,7 +4,7 @@ import Avatar from 'material-ui/Avatar'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
-import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class UserMenu extends Component {
 
@@ -30,7 +30,10 @@ class UserMenu extends Component {
   }
 
   loggedOut() {
-    return <FlatButton label="login" onClick={(creds) => this.props.login(creds)} />
+    return <RaisedButton
+      secondary={true}
+      label="login"
+      onClick={(creds) => this.props.login(creds)} />
   }
 
   render() {

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { getList, canEditList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
-import { LIST_INDEX } from '../../reducers/AppReducer'
+import { LIST_INDEX, getShowSpinner } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
 import { isAuthenticated } from '../../reducers/UserReducer'
 
@@ -17,20 +17,22 @@ class List extends Component {
   constructor(props) {
     super(props)
 
-    if (!props.list) {
-      this.props.appActions.showSpinner()
-      this.props.listActions.fetchList(props.match.params.id)
-    }
+    this.props.appActions.showSpinner()
+    this.props.listActions.fetchList(props.match.params.id)
   }
 
   componentDidMount() {
     this.props.appActions.changePage(LIST_INDEX)
   }
 
+  showListContainer = () => {
+    return this.props.list && !this.props.spinner
+  }
+
   render() {
     return (
       <Page>
-        { this.props.list &&
+        { this.showListContainer() &&
           <ListPageContainer
             authenticated={this.props.isAuthenticated}
             cloneList={() => this.props.listActions.cloneListRequest(this.props.list.id)}
@@ -46,11 +48,12 @@ class List extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     isAuthenticated: isAuthenticated(state),
-    list: getList(state, props.match.params.id),
-    canEdit: canEditList(state)
+    list: getList(state),
+    canEdit: canEditList(state),
+    spinner: getShowSpinner(state)
   }
 }
 
