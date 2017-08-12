@@ -16,15 +16,16 @@ class ListCard extends Component {
 
     const numItems = list.items.length
     const title = list.fullName || `${list.verb} every ${list.action}`
+    const subtitle = `${numItems} item${numItems === 1 ? '' : 's'}`
     return (
       <Card className="list-card">
         <div>
           {
-            header && header()
+            header ? header(title, subtitle, list.count) :
+            <CardTitle
+              title={title}
+              subtitle={subtitle} />
           }
-          <CardTitle
-            title={title}
-            subtitle={`${numItems} item${numItems === 1 ? '' : 's'}`} />
         </div>
         { !hideProgress &&
           <CardText>

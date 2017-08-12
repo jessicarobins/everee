@@ -50,10 +50,13 @@ class Explore extends Component {
       masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
     }
     else {
-      masonryProps.cardHeader = (list) =>
-        <CardHeader
-          avatar={<Avatar>{list.count}</Avatar>}
+      masonryProps.cardHeader = (title, subtitle, count) => {
+        return <CardHeader
+          title={title}
+          subtitle={subtitle}
+          avatar={<Avatar>{count}</Avatar>}
         />
+      }
       masonryProps.fetchLists = this.props.listActions.fetchPopularLists
     }
 
