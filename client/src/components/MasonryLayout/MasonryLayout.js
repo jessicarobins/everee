@@ -72,6 +72,9 @@ class MasonryLayout extends Component {
             {
               this.props.lists.map( (list, index) => (
                 <ListCard
+                  hideGo={this.props.hideGo}
+                  hideClone={this.props.hideClone}
+                  cloneList={this.props.cloneList}
                   header={this.props.cardHeader}
                   hideProgress={this.props.hideProgress}
                   pushState={this.props.pushState}

@@ -11,6 +11,10 @@ class ListCard extends Component {
     this.props.pushState(`/list/${this.props.list._id}`)
   }
 
+  handleCloneList = () => {
+    this.props.cloneList(this.props.list)
+  }
+
   render() {
     const { list, hideProgress, header} = this.props
 
@@ -42,7 +46,12 @@ class ListCard extends Component {
           </CardText>
         }
         <CardActions>
-          <FlatButton label="Go!" secondary={true} onClick={this.handleClickList} />
+        {
+          !this.props.hideClone && <FlatButton label="Copy" secondary={true} onClick={this.handleCloneList} />
+        }
+        {
+          !this.props.hideGo && <FlatButton label="Go!" secondary={true} onClick={this.handleClickList} />
+        }
         </CardActions>
       </Card>
     )

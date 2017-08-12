@@ -201,8 +201,6 @@ export function cloneListRequest(id) {
       method: 'post'
     })
     .then(({list}) => {
-      dispatch(setCanEditList(true))
-      dispatch(setList(list))
       dispatch(push(`/list/${list._id}`))
     })
   }

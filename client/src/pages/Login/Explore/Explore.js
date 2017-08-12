@@ -30,6 +30,7 @@ class Explore extends Component {
         style={styles.container}
         className="explore-container">
         <MasonryLayout
+          hideClone={true}
           isOutOfPages={true}
           fetchLists={this.props.fetchLists}
           pushState={this.props.pushState}

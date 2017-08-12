@@ -16,7 +16,7 @@ import {
   RECENT_TAB,
   COMPLETE_TAB } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
-import { getUser } from '../../reducers/UserReducer'
+import { getUser, isAuthenticated } from '../../reducers/UserReducer'
 import * as userActions from '../../actions/UserActions'
 
 import Page from '../Page'
@@ -32,6 +32,7 @@ class Explore extends Component {
 
   renderMasonry = () => {
     const masonryProps = {
+      hideClone: !this.props.authenticated,
       hideProgress: true,
       isOutOfPages: this.props.isOutOfPages,
       isLoading: this.props.isLoading,
@@ -42,9 +43,11 @@ class Explore extends Component {
     }
 
     if (this.props.tab === COMPLETE_TAB) {
+      masonryProps.cloneList = (list) => this.props.listActions.cloneListRequest(list._id)
       masonryProps.fetchLists = (page) => this.props.listActions.fetchPaginatedLists(page, {complete: true})
     }
     else if (this.props.tab === RECENT_TAB) {
+      masonryProps.cloneList = (list) => this.props.listActions.cloneListRequest(list._id)
       masonryProps.hideProgress = false
       masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
     }
@@ -56,7 +59,10 @@ class Explore extends Component {
           avatar={<Avatar>{count}</Avatar>}
         />
       }
+
+      masonryProps.hideGo = true
       masonryProps.fetchLists = this.props.listActions.fetchPopularLists
+      masonryProps.cloneList = (list) => this.props.listActions.cloneListRequest(list.listId)
     }
 
     return <MasonryLayout {...masonryProps} />
@@ -84,6 +90,7 @@ class Explore extends Component {
 
 function mapStateToProps(state) {
   return {
+    authenticated: isAuthenticated(state),
     lists: getPaginatedLists(state),
     isLoading: getMasonryLoading(state),
     isOutOfPages: getOutOfPages(state),
