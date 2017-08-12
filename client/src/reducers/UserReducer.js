@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import * as actions from '../actions/ActionTypes'
+import { isAuthenticated as isAuthExpired } from '../routes'
 
 const profile = (
   state = JSON.parse(localStorage.getItem('profile')),
@@ -19,7 +20,7 @@ const profile = (
 }
 
 const authenticated = (
-  state = localStorage.getItem('id_token') ? true : false,
+  state = isAuthExpired(),
   action
 ) => {
   switch (action.type) {

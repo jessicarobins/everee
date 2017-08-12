@@ -47,6 +47,7 @@ export function logout() {
     localStorage.removeItem('id_token')
     localStorage.removeItem('access_token')
     localStorage.removeItem('profile')
+    localStorage.removeItem('expires_at')
     dispatch(logoutSuccess())
     dispatch(push('/login'))
   }
@@ -63,9 +64,13 @@ export function doAuthentication() {
           return dispatch(lockError(error))
         }
 
+        // Set the time that the access token will expire at
+        const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+
         localStorage.setItem('profile', JSON.stringify(profile))
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
+        localStorage.setItem('expires_at', expiresAt)
         dispatch(updateUserProfile())
         dispatch(loginSuccess(profile))
         dispatch(push('/'))

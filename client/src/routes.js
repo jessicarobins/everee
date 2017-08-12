@@ -38,7 +38,8 @@ const store = createStore(
 )
 
 export function isAuthenticated() {
-  return !!localStorage.getItem('id_token')
+  const expiresAt = JSON.parse(localStorage.getItem('expires_at'))
+  return (new Date().getTime() < expiresAt)
 }
 
 export const makeMainRoutes = () => {
