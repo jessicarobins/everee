@@ -14,3 +14,22 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@media only screen
+  and (max-device-width: 736px) {
+
+  .list-list-container {
+    flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .list-list-paper {
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+
+  .list-list-container .list-card {
+    width: 100%;
+  }
+}
