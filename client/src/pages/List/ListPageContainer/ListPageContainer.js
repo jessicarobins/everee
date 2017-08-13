@@ -6,6 +6,7 @@ import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
 
+import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
 import CreateListItemForm from '../../../components/CreateListItemForm/CreateListItemForm'
 
@@ -61,6 +62,7 @@ class ListPageContainer extends Component {
               </div>
             </Paper>
         }
+        <Sharebar className="list-detail" />
         <ListItems
           canEdit={this.props.canEdit}
           deleteListItem={this.props.deleteListItem}

@@ -1,0 +1,12 @@
+.sharebar {
+  display: flex;
+  justify-content: space-around;
+}
+
+.SocialMediaShareButton {
+  cursor: pointer;
+}
+
+.SocialMediaShareButton:focus {
+  outline: none;
+}
