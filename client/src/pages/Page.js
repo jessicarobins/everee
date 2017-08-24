@@ -46,12 +46,6 @@ class Page extends Component {
         <meta name="description" content="A crowd-sourced bucket list for completionists" />
         <meta name="author" content="Jessica Robins" />
         <meta name="keywords" content="everee,bucket,list,completionist,todo,crowdsource,social" />
-        <meta property="og:title" content="everee &mdash; a crowd-sourced bucket list for completionists" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content={`${process.env.REACT_APP_BASE_URL}everee.png`}/>
-        <meta property="og:url" content={process.env.REACT_APP_BASE_URL}/>
-        <meta property="og:description" content="On a quest to eat every flavor of oreo? Run a 5k in every state? Visit every European capital? Check out everee, a crowd-sourced bucket list app for completionists!" />
-        <meta property="fb:app_id" content="1821098288164182"/>
       </Helmet>
     )
   }
