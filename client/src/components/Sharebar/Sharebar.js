@@ -27,7 +27,8 @@ class Sharebar extends Component {
       <div className={`sharebar ${this.props.className}`}>
         <FacebookShareButton
           url={shareUrl}
-          title={shareTitle}>
+          title={shareTitle}
+          picture={`${process.env.REACT_APP_BASE_URL}everee.svg`}>
           <FacebookIcon size={iconSize} round />
         </FacebookShareButton>
         <TwitterShareButton

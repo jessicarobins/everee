@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
@@ -37,6 +38,24 @@ class Page extends Component {
     )
   }
 
+  generateMetaTags() {
+    return(
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>everee &mdash; a bucket list for completionists</title>
+        <meta name="description" content="A crowd-sourced bucket list for completionists" />
+        <meta name="author" content="Jessica Robins" />
+        <meta name="keywords" content="everee,bucket,list,completionist,todo,crowdsource,social" />
+        <meta property="og:title" content="everee &mdash; a crowd-sourced bucket list for completionists" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content={`${process.env.REACT_APP_BASE_URL}everee.png`}/>
+        <meta property="og:url" content={process.env.REACT_APP_BASE_URL}/>
+        <meta property="og:description" content="On a quest to eat every flavor of oreo? Run a 5k in every state? Visit every European capital? Check out everee, a crowd-sourced bucket list app for completionists!" />
+        <meta property="fb:app_id" content="1821098288164182"/>
+      </Helmet>
+    )
+  }
+
   render() {
     const {
       children,
@@ -48,6 +67,7 @@ class Page extends Component {
 
     return (
       <div className={className}>
+        {this.generateMetaTags()}
         { !hideTopPaper ?
           <Paper zDepth={2}>
             {this.renderAppBar()}
