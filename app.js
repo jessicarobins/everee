@@ -50,9 +50,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')))
-
 app.use('/api', index)
 app.use('/api/lists', lists)
 app.use('/api/users', users)
