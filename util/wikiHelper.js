@@ -37,17 +37,11 @@ const uploadImage = async function(url) {
       responseType: 'arraybuffer'
     })
 
-    s3.putObject({
+    return s3.putObject({
       ACL: 'public-read',
       Body: data,
       Key: filename
-    }, function(error, data) {
-      if (error) {
-        console.log("error downloading image to s3: ", error)
-      } else {
-        console.log("success uploading to s3")
-      }
-    })
+    }).promise()
   } catch(err) {
     console.log('error: ', err)
   }
