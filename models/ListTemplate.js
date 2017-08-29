@@ -107,6 +107,25 @@ listTemplate.methods.addItem = function(itemText, exceptLists) {
     })
 }
 
+listTemplate.methods.updateImage = async function(imageUrl) {
+  const template = this
+  template.image = imageUrl
+  const promises = []
+  promises.push(template.save())
+  try {
+    const lists = await this.model('List').find({_template: this._id}).exec()
+    lists.forEach(list => {
+      list.image = imageUrl
+      promises.push(list.save())
+    })
+
+    return Promise.all(promises)
+  } catch(err) {
+    console.log('error: ', err)
+    return Promise.reject(err)
+  }
+}
+
 listTemplate.set('toJSON', { virtuals: true })
 
 module.exports = mongoose.model('ListTemplate', listTemplate)

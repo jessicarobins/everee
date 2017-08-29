@@ -37,11 +37,13 @@ const uploadImage = async function(url) {
       responseType: 'arraybuffer'
     })
 
-    return s3.putObject({
+    await s3.putObject({
       ACL: 'public-read',
       Body: data,
       Key: filename
     }).promise()
+
+    return `https://s3.amazonaws.com/${process.env.AWS_IMAGE_BUCKET}/${filename}`
   } catch(err) {
     console.log('error: ', err)
   }

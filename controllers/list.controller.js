@@ -165,7 +165,12 @@ const getList = async (req, res) => {
 
     const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
 
-    await findAndUploadImage(list.action)
+    // temporary
+    if (!list.image) {
+      const template = await ListTemplate.findById(list._template)
+      const url = await findAndUploadImage(list.action)
+      await template.updateImage(url)
+    }
 
     res.json({ list, authenticated })
   } catch(err) {
