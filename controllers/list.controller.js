@@ -7,6 +7,7 @@ const ListTemplate = require('../models/ListTemplate')
 const User = require('../models/User')
 
 const wolframHelper = require('../util/wolframHelper')
+const { findAndUploadImage } = require('../util/wikiHelper')
 
 const getDemoLists = (req, res) => {
   res.json( {lists: List.demoLists() })
@@ -152,8 +153,6 @@ const findOrCreateListTemplate = async (req, res) => {
 
 const getList = async (req, res) => {
 
-  console.log('req.user?? ', req.user)
-
   let user
   if (req.user) {
     user = await User.find().findByAuth0(req.user).exec()
@@ -165,6 +164,8 @@ const getList = async (req, res) => {
       .exec()
 
     const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
+
+    await findAndUploadImage(list.action)
 
     res.json({ list, authenticated })
   } catch(err) {

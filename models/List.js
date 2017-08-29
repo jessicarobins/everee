@@ -16,6 +16,7 @@ const DELETE_ITEM_THRESHOLD = 1
 const listSchema = new Schema({
   verb: { type: 'String', required: true },
   action: { type: 'String', required: true },
+  image: { type: 'String' },
   _template: { type: Schema.Types.ObjectId, ref: 'ListTemplate' },
   items: [ListItem.schema],
   _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],

@@ -12,6 +12,7 @@ mongoose.Promise = Promise
 const listTemplate = new Schema({
   actions: [String],
   items: [ListItem.schema],
+  image: { type: 'String' },
   pendingItems: [PendingItem.schema],
   sha: { type: 'String' },
   dateAdded: { type: 'Date', default: Date.now, required: true },
