@@ -27,10 +27,10 @@ exports.findAndUploadImage = async function(text) {
 
 const searchTerms = function(text) {
   let parsedText = text
-  if (text.includes('in')) {
-    parsedText = text.split('in')[0]
-  } else if (text.includes('of')) {
-    parsedText = text.split('of')[1]
+  if (text.includes(' in ')) {
+    parsedText = text.split(' in ')[0]
+  } else if (text.includes(' of ')) {
+    parsedText = text.split(' of ')[1]
   }
 
   parsedText = parsedText.replace(/ of | the | in /g, ' ')
