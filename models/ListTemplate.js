@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const hasha = require('hasha')
 const  _ = require('lodash')
 
+const { findAndUploadImage } = require('../util/wikiHelper')
+
 const List = require('./List')
 const ListItem = require('./ListItem')
 const PendingItem = require('./PendingItem')
@@ -24,13 +26,19 @@ listTemplate.virtual('name').get(function() {
   return this.actions[0]
 })
 
-listTemplate.pre('save', function(next) {
+listTemplate.pre('save', async function(next) {
   //update sha
   if(this.items){
     this.sha = hasha( _.map(this.items, 'text'))
   }
   else {
     this.sha = undefined
+  }
+
+  // find image
+  if (this.isNew) {
+    const image = await findAndUploadImage(this.actions[0])
+    this.image = image
   }
   next()
 })

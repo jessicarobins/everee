@@ -15,6 +15,23 @@ class ListCard extends Component {
     this.props.cloneList(this.props.list)
   }
 
+  defaultHeader({title, subtitle, image}) {
+    if (image) {
+      return (
+        <CardMedia
+          overlay={<CardTitle title={title} subtitle={subtitle} />}>
+          <img className="list-card-image" src={image} alt="" />
+        </CardMedia>
+      )
+    }
+
+    return (
+      <CardTitle
+        title={title}
+        subtitle={subtitle} />
+    )
+  }
+
   render() {
     const { list, hideProgress, header} = this.props
 
@@ -25,10 +42,7 @@ class ListCard extends Component {
       <Card className="list-card">
         {
           header ? header(title, subtitle, list.count) :
-          <CardMedia
-            overlay={<CardTitle title={title} subtitle={subtitle} />}>
-            <img className="list-card-image" src={list.image} alt="" />
-          </CardMedia>
+            this.defaultHeader({title, subtitle, image: list.image})
         }
         { !hideProgress &&
           <CardText>

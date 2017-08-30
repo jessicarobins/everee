@@ -172,6 +172,7 @@ listSchema.methods.addListItem = function(item, user) {
 }
 
 listSchema.methods.addItemsFromTemplate = function(template) {
+  this.image = template.image
   this.items = _.clone(template.items)
   this._template = template._id
   return this.save()
@@ -182,6 +183,7 @@ listSchema.methods.cloneForUser = function(_user) {
   const newList = new this.constructor()
   newList.verb = this.verb
   newList.action = this.action
+  newList.image = this.image
   newList._users.push(_user)
 
   this.items.forEach( (item) => {

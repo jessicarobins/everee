@@ -22,6 +22,8 @@ class ListPageContainer extends Component {
         fontSize: '1em'
       }
     }
+
+    const cardTitle = <CardTitle titleStyle={styles.cardText} title={`I want to ${list.name}`} />
     return (
       <div className="list-page-container container">
         <Card className="list-name">
@@ -32,10 +34,14 @@ class ListPageContainer extends Component {
               })
             }
           </CardText>
-          <CardMedia
-            overlay={<CardTitle titleStyle={styles.cardText} title={`I want to ${list.name}`} />}>
-            <img className="list-image" src={list.image} alt="" />
-          </CardMedia>
+          {
+            !!list.image ?
+            <CardMedia
+              overlay={cardTitle}>
+              <img className="list-image" src={list.image} alt="" />
+            </CardMedia> :
+            cardTitle
+          }
         </Card>
         <Paper className="list-progress list-detail">
           <LinearProgress

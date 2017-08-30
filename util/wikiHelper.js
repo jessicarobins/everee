@@ -14,7 +14,11 @@ exports.findAndUploadImage = async function(text) {
   try {
     const searchText = searchTerms(text)
     const url = await findImage(searchText)
-    return uploadImage(url)
+    if (url) {
+      return uploadImage(url)
+    } else {
+      console.log('there were no image results for search text ', searchText)
+    }
   } catch(err) {
     console.log('error: ', err)
     return Promise.reject(err)
@@ -22,7 +26,14 @@ exports.findAndUploadImage = async function(text) {
 }
 
 const searchTerms = function(text) {
-  const parsedText = text.replace(/of |the |in /g, '')
+  let parsedText = text
+  if (text.includes('in')) {
+    parsedText = text.split('in')[0]
+  } else if (text.includes('of')) {
+    parsedText = text.split('of')[1]
+  }
+
+  parsedText = parsedText.replace(/ of | the | in /g, ' ')
   const words = _.words(parsedText)
   if (words.length > 2) {
     return `${words[0]} ${words[1]}`
