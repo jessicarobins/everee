@@ -41,8 +41,7 @@
     "react-router-dom": "^4.1.2",
     "react-share": "^1.15.0",
     "react-typist": "^1.1.1",
-    "redux-thunk": "^2.2.0",
-    "wikijs": "^4.0.1"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
