@@ -174,6 +174,7 @@ const getList = async (req, res) => {
 
     res.json({ list, authenticated })
   } catch(err) {
+    console.log('error in the controller: ', err)
     res.status(404).send(err)
   }
 }

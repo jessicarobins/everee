@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card'
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import LinearProgress from 'material-ui/LinearProgress'
 
@@ -23,14 +23,13 @@ class ListCard extends Component {
     const subtitle = `${numItems} item${numItems === 1 ? '' : 's'}`
     return (
       <Card className="list-card">
-        <div>
-          {
-            header ? header(title, subtitle, list.count) :
-            <CardTitle
-              title={title}
-              subtitle={subtitle} />
-          }
-        </div>
+        {
+          header ? header(title, subtitle, list.count) :
+          <CardMedia
+            overlay={<CardTitle title={title} subtitle={subtitle} />}>
+            <img className="list-card-image" src={list.image} alt="" />
+          </CardMedia>
+        }
         { !hideProgress &&
           <CardText>
             <LinearProgress mode="determinate" value={list.percentComplete} />
