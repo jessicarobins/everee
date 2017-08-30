@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import {Card, CardTitle, CardMedia, CardText} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
 import Avatar from 'material-ui/Avatar'
@@ -16,21 +17,26 @@ class ListPageContainer extends Component {
 
   render() {
     const { list } = this.props
-
+    const styles = {
+      cardText: {
+        fontSize: '1em'
+      }
+    }
     return (
       <div className="list-page-container container">
-        <Paper className="list-name list-detail">
-          <div>
-            I want to {list.name}
-          </div>
-          <div className="list-users">
+        <Card className="list-name">
+          <CardText>
             {
               list._users.map(user => {
                 return <Avatar key={user} src={user.picture} />
               })
             }
-          </div>
-        </Paper>
+          </CardText>
+          <CardMedia
+            overlay={<CardTitle titleStyle={styles.cardText} title={`I want to ${list.name}`} />}>
+            <img className="list-image" src={list.image} alt="" />
+          </CardMedia>
+        </Card>
         <Paper className="list-progress list-detail">
           <LinearProgress
             mode="determinate"

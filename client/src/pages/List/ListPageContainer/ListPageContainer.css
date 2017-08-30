@@ -28,6 +28,11 @@
   padding: 20px;
 }
 
+.list-image {
+  object-fit: cover;
+  max-height: 350px;
+}
+
 .list-name {
   font-weight: 100;
   font-size: 3em;
@@ -40,10 +45,6 @@
 
 .list-detail.sharebar {
   grid-column: 1 / 2;
-}
-
-.list-users {
-  margin-top: 20px;
 }
 
 .list-chips {
