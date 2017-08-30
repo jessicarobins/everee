@@ -18,6 +18,7 @@ class EvereeAppBar extends Component {
         title="everee"
         iconElementLeft={<img src={logo} alt="logo" className="small-logo" />}
         iconElementRight={<UserMenu
+          authenticated={this.props.authenticated}
           user={this.props.user}
           login={this.props.login}
           logout={this.props.logout} />}

@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { isAuthenticated } from '../routes'
+
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
@@ -7,7 +9,7 @@ const headers = {
 
 export default function callApi(endpoint, {method = 'get', data, params} = {}) {
 
-  const token = localStorage.getItem('id_token') || null
+  const token = isAuthenticated() ? localStorage.getItem('id_token') : null
 
   if(token) {
     headers['Authorization'] =  `Bearer ${token}`

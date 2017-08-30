@@ -77,6 +77,7 @@ class Explore extends Component {
     return (
       <Page>
         <Tabs
+          authenticated={this.props.authenticated}
           tab={this.props.tab}
           changeTab={this.handleChangeTab}
           user={this.props.user}

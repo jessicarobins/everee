@@ -38,7 +38,7 @@ class UserMenu extends Component {
   }
 
   render() {
-    return this.props.user ? this.loggedIn() : this.loggedOut()
+    return this.props.authenticated ? this.loggedIn() : this.loggedOut()
   }
 }
 
