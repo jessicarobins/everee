@@ -57,7 +57,7 @@ export function logout() {
 export function doAuthentication() {
   return dispatch => {
     lock.on("authenticated", function(authResult) {
-      lock.getUserInfo(authResult.accessToken, function(error, profile) {
+      lock.getUserInfo(authResult.accessToken, async function(error, profile) {
 
         if (error) {
           // handle error
@@ -65,13 +65,15 @@ export function doAuthentication() {
         }
 
         // Set the time that the access token will expire at
-        const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
+        // auth0 is buggy and doesn't always return expiresIn ...
+        const expiresIn = authResult.expiresIn || 86400
+        const expiresAt = JSON.stringify((expiresIn * 1000) + new Date().getTime())
 
         localStorage.setItem('profile', JSON.stringify(profile))
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
         localStorage.setItem('expires_at', expiresAt)
-        dispatch(updateUserProfile())
+        await updateUserProfile()
         dispatch(loginSuccess(profile))
         dispatch(push('/'))
         lock.hide()
@@ -99,10 +101,8 @@ function loginSuccess(user) {
   }
 }
 
-export function updateUserProfile() {
-  return (dispatch) => {
-    return api('users', {
-      method: 'put'
-    })
-  }
+function updateUserProfile() {
+  return api('users', {
+    method: 'put'
+  })
 }
