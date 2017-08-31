@@ -16,13 +16,22 @@ class List extends Component {
 
   constructor(props) {
     super(props)
-
     this.props.appActions.showSpinner()
-    this.props.listActions.fetchList(props.match.params.id)
   }
 
   componentDidMount() {
     this.props.appActions.changePage(LIST_INDEX)
+    this.fetchList(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      this.fetchList(nextProps.match.params.id)
+    }
+  }
+
+  fetchList = (id) => {
+    this.props.listActions.fetchList(id)
   }
 
   showListContainer = () => {
