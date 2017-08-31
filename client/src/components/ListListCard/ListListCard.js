@@ -10,7 +10,7 @@ class ListListCard extends Component {
     return (
       <Paper className="list-card">
         <ListList
-          avatar={true}
+          avatar={(list) => list._users[0].picture}
           max={5}
           subheaderText={this.props.subheaderText}
           getLists={this.props.fetchLists}

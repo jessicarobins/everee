@@ -41,7 +41,7 @@ class ListCard extends Component {
     return (
       <Card className="list-card">
         {
-          header ? header(title, subtitle, list.count) :
+          header ? header(title, subtitle, list.count, list.image) :
             this.defaultHeader({title, subtitle, image: list.image})
         }
         { !hideProgress &&

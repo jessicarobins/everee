@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
 import Avatar from 'material-ui/Avatar'
-import { CardHeader } from 'material-ui/Card'
+import { CardHeader, CardMedia } from 'material-ui/Card'
 
 import { getPaginatedLists } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
@@ -52,12 +52,22 @@ class Explore extends Component {
       masonryProps.fetchLists = this.props.listActions.fetchPaginatedLists
     }
     else {
-      masonryProps.cardHeader = (title, subtitle, count) => {
-        return <CardHeader
-          title={title}
-          subtitle={subtitle}
-          avatar={<Avatar>{count}</Avatar>}
-        />
+      masonryProps.cardHeader = (title, subtitle, count, image) => {
+        return (
+          <div>
+            {
+              image &&
+                <CardMedia>
+                  <img className="list-card-image" src={image} alt="" />
+                </CardMedia>
+            }
+            <CardHeader
+              title={title}
+              subtitle={subtitle}
+              avatar={<Avatar>{count}</Avatar>}
+            />
+          </div>
+        )
       }
 
       masonryProps.hideGo = true

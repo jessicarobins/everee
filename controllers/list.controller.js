@@ -165,15 +165,6 @@ const getList = async (req, res) => {
 
     const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
 
-    // temporary
-    if (!list.image) {
-      const template = await ListTemplate.findById(list._template)
-      const url = await findAndUploadImage(list.action)
-      if (url) {
-        await template.updateImage(url)
-      }
-    }
-
     res.json({ list, authenticated })
   } catch(err) {
     console.log('error in the controller: ', err)
@@ -240,7 +231,8 @@ const getPopularLists = async (req, res) => {
         action: { $first: '$action' },
         verb: { $first: '$verb' },
         items: { $first: '$items' },
-        listId: { $first: '$_id' }
+        listId: { $first: '$_id' },
+        image: { $first: '$image'}
       })
       .sort('-count')
       .exec()

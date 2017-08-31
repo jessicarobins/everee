@@ -58,6 +58,7 @@ class Home extends Component {
             <div className="container list-list-container">
               <Paper className="list-list-paper">
                 <ListList
+                  avatar={(list) => list.image}
                   subheaderText='I want to...'
                   showPercentComplete={true}
                   handleChangeList={(list) => this.handleChangeList(list, true)}

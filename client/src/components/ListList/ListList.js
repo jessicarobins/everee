@@ -35,10 +35,18 @@ class ListList extends Component {
   render() {
 
     const { lists, max, avatar } = this.props
-
     const displayLists = max ? _.take(lists, max) : lists
 
-
+    const styles = {
+      listItem: {
+        display: 'flex',
+        padding: '10px 16px'
+      },
+      avatar: {
+        position: 'static',
+        marginRight: '16px'
+      }
+    }
 
     return (
       <List>
@@ -53,13 +61,13 @@ class ListList extends Component {
               primaryText: this.renderListItem(list)
             }
 
-            if (avatar) {
-              listItemProps.leftAvatar = <Avatar src={list._users[0].picture} />
+            if (avatar && avatar(list)) {
+              listItemProps.leftAvatar = <Avatar style={styles.avatar} src={avatar(list)} />
             }
 
             return (
               <div key={index}>
-                <ListItem {...listItemProps} />
+                <ListItem {...listItemProps} innerDivStyle={styles.listItem}/>
                 {(index !== displayLists.length-1) && <Divider />}
               </div>
             )
