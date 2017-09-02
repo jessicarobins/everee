@@ -2,7 +2,7 @@
   margin-top: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   align-items: start;
@@ -54,7 +54,7 @@
 }
 
 .list-items-container {
-  grid-row: 1 / 4;
+  grid-row: 1 /  span 5;
   grid-column: 2 / 3;
 }
 
