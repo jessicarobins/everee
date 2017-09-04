@@ -52,9 +52,10 @@ export function toggleListItemRequest({listId, listItemId}) {
 export function fetchList(id) {
   return (dispatch) => {
     return api(`lists/${id}`)
-      .then(res => {
-        dispatch(setList(res.list))
-        dispatch(setCanEditList(res.authenticated))
+      .then(({list, authenticated, related}) => {
+        list.related = related
+        dispatch(setList(list))
+        dispatch(setCanEditList(authenticated))
       })
       .catch(err => {
         dispatch(push('/404'))

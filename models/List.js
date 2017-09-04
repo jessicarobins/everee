@@ -289,6 +289,15 @@ listSchema.methods.deleteListItem = function(_id) {
     })
 }
 
+listSchema.methods.relatedLists = function() {
+  return this
+    .constructor
+    .find({_template: this._template})
+    .ne('_users', this._users[0]._id)
+    .populate('_users', 'name picture username')
+    .exec()
+}
+
 listSchema.statics.random = function() {
   return this.count()
     .then( count => {

@@ -164,8 +164,8 @@ const getList = async (req, res) => {
       .exec()
 
     const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
-
-    res.json({ list, authenticated })
+    const related = await list.relatedLists()
+    res.json({ list, related, authenticated })
   } catch(err) {
     console.log('error in the controller: ', err)
     res.status(404).send(err)
@@ -221,6 +221,18 @@ const getCompleteLists = async (req, res) => {
     res.status(500).send(err)
   }
 }
+
+
+const getRelatedLists = async (req, res) => {
+  try {
+    const list = await List.findById(req.params._id).exec()
+    const lists = await list.relatedLists()
+    res.json({lists: lists})
+  } catch(err) {
+    res.status(500).send(err)
+  }
+}
+
 
 const getPopularLists = async (req, res) => {
   try {
@@ -337,6 +349,7 @@ module.exports = {
   getLists: getLists,
   getPopularLists: getPopularLists,
   getRecentLists: getRecentLists,
+  getRelatedLists: getRelatedLists,
   paginateLists: paginateLists,
   random: random,
   toggleListItem: toggleListItem
