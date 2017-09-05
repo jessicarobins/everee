@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
 import CreateListItemForm from '../../../components/CreateListItemForm/CreateListItemForm'
+import ListListCard from '../../../components/ListListCard/ListListCard'
 
 import './ListPageContainer.css'
 
@@ -80,6 +81,13 @@ class ListPageContainer extends Component {
           deleteListItem={this.props.deleteListItem}
           toggleListItem={this.props.toggleListItem}
           list={list} />
+        {
+          (this.props.list.related && this.props.list.related.length) &&
+          <ListListCard
+            handleChangeList={list => this.props.handleChangeList(list)}
+            lists={this.props.list.related}
+            subheaderText='Related Lists' />
+        }
       </div>
     )
   }

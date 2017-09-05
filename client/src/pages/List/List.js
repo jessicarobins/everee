@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { push } from 'react-router-redux'
 
 import { getList, canEditList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
@@ -38,11 +39,16 @@ class List extends Component {
     return this.props.list && !this.props.spinner
   }
 
+  handleChangeList = list => {
+    this.props.pushState(`/list/${list._id}`)
+  }
+
   render() {
     return (
       <Page>
         { this.showListContainer() &&
           <ListPageContainer
+            handleChangeList={this.handleChangeList}
             authenticated={this.props.isAuthenticated}
             cloneList={() => this.props.listActions.cloneListRequest(this.props.list.id)}
             canEdit={this.props.canEdit}
@@ -69,7 +75,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(appActions, dispatch),
-    listActions: bindActionCreators(listActions, dispatch)
+    listActions: bindActionCreators(listActions, dispatch),
+    pushState: bindActionCreators(push, dispatch)
   }
 }
 

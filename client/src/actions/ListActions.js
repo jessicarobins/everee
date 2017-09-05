@@ -16,6 +16,9 @@ export function fetchRecentLists() {
     return api('lists/recent').then(res => {
       dispatch(addRecentLists(res.lists))
     })
+    .catch(err => {
+      dispatch(addMessage(err))
+    })
   }
 }
 
