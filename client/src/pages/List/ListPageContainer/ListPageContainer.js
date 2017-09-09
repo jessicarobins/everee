@@ -56,7 +56,6 @@ class ListPageContainer extends Component {
         {
           this.props.canEdit &&
           <Paper className="list-item-form list-detail">
-
             <CreateListItemForm
               addMessage={this.props.addMessage}
               addListItem={this.props.addListItem}
@@ -65,7 +64,7 @@ class ListPageContainer extends Component {
         }
         {
           !this.props.canEdit && this.props.authenticated &&
-            <Paper className="list-detail">
+            <Paper className="list-detail clone-list">
               <div className="clone-list-container">
                 <div className="do-this-too">Want to do this too?</div>
                 <RaisedButton
@@ -82,8 +81,9 @@ class ListPageContainer extends Component {
           toggleListItem={this.props.toggleListItem}
           list={list} />
         {
-          (this.props.list.related && this.props.list.related.length) &&
+          (this.props.list.related && this.props.list.related.length > 0) &&
           <ListListCard
+            className="related-lists"
             handleChangeList={list => this.props.handleChangeList(list)}
             lists={this.props.list.related}
             subheaderText='Related Lists' />

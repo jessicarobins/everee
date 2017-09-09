@@ -8,7 +8,7 @@ class ListListCard extends Component {
 
   render() {
     return (
-      <Paper className="list-card">
+      <Paper className={`list-card ${this.props.className}`}>
         <ListList
           avatar={(list) => list._users[0].picture}
           max={5}
