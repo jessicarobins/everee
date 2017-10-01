@@ -24,7 +24,6 @@ const cloneList = async (req, res) => {
 
     let list = await List.findById(req.params.id).exec()
     list = await list.cloneForUser(user)
-    list = await List.populate(list, {path:'_users', select: 'name picture username'})
     res.json({ list })
   } catch(err) {
     console.log('error? ', err)
@@ -41,7 +40,6 @@ const getRecentLists = (req, res) => {
     .find()
     .byRecent()
     .ne('_users', req.user._id)
-    .populate('_users', 'name picture username')
     .exec()
     .then( (lists) => {
       const uniqueLists = _.chain(lists)
@@ -65,8 +63,7 @@ const getLists = (req, res) => {
     .findByAuth0(req.user).exec()
     .then(localUser => {
       return List.find().forUser(localUser)
-        .sort('-dateAdded')
-        .populate('_users', 'name picture username').exec()
+        .sort('-dateAdded').exec()
     })
     .then( (lists) => {
       res.json({ lists })
@@ -99,9 +96,6 @@ const addEmptyList = async (req, res) => {
     .then( (template) => {
       console.log('creating a new empty template')
       return newList.addItemsFromTemplate(template)
-    })
-    .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture username'})
     })
     .then( (list) => {
       res.json({ list })
@@ -140,9 +134,6 @@ const findOrCreateListTemplate = async (req, res) => {
       return newList.addItemsFromTemplate(template)
     })
     .then( (list) => {
-      return List.populate(list, {path:'_users', select: 'name picture username'})
-    })
-    .then( (list) => {
       res.json({ list: list })
     })
     .catch(function(err) {
@@ -159,9 +150,7 @@ const getList = async (req, res) => {
   }
 
   try {
-    const list = await List.findById(req.params.id)
-      .populate('_users', 'name picture username')
-      .exec()
+    const list = await List.findById(req.params.id).exec()
 
     const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
     const related = await list.relatedLists()
@@ -177,7 +166,6 @@ const addListItem = async (req, res) => {
   const user = await User.find().findByAuth0(req.user).exec()
 
   List.findById(req.params.id)
-    .populate('_users', 'name picture username')
     .exec()
     .then( (list) => {
       return list.addListItem(req.body.item, user)
@@ -193,9 +181,7 @@ const addListItem = async (req, res) => {
 const deleteListItem = async (req, res) => {
 
   try {
-    let list = await List.findById(req.params.id)
-      .populate('_users', 'name picture username')
-      .exec()
+    let list = await List.findById(req.params.id).exec()
     list = await list.deleteListItem(req.params.list_item_id)
     res.json({ list })
   } catch (err) {
@@ -290,7 +276,6 @@ const deleteList = (req, res) => {
 const toggleListItem = (req, res) => {
 
   List.findById(req.params.id)
-    .populate('_users', 'name picture username')
     .exec()
     .then( (list ) => {
       const todo = list.items.id(req.params.list_item_id)

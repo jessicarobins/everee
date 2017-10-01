@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const _ = require('lodash')
+const autopopulate = require('mongoose-autopopulate')
 
 const ListItem = require('./ListItem')
 const ListTemplate = require('./ListTemplate')
@@ -19,10 +20,12 @@ const listSchema = new Schema({
   image: { type: 'String' },
   _template: { type: Schema.Types.ObjectId, ref: 'ListTemplate' },
   items: [ListItem.schema],
-  _users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  _users: [{ type: Schema.Types.ObjectId, ref: 'User', autopopulate: { select: 'name picture username points' } }],
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
 })
+
+listSchema.plugin(autopopulate)
 
 listSchema.virtual('name').get(function() {
   return `${this.verb} every ${this.action}`

@@ -12,7 +12,8 @@ const userSchema = new Schema({
   name: { type: String, default: '' },
   picture: { type: String, default: '' },
   auth0Id: { type: String },
-  active: { type: Boolean, default: true }
+  active: { type: Boolean, default: true },
+  points: { type: Number, default: 10 } /* 10 points on signup */
 })
 
 userSchema.plugin(
@@ -27,8 +28,6 @@ userSchema.query.findByAuth0 = function(user) {
 userSchema.statics.findOrCreate = async function(auth0User) {
   if (auth0User) {
     let localUser = await this.findOne({ auth0Id: auth0User.sub }).exec()
-
-    console.log('this is the auth0User ', auth0User)
 
     if (localUser !== null) {
       console.log('user already exists in db')
