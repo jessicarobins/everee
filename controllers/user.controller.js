@@ -24,8 +24,9 @@ exports.setUsername = (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    await User.findOrCreate(req.user)
-    res.status(200).end()
+    let user = await User.findOrCreate(req.user)
+    user = await user.getPublicFields()
+    res.status(200).send({user})
   } catch(err) {
     console.log(err)
     res.status(401).send('Something went wrong logging in.')

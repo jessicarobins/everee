@@ -20,12 +20,15 @@ class UserMenu extends Component {
     }
 
     return (
-      <IconMenu
-        iconButtonElement={<IconButton style={styles.iconButton}><Avatar src={this.props.user.picture} /></IconButton>}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}>
-        <MenuItem primaryText="Logout" onClick={this.props.logout} />
-      </IconMenu>
+      <div>
+        {this.props.user.points}
+        <IconMenu
+          iconButtonElement={<IconButton style={styles.iconButton}><Avatar src={this.props.user.picture} /></IconButton>}
+          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}>
+          <MenuItem primaryText="Logout" onClick={this.props.logout} />
+        </IconMenu>
+      </div>
     )
   }
 

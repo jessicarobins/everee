@@ -54,12 +54,13 @@ userSchema.statics.findOrCreate = async function(auth0User) {
   }
 }
 
-userSchema.methods.getPublicFields = () => {
+userSchema.methods.getPublicFields = function() {
   const returnObject = {
     _id: this._id,
     name: this.name,
     picture: this.picture,
-    username: this.username
+    username: this.username,
+    points: this.points
   }
   return returnObject
 }
