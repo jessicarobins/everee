@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper'
 
 import ListTypist from '../../../components/ListTypist/ListTypist'
 
-import logo from '../../../assets/everee2.svg'
+import logo from '../../../assets/logo-light.svg'
 import './LoginHero.css'
 
 class LoginHero extends Component {

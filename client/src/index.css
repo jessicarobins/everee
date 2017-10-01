@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Cantora+One');
+
 body {
   margin: 0;
   padding: 0;
@@ -22,6 +24,10 @@ h1, h2 {
 }
 
 .small-logo {
-  height: 50px;
+  height: 40px;
   width: auto;
+}
+
+.logo {
+  font-family: 'Cantora One', sans-serif;
 }

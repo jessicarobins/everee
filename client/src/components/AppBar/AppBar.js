@@ -4,14 +4,20 @@ import AppBar from 'material-ui/AppBar'
 
 import UserMenu from '../UserMenu/UserMenu'
 
-import logo from '../../assets/everee2.svg'
+import logo from '../../assets/logo-light.svg'
 
 class EvereeAppBar extends Component {
 
   render() {
+    const styles = {
+      titleStyle: {
+        fontFamily: "'Cantora One', sans-serif"
+      }
+    }
 
     return (
       <AppBar
+        titleStyle={styles.titleStyle}
         className="app-bar"
         style={this.props.appBarStyle}
         zDepth={this.props.zDepth}

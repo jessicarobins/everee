@@ -95,7 +95,8 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
           action: list.action
         },
       }
-    }).then( ({list}) =>  {
+    })
+    .then( ({list}) =>  {
       if(list){
         dispatch(setCanEditList(true))
         dispatch(setList(list))
@@ -106,7 +107,11 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
       else {
         dispatch(showAddEmptyList())
       }
-
+    })
+    .catch(() => {
+      dispatch(showAddEmptyList())
+    })
+    .then(() => {
       dispatch(hideSpinner())
     })
   }
