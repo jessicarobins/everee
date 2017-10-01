@@ -69,11 +69,14 @@ export function doAuthentication() {
         const expiresIn = authResult.expiresIn || 86400
         const expiresAt = JSON.stringify((expiresIn * 1000) + new Date().getTime())
 
-        localStorage.setItem('profile', JSON.stringify(profile))
         localStorage.setItem('access_token', authResult.accessToken)
         localStorage.setItem('id_token', authResult.idToken)
         localStorage.setItem('expires_at', expiresAt)
+
         const { user } = await updateUserProfile()
+
+        localStorage.setItem('profile', JSON.stringify(user))
+
         dispatch(loginSuccess(user))
         dispatch(push('/'))
         lock.hide()

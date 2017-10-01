@@ -16,13 +16,23 @@ class UserMenu extends Component {
         padding: 0,
         alignItems: 'center',
         justifyContent: 'center'
+      },
+      iconMenu: {
+        marginLeft: '20px'
+      },
+      menuContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '.8em',
+        color: 'rgba(0, 0, 0, 0.54)'
       }
     }
 
     return (
-      <div>
-        {this.props.user.points}
+      <div style={styles.menuContainer}>
+        {this.props.user.points} points
         <IconMenu
+          style={styles.iconMenu}
           iconButtonElement={<IconButton style={styles.iconButton}><Avatar src={this.props.user.picture} /></IconButton>}
           anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           targetOrigin={{horizontal: 'right', vertical: 'top'}}>
