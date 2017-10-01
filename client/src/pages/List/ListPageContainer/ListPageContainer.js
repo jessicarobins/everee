@@ -20,7 +20,8 @@ class ListPageContainer extends Component {
     const { list } = this.props
     const styles = {
       cardText: {
-        fontSize: '1em'
+        fontSize: '1em',
+        lineHeight: '1em'
       }
     }
 
