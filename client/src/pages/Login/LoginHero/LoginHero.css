@@ -17,7 +17,8 @@
 }
 
 .login-hero-container .logo {
-  height: 100px;
+  height: 100%;
+  margin-bottom: 20px;
   width: auto;
   align-self: center;
   flex: 1;
