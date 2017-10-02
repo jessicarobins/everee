@@ -104,6 +104,13 @@ function loginSuccess(user) {
   }
 }
 
+function updateProfile(user) {
+  return {
+    type: actions.PROFILE_UPDATED,
+    user
+  }
+}
+
 function updateUserProfile() {
   return api('users', {
     method: 'put'

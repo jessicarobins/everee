@@ -10,6 +10,8 @@ const profile = (
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
       return action.user
+    case actions.PROFILE_UPDATED:
+      return action.user
     case actions.LOGOUT_SUCCESS:
       return null
     case actions.LOCK_ERROR:

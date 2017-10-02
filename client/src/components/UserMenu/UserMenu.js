@@ -24,7 +24,7 @@ class UserMenu extends Component {
         display: 'flex',
         alignItems: 'center',
         fontSize: '.8em',
-        color: 'rgba(0, 0, 0, 0.54)'
+        color: 'rgba(255, 255, 255, 0.7)'
       }
     }
 
