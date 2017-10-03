@@ -181,7 +181,7 @@ listSchema.methods.addItemsFromTemplate = function(template) {
   return this.save()
 }
 
-listSchema.methods.cloneForUser = function(_user) {
+listSchema.methods.cloneForUser = async function(_user) {
   const list = this
   const newList = new this.constructor()
   newList.verb = this.verb
@@ -194,24 +194,32 @@ listSchema.methods.cloneForUser = function(_user) {
   })
   newList._template = this._template
 
+  if (!list._users[0].equals(_user)) {
+    const owner = await User.findById(list._users[0]).exec()
+    owner.assignPoints('cloneListOwner')
+  }
+
   //add this list to all the pending items that old
   // list has so we don't double add or delete stuff
   // don't worry about whether they push it over the
   // threshold for now
-  return ListTemplate
+  const template = await ListTemplate
     .findOne({_id: this._template})
     .exec()
-    .then( (template) => {
-      template.pendingItems.forEach( (pendingItem) => {
-        if(!!_.find(pendingItem._lists, _list => _list.equals(list._id))){
-          pendingItem._lists.push(newList._id)
-        }
-      })
-      return template.save()
-    })
-    .then( () => {
-      return newList.save()
-    })
+
+  console.log('template?? ', template)
+  if (!_user.equals(template.createdBy)) {
+    const createdBy = await User.findById(template.createdBy).exec()
+    createdBy.assignPoints('cloneListCreator')
+  }
+  template.pendingItems.forEach( (pendingItem) => {
+    if(!!_.find(pendingItem._lists, _list => _list.equals(list._id))){
+      pendingItem._lists.push(newList._id)
+    }
+  })
+
+  await template.save()
+  return newList.save()
 }
 
 listSchema.methods.addItemToOtherLists = function(itemText) {

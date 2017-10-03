@@ -59,9 +59,10 @@ listTemplate.query.byItems = function(items) {
   return this.findOne({ sha: itemSha })
 }
 
-listTemplate.statics.newWithItems = async function(action, items) {
+listTemplate.statics.newWithItems = async function(action, items, user) {
   const newTemplate = new this({
     actions: [action],
+    createdBy: user
   })
   newTemplate.sha = hasha(items)
   await newTemplate.addListItems(items)

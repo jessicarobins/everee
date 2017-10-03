@@ -19,8 +19,7 @@ const cloneList = async (req, res) => {
   }
 
   try {
-    const user = await User.find()
-      .findByAuth0(req.user).exec()
+    const user = await User.find().findByAuth0(req.user).exec()
 
     let list = await List.findById(req.params.id).exec()
     list = await list.cloneForUser(user)
@@ -314,7 +313,7 @@ const findOrCreateTemplateByItems = async (action, user) => {
     //create a new ListTemplate
     console.log('creating a new template with items: ', items)
     return Promise.props({
-      template: ListTemplate.newWithItems(action, items),
+      template: ListTemplate.newWithItems(action, items, user),
       user: user.assignPoints('newTemplate')
     })
   }
