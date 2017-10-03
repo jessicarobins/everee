@@ -91,6 +91,14 @@ export function removeLockListeners() {
   }
 }
 
+export function updateProfile(user) {
+  localStorage.setItem('profile', JSON.stringify(user))
+  return {
+    type: actions.PROFILE_UPDATED,
+    user
+  }
+}
+
 function logoutSuccess() {
   return {
     type: actions.LOGOUT_SUCCESS
@@ -100,13 +108,6 @@ function logoutSuccess() {
 function loginSuccess(user) {
   return {
     type: actions.LOGIN_SUCCESS,
-    user
-  }
-}
-
-function updateProfile(user) {
-  return {
-    type: actions.PROFILE_UPDATED,
     user
   }
 }

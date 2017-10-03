@@ -78,12 +78,12 @@ const getLists = (req, res) => {
 const addEmptyList = async (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
-    res.status(403).end()
+    res.status(422).send('Missing verb or collection.')
   }
 
   const newList = new List(req.body.list)
 
-  const user = await User.find().findByAuth0(req.user).exec()
+  let user = await User.find().findByAuth0(req.user).exec()
 
   newList._users.push(user)
 
@@ -92,54 +92,54 @@ const addEmptyList = async (req, res) => {
     createdBy: user
   })
 
-  newTemplate.save()
-    .then( (template) => {
-      console.log('creating a new empty template')
-      return newList.addItemsFromTemplate(template)
-    })
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      console.log(err)
-      res.status(422).send(err)
-    })
+  try {
+    const template = await newTemplate.save()
+    console.log('creating a new empty template')
+    const list = await newList.addItemsFromTemplate(template)
+    user = await user.assignPoints('newTemplate')
+    res.json({ list, user })
+  } catch(err) {
+    console.log(err)
+    res.status(422).send(err)
+  }
 }
 
 const findOrCreateListTemplate = async (req, res) => {
 
   if (!req.body.list.verb || !req.body.list.action) {
-    res.status(403).end()
+    res.status(422).end()
     return Promise.reject('Invalid input')
   }
 
-  let newList = new List(req.body.list)
+  if (!req.user) {
+    res.status(401).end()
+  }
 
-  const user = await User.find().findByAuth0(req.user).exec()
+  try {
+    const newList = new List(req.body.list)
+    let user = await User.find().findByAuth0(req.user).exec()
 
-  newList._users.push(user)
+    newList._users.push(user)
 
-  //search ListTemplate for matching actions
-  ListTemplate.findOne({ actions: req.body.list.action }).exec()
-    .then( (template) => {
-      //if we have a template with that action already, create
-      // a new list based on it
-      if(template) {
-        console.log('template found by name')
-        return Promise.resolve(template)
-      }
-      return findOrCreateTemplateByItems(req.body.list.action)
-    })
-    .then( (template) => {
-      return newList.addItemsFromTemplate(template)
-    })
-    .then( (list) => {
-      res.json({ list: list })
-    })
-    .catch(function(err) {
-      console.log('error in the controller', err)
-      res.status(422).send(err)
-    })
+    //search ListTemplate for matching actions
+    let template = await ListTemplate.findOne({ actions: req.body.list.action }).exec()
+    //if we have a template with that action already, create
+    // a new list based on it
+    if(template) {
+      console.log('template found by name')
+    } else {
+      const results = await findOrCreateTemplateByItems(req.body.list.action, user)
+      template = results.template
+      user = results.user
+    }
+
+    const list = await newList.addItemsFromTemplate(template)
+
+    res.json({ list, user })
+  } catch(err) {
+    console.log('error creating the new list ', err)
+    res.status(422).send(err)
+  }
 }
 
 const getList = async (req, res) => {
@@ -294,30 +294,30 @@ const toggleListItem = (req, res) => {
 
 }
 
-const findOrCreateTemplateByItems = action => {
-  let items
-  return wolframHelper.tryQueries(action)
-    .then( (resp) => {
-      //look to see if we have any templates with these items already
-      items = resp
-      return ListTemplate.find().byItems(resp).exec()
+const findOrCreateTemplateByItems = async (action, user) => {
+
+  //look to see if we have any templates with these items already
+  const items = await wolframHelper.tryQueries(action)
+
+  const template = await ListTemplate.find().byItems(items).exec()
+
+  if (template) {
+    console.log('template found by items: ', template)
+    //update template to include name
+    template.actions.push(action)
+    return Promise.props({
+      template: template.save(),
+      user: Promise.resolve(user)
     })
-    .then( (template) => {
-      if(template) {
-        console.log('template found by items')
-        //update template to include name
-        template.actions.push(action)
-        return template.save()
-      }
-      else {
-        //create a new ListTemplate
-        console.log('creating a new template with items: ', items)
-        return ListTemplate.newWithItems(action, items)
-      }
+  }
+  else {
+    //create a new ListTemplate
+    console.log('creating a new template with items: ', items)
+    return Promise.props({
+      template: ListTemplate.newWithItems(action, items),
+      user: user.assignPoints('newTemplate')
     })
-    .then( (template) => {
-      return template
-    })
+  }
 }
 
 module.exports = {

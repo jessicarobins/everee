@@ -11,6 +11,8 @@ import {
   setMasonryLoading,
   setOutOfPages } from './AppActions'
 
+import { updateProfile } from './UserActions'
+
 export function fetchRecentLists() {
   return (dispatch) => {
     return api('lists/recent').then(res => {
@@ -96,13 +98,14 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
         },
       }
     })
-    .then( ({list}) =>  {
+    .then( ({list, user}) =>  {
       if(list){
         dispatch(setCanEditList(true))
         dispatch(setList(list))
         dispatch(addMessage('List created.'))
         dispatch(push(`/list/${list._id}`))
         dispatch(hideAddEmptyList())
+        dispatch(updateProfile(user))
       }
       else {
         dispatch(showAddEmptyList())

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
-const axios = require('axios')
 const Promise = require('bluebird')
+const pointMap = require('../constants/pointMap')
 
 mongoose.Promise = Promise
 const Schema = mongoose.Schema
@@ -63,6 +63,12 @@ userSchema.methods.getPublicFields = function() {
     points: this.points
   }
   return returnObject
+}
+
+userSchema.methods.assignPoints = function(event) {
+  const points = pointMap[event]
+  this.points += points
+  return this.save()
 }
 
 module.exports = mongoose.model('User', userSchema)
