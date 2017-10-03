@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const hasha = require('hasha')
 const  _ = require('lodash')
+mongoose.Promise = require('bluebird')
 
 const { findAndUploadImage } = require('../util/wikiHelper')
 
@@ -9,7 +10,6 @@ const ListItem = require('./ListItem')
 const PendingItem = require('./PendingItem')
 
 const Schema = mongoose.Schema
-mongoose.Promise = Promise
 
 const listTemplate = new Schema({
   actions: [String],
@@ -69,24 +69,37 @@ listTemplate.statics.newWithItems = async function(action, items, user) {
   return newTemplate.save()
 }
 
-listTemplate.methods.realizePendingItem = function(pendingItem) {
+listTemplate.methods.realizePendingItem = async function(pendingItem) {
 
   const template = this
   template.items.push(new ListItem({text: pendingItem.text}))
 
-  List.find({_template: template._id, _id: { $nin: pendingItem._lists }}).exec()
-    .then( (lists) => {
-      lists.forEach( (list) => {
+  const promises = []
+
+  try {
+    const lists = await this.model('List')
+      .find({_template: template._id})
+      .populate('_users')
+      .exec()
+    lists.forEach( list => {
+      // if the list is already in the pendingitem list, give
+      //  the user points. otherwise add the item to the list
+      if (isInArray(pendingItem._lists, list)) {
+         promises.push(list._users[0].assignPoints('pendingItemRealized'))
+      } else {
         list.items.push(new ListItem({text: pendingItem.text}))
-        list.save()
-      })
-    })
-    .catch( (err) => {
-      console.log('an error? ', err)
+        promises.push(list.save())
+      }
     })
 
-    pendingItem.remove()
-    return template.save()
+  } catch(err) {
+    console.log('an error? ', err)
+  }
+
+  Promise.all(promises)
+
+  pendingItem.remove()
+  return template.save()
 }
 
 listTemplate.methods.removeItem = function(pendingItem) {
@@ -138,3 +151,9 @@ listTemplate.methods.updateImage = async function(imageUrl) {
 listTemplate.set('toJSON', { virtuals: true })
 
 module.exports = mongoose.model('ListTemplate', listTemplate)
+
+const isInArray = function(array, item) {
+  return array.some(obj => {
+    return obj.equals(item._id);
+  })
+}
