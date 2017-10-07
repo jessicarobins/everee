@@ -222,7 +222,8 @@ const getRelatedLists = async (req, res) => {
 
 const getPopularLists = async (req, res) => {
   try {
-    const lists = await List.aggregate()
+    const lists = await List.aggregate(
+      { "$match": { items: { $exists: true, $not: {$size: 0} } } })
       .group({
         _id: '$_template',
         count: { $sum: 1 },
