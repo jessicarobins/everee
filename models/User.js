@@ -65,8 +65,13 @@ userSchema.methods.getPublicFields = function() {
   return returnObject
 }
 
-userSchema.methods.assignPoints = function(event) {
-  const points = pointMap[event]
+userSchema.methods.assignPoints = function(event, { remove }) {
+  let points = pointMap[event]
+
+  if (remove) {
+    points*=-1
+  }
+
   this.points += points
   return this.save()
 }

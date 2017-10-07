@@ -50,7 +50,10 @@ export function toggleListItemRequest({listId, listItemId}) {
     return api(`lists/${listId}/toggle/${listItemId}`, {
       method: 'put'
     })
-    .then(res => dispatch(toggleListItem(res.list)))
+    .then(({list, user}) => {
+      dispatch(toggleListItem(list))
+      dispatch(updateProfile(user))
+    })
   }
 }
 
@@ -167,8 +170,9 @@ export function deleteListItemRequest({id, list_item_id}) {
     return api(`lists/${id}/item/${list_item_id}`, {
       method: 'delete'
     })
-    .then(res => {
-      dispatch(deleteListItem(res.list))
+    .then(({list, user}) => {
+      dispatch(deleteListItem(list))
+      dispatch(updateProfile(user))
       dispatch(addMessage('Item deleted'))
     })
     .catch(err => {

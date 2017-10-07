@@ -164,25 +164,26 @@ const addListItem = async (req, res) => {
 
   const user = await User.find().findByAuth0(req.user).exec()
 
-  List.findById(req.params.id)
-    .exec()
-    .then( (list) => {
-      return list.addListItem(req.body.item, user)
-    })
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      res.status(422).send(err)
-    })
+  try {
+    let list = await List.findById(req.params.id).exec()
+    list = await list.addListItem(req.body.item, user)
+    res.json({ list })
+  } catch(err) {
+    res.status(422).send(err)
+  }
 }
 
 const deleteListItem = async (req, res) => {
 
   try {
+    let user = await User.find().findByAuth0(req.user).exec()
     let list = await List.findById(req.params.id).exec()
+    const item = list.items.id(req.params.list_item_id)
+    if (item.complete) {
+      user = await user.assignPoints('checkListItem', {remove: true})
+    }
     list = await list.deleteListItem(req.params.list_item_id)
-    res.json({ list })
+    res.json({ list, user })
   } catch (err) {
     console.log(err)
     res.status(422).send(err)
@@ -272,25 +273,28 @@ const deleteList = (req, res) => {
   })
 }
 
-const toggleListItem = (req, res) => {
+const toggleListItem = async (req, res) => {
 
-  List.findById(req.params.id)
-    .exec()
-    .then( (list ) => {
-      const todo = list.items.id(req.params.list_item_id)
+  if (!req.user) {
+    res.status(401).send('Unauthorized')
+  }
 
-      todo.dateModified = Date.now()
-      todo.complete = !todo.complete
+  try {
+    let user = await User.find().findByAuth0(req.user).exec()
+    let list = await List.findById(req.params.id).exec()
 
-      return list.save()
-    })
-    .then( (list) => {
-      res.json({ list })
-    })
-    .catch( (err) => {
-      res.status(422).send(err)
-    })
+    const todo = list.items.id(req.params.list_item_id)
 
+    todo.dateModified = Date.now()
+    todo.complete = !todo.complete
+
+    list = await list.save()
+    user = await user.assignPoints('checkListItem', {remove: !todo.complete})
+    res.json({ list,  user })
+  } catch(err) {
+    console.log('error toggling list item: ', err)
+    res.status(422).send(err)
+  }
 }
 
 const findOrCreateTemplateByItems = async (action, user) => {
