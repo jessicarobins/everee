@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 
-import {Card, CardTitle, CardMedia, CardText} from 'material-ui/Card'
+import {Card, CardTitle, CardMedia, CardHeader} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
-import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -22,6 +21,9 @@ class ListPageContainer extends Component {
       cardText: {
         fontSize: '1em',
         lineHeight: '1em'
+      },
+      cardHeader: {
+        lineHeight: '24px'
       }
     }
 
@@ -29,13 +31,12 @@ class ListPageContainer extends Component {
     return (
       <div className="list-page-container container">
         <Card className="list-name">
-          <CardText>
-            {
-              list._users.map(user => {
-                return <Avatar key={user} src={user.picture} />
-              })
-            }
-          </CardText>
+          <CardHeader
+            subtitleStyle={styles.cardHeader}
+            titleStyle={styles.cardHeader}
+            title={list._users[0].name}
+            subtitle={`${list._users[0].points} points`}
+            avatar={list._users[0].picture} />
           {
             !!list.image ?
             <CardMedia
