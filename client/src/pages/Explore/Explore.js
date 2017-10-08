@@ -23,6 +23,7 @@ import Page from '../Page'
 import Tabs from './Tabs/Tabs'
 
 import MasonryLayout from '../../components/MasonryLayout/MasonryLayout'
+import GridLayout from '../../components/GridLayout/GridLayout'
 
 class Explore extends Component {
 
@@ -75,7 +76,7 @@ class Explore extends Component {
       masonryProps.cloneList = (list) => this.props.listActions.cloneListRequest(list.listId)
     }
 
-    return <MasonryLayout {...masonryProps} />
+    return <GridLayout {...masonryProps} />
   }
 
   handleChangeTab = (tab) => {
