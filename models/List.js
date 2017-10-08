@@ -69,7 +69,7 @@ listSchema.query.byRecent = function() {
           .limit(20)
 }
 
-listSchema.query.byPage = function(page, queryParams={}, limit=15) {
+listSchema.query.byPage = function(page, queryParams={}, limit=30) {
   const skipped = (page-1)*limit
   let query = this.find()
 

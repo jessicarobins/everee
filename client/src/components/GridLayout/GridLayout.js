@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-import {GridList, GridTile} from 'material-ui/GridList'
+import {GridList} from 'material-ui/GridList'
+
+import ListTile from './ListTile/ListTile'
 
 class GridLayout extends Component {
 
@@ -41,64 +43,27 @@ class GridLayout extends Component {
 
   render() {
     const styles = {
-      gridTile: {
-        cursor: 'pointer'
-      },
       container: {
-        display: 'flex',
         marginTop: '5px',
-        marginBottom: '70px',
-        marginLeft: '70px',
-        marginRight: '70px'
+        marginBottom: '70px'
       }
     }
 
-    const halfIndex = Math.floor(this.props.lists.length / 2)
-    const listOne = this.props.lists.slice(0, halfIndex)
-    const listTwo = this.props.lists.slice(halfIndex)
-
     return (
-      <div style={styles.container}>
-        <div style={{flex: 1}}>
+      <div className='container' style={styles.container}>
         <GridList
-          cols={2}
+          cols={4}
           cellHeight={200}
           padding={1}>
-          {listOne.map((list, index) => (
-            <GridTile
-              style={styles.gridTile}
+          {this.props.lists.map((list, index) => (
+            <ListTile
               key={index}
               onClick={() => this.handleClickList(list)}
-              title={list.fullName || `${list.verb} every ${list.action}`}
-              subtitle={`${list.items.length} item${list.items.length === 1 ? '' : 's'}`}
-              titlePosition="bottom"
-              cols={index % 3 === 0 ? 2 : 1}
-              rows={index % 3 === 0 ? 2 : 1}>
-              <img src={list.image} alt={list.fullName} />
-            </GridTile>
+              list={list}
+              cols={index % 9 === 0 ? 2 : 1}
+              rows={1} />
           ))}
         </GridList>
-        </div>
-        <div style={{flex: 1}}>
-        <GridList
-          cols={2}
-          cellHeight={200}
-          padding={1}>
-          {listTwo.map((list, index) => (
-            <GridTile
-              style={styles.gridTile}
-              key={index}
-              onClick={() => this.handleClickList(list)}
-              title={list.fullName || `${list.verb} every ${list.action}`}
-              subtitle={`${list.items.length} item${list.items.length === 1 ? '' : 's'}`}
-              titlePosition="bottom"
-              cols={index % 3 === 2 ? 2 : 1}
-              rows={index % 3 === 2 ? 2 : 1}>
-              <img src={list.image} alt={list.fullName} />
-            </GridTile>
-          ))}
-        </GridList>
-        </div>
       </div>
     )
   }
