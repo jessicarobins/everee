@@ -28,11 +28,6 @@ class GridLayout extends Component {
     }
   }
 
-  handleClickList = (list) => {
-    this.props.pushState(`/list/${list._id}`)
-  }
-
-
   loadMore = () => {
     this.setState({
       page: this.state.page + 1
@@ -55,14 +50,20 @@ class GridLayout extends Component {
           cols={4}
           cellHeight={200}
           padding={1}>
-          {this.props.lists.map((list, index) => (
-            <ListTile
-              key={index}
-              onClick={() => this.handleClickList(list)}
-              list={list}
-              cols={index % 9 === 0 ? 2 : 1}
-              rows={1} />
-          ))}
+          {
+            this.props.lists.map((list, index) => {
+              const isFeatured = index % 9 === 0
+              return (
+                <ListTile
+                  pushState={this.props.pushState}
+                  key={index}
+                  list={list}
+                  cols={isFeatured ? 2 : 1}
+                  isFeatured={isFeatured}
+                  rows={1} />
+                )
+            })
+          }
         </GridList>
       </div>
     )

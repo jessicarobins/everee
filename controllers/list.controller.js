@@ -7,7 +7,6 @@ const ListTemplate = require('../models/ListTemplate')
 const User = require('../models/User')
 
 const wolframHelper = require('../util/wolframHelper')
-const { findAndUploadImage } = require('../util/wikiHelper')
 
 const getDemoLists = (req, res) => {
   res.json( {lists: List.demoLists() })

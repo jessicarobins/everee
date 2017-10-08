@@ -8,7 +8,8 @@ import logo from '../../../assets/logo-light.svg'
 class ListTile extends Component {
 
   title = () => {
-    return this.props.list.fullName || `${this.props.list.verb} every ${this.props.list.action}`
+    const { isFeatured, list } = this.props
+    return (isFeatured && !!list.fullName) ? list.fullName : `${list.verb} every ${list.action}`
   }
 
   subtitle = () => {
@@ -34,6 +35,10 @@ class ListTile extends Component {
     )
   }
 
+  handleClickList = () => {
+    this.props.pushState(`/list/${this.props.list._id}`)
+  }
+
   render() {
     const styles = {
       gridTile: {
@@ -44,7 +49,7 @@ class ListTile extends Component {
     return (
       <GridTile
         style={styles.gridTile}
-        onClick={this.props.handleClickList}
+        onClick={this.handleClickList}
         title={this.title()}
         subtitle={this.subtitle()}
         titlePosition="bottom"
