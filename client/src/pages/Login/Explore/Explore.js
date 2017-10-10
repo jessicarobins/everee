@@ -4,7 +4,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 
-import MasonryLayout from '../../../components/MasonryLayout/MasonryLayout'
+import GridLayout from '../../../components/GridLayout/GridLayout'
 
 import './Explore.css'
 
@@ -29,8 +29,7 @@ class Explore extends Component {
         zDepth={0}
         style={styles.container}
         className="explore-container">
-        <MasonryLayout
-          hideClone={true}
+        <GridLayout
           isOutOfPages={true}
           fetchLists={this.props.fetchLists}
           pushState={this.props.pushState}
