@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import {GridList} from 'material-ui/GridList'
+import CircularProgress from 'material-ui/CircularProgress'
 import Dimensions from 'react-dimensions'
 
 import ListTile from './ListTile/ListTile'
+
+import './GridLayout.css'
 
 class GridLayout extends Component {
 
@@ -36,8 +39,7 @@ class GridLayout extends Component {
             pageStart={1}
             loadMore={this.props.fetchLists}
             hasMore={!this.props.isOutOfPages && !this.props.isLoading}
-            initialLoad={false}
-            loader={<div className="loader">Loading ...</div>}>
+            initialLoad={false}>
             <GridList
               cols={!this.isSmall() ? 4 : 1}
               cellHeight={200}
@@ -60,6 +62,12 @@ class GridLayout extends Component {
 
             </GridList>
           </InfiniteScroll>
+        }
+        {
+          this.props.isLoading &&
+            <div className="grid-layout-spinner-container">
+              <CircularProgress size={40} thickness={5}/>
+            </div>
         }
       </div>
     )
