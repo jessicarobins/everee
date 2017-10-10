@@ -22,7 +22,6 @@ import * as userActions from '../../actions/UserActions'
 import Page from '../Page'
 import Tabs from './Tabs/Tabs'
 
-import MasonryLayout from '../../components/MasonryLayout/MasonryLayout'
 import GridLayout from '../../components/GridLayout/GridLayout'
 
 class Explore extends Component {
