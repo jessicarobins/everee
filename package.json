@@ -36,6 +36,7 @@
     "morgan": "~1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
+    "react-dimensions": "^1.3.0",
     "react-ga": "^2.2.0",
     "react-helmet": "^5.1.3",
     "react-infinite-scroller": "^1.0.15",

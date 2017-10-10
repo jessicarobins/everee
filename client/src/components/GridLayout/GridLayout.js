@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import {GridList} from 'material-ui/GridList'
+import Dimensions from 'react-dimensions'
 
 import ListTile from './ListTile/ListTile'
 
@@ -14,6 +15,10 @@ class GridLayout extends Component {
     if (this.props.tab !== nextProps.tab) {
       nextProps.fetchLists()
     }
+  }
+
+  isSmall = () => {
+    return (this.props.containerWidth < 736)
   }
 
   render() {
@@ -34,13 +39,13 @@ class GridLayout extends Component {
             initialLoad={false}
             loader={<div className="loader">Loading ...</div>}>
             <GridList
-              cols={4}
+              cols={!this.isSmall() ? 4 : 1}
               cellHeight={200}
               padding={1}>
 
                 {
                   this.props.lists.map((list, index) => {
-                    const isFeatured = index % 9 === 0
+                    const isFeatured = (index % 9 === 0) && !this.isSmall()
                     return (
                       <ListTile
                         pushState={this.props.pushState}
@@ -61,4 +66,4 @@ class GridLayout extends Component {
   }
 }
 
-export default GridLayout
+export default Dimensions()(GridLayout)
