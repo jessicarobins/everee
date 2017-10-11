@@ -25,7 +25,7 @@ class ListItems extends Component {
   deleteButton = (item) => {
     return (
       <IconButton
-        onClick={(e) => this.deleteListItem(e, item)}>
+        onTouchTap={(e) => this.deleteListItem(e, item)}>
         <DeleteIcon color={grey400} />
       </IconButton>
     )
