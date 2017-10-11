@@ -36,7 +36,8 @@ class ListTile extends Component {
   }
 
   handleClickList = () => {
-    this.props.pushState(`/list/${this.props.list._id}`)
+    const id = this.props.list.listId || this.props.list._id
+    this.props.pushState(`/list/${id}`)
   }
 
   render() {
