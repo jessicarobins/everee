@@ -1,12 +1,22 @@
 .list-page-container {
-  margin-top: 30px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto auto auto 1fr;
-  grid-column-gap: 30px;
-  grid-row-gap: 30px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
   align-items: start;
   margin-bottom: 76px;
+}
+
+.list-page-container .right {
+  grid-column: 2 / span 1;
+  grid-row: 1 / 6;
+}
+
+.list-item-form,
+.clone-list {
+  margin-bottom: 20px;
 }
 
 @media only screen
@@ -16,11 +26,24 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
-  .list-items-container,
-  .list-detail {
-    margin: 0 20px 20px 20px;
+  .list-item-form,
+  .right,
+  .list-detail,
+  .list-progress,
+  .clone-list {
+    margin-bottom: 10px;
+  }
+
+  .clone-list-container {
+    flex-direction: column;
+  }
+
+  .do-this-too {
+    margin-bottom: 10px;
   }
 }
 
@@ -36,7 +59,6 @@
 .list-name {
   font-weight: 100;
   font-size: 3em;
-  grid-row: 1 / span 2;
   grid-column: 1 / span 1;
 }
 
@@ -54,23 +76,9 @@
   margin-top: 10px;
 }
 
-.list-item-form {
-  grid-row: 1 / span 1;
-  grid-column: 2 / 3;
-}
-
-.list-items-container {
-  grid-row: 2 /  span 5;
-  grid-column: 2 / 3;
-}
-
 .related-lists {
   width: 100%;
   grid-column: 1 / span 1;
-}
-
-.list-detail.clone-list {
-  grid-row: 1 / span 1;
 }
 
 .clone-list-container {

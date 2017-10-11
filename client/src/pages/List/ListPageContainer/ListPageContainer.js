@@ -55,33 +55,35 @@ class ListPageContainer extends Component {
             <Chip>{list.fractionComplete.total} items</Chip>
           </div>
         </Paper>
-        {
-          this.props.canEdit &&
-          <Paper className="list-item-form list-detail">
-            <CreateListItemForm
-              addMessage={this.props.addMessage}
-              addListItem={this.props.addListItem}
-              list={list} />
-          </Paper>
-        }
-        {
-          !this.props.canEdit && this.props.authenticated &&
-            <Paper className="list-detail clone-list">
-              <div className="clone-list-container">
-                <div className="do-this-too">Want to do this too?</div>
-                <RaisedButton
-                  onClick={this.props.cloneList}
-                  label="Clone this list"
-                  secondary={true} />
-              </div>
+        <div className="right">
+          {
+            this.props.canEdit &&
+            <Paper className="list-item-form list-detail">
+              <CreateListItemForm
+                addMessage={this.props.addMessage}
+                addListItem={this.props.addListItem}
+                list={list} />
             </Paper>
-        }
+          }
+          {
+            !this.props.canEdit && this.props.authenticated &&
+              <Paper className="list-detail clone-list">
+                <div className="clone-list-container">
+                  <div className="do-this-too">Want to do this too?</div>
+                  <RaisedButton
+                    onClick={this.props.cloneList}
+                    label="Clone this list"
+                    secondary={true} />
+                </div>
+              </Paper>
+          }
+          <ListItems
+            canEdit={this.props.canEdit}
+            deleteListItem={this.props.deleteListItem}
+            toggleListItem={this.props.toggleListItem}
+            list={list} />
+        </div>
         <Sharebar className="list-detail" />
-        <ListItems
-          canEdit={this.props.canEdit}
-          deleteListItem={this.props.deleteListItem}
-          toggleListItem={this.props.toggleListItem}
-          list={list} />
         {
           (this.props.list.related && this.props.list.related.length > 0) &&
           <ListListCard
