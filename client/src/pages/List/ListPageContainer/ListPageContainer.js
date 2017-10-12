@@ -48,6 +48,7 @@ class ListPageContainer extends Component {
           }
           <CardActions style={{textAlign: 'right'}}>
             <AddLinkButton
+              addListLink={this.props.addListLink}
               list={list} />
           </CardActions>
         </Card>
