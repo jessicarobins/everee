@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
+import muiThemeable from 'material-ui/styles/muiThemeable'
 import {Card, CardTitle, CardMedia, CardHeader, CardActions} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
+import LinkIcon from 'material-ui/svg-icons/content/link'
 
 import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
@@ -17,7 +19,7 @@ import './ListPageContainer.css'
 class ListPageContainer extends Component {
 
   render() {
-    const { list } = this.props
+    const { list, muiTheme } = this.props
     const styles = {
       cardText: {
         fontSize: '1em',
@@ -25,6 +27,13 @@ class ListPageContainer extends Component {
       },
       cardHeader: {
         lineHeight: '24px'
+      },
+      link: {
+        color: muiTheme.palette.accent3Color
+      },
+      linkIcon: {
+        color: muiTheme.palette.accent3Color,
+        marginLeft: '15px'
       }
     }
 
@@ -47,9 +56,16 @@ class ListPageContainer extends Component {
             cardTitle
           }
           <CardActions style={{textAlign: 'right'}}>
-            <AddLinkButton
-              addListLink={this.props.addListLink}
-              list={list} />
+            { list.link ?
+              <a
+                style={styles.link}
+                className="list-link"
+                href={list.link.url}
+                target="_blank">{list.link.text}<LinkIcon style={styles.linkIcon}/></a> :
+              <AddLinkButton
+                addListLink={this.props.addListLink}
+                list={list} />
+            }
           </CardActions>
         </Card>
         <Paper className="list-progress list-detail">
@@ -103,4 +119,4 @@ class ListPageContainer extends Component {
   }
 }
 
-export default ListPageContainer
+export default muiThemeable()(ListPageContainer)

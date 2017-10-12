@@ -62,6 +62,14 @@
   grid-column: 1 / span 1;
 }
 
+.list-link {
+  font-size: .4em;
+  text-decoration: none;
+  font-weight: 400;
+  vertical-align: middle;
+  display: inline-flex;
+}
+
 .list-progress {
   grid-column: 1 / span 1;
 }
