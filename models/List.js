@@ -2,9 +2,7 @@ const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const _ = require('lodash')
 const autopopulate = require('mongoose-autopopulate')
-const summary = require('node-tldr')
-
-const summarize = Promise.promisify(summary.summarize)
+const scrape = require('html-metadata')
 
 const ListItem = require('./ListItem')
 const ListLink = require('./ListLink')
@@ -199,9 +197,13 @@ listSchema.methods.addLink = async function(url, user) {
     return Promise.reject('Link url is required.')
   }
 
-  const {title} = await summarize(url)
+  const metadata = await scrape(url)
 
-  const link = new ListLink({text: title, url})
+  if (!metadata || !metadata.general || !metadata.general.title) {
+    return Promise.reject('Could not find the title for this url.')
+  }
+
+  const link = new ListLink({text: metadata.general.title, url})
 
   list.link = link
 
