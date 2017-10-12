@@ -5,13 +5,12 @@ import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
-import LinkIcon from 'material-ui/svg-icons/content/link'
 
 import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
 import CreateListItemForm from '../../../components/CreateListItemForm/CreateListItemForm'
 import ListListCard from '../../../components/ListListCard/ListListCard'
+import AddLinkButton from './AddLinkButton/AddLinkButton'
 
 import './ListPageContainer.css'
 
@@ -48,11 +47,8 @@ class ListPageContainer extends Component {
             cardTitle
           }
           <CardActions style={{textAlign: 'right'}}>
-            <FlatButton
-              icon={<LinkIcon />}
-              label="Add Link"
-              labelPosition="before"
-              secondary={true} />
+            <AddLinkButton
+              list={list} />
           </CardActions>
         </Card>
         <Paper className="list-progress list-detail">
