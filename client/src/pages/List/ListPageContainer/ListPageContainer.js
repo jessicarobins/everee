@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
-import {Card, CardTitle, CardMedia, CardHeader} from 'material-ui/Card'
+import {Card, CardTitle, CardMedia, CardHeader, CardActions} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
 import LinearProgress from 'material-ui/LinearProgress'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import LinkIcon from 'material-ui/svg-icons/content/link'
 
 import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
@@ -45,6 +47,13 @@ class ListPageContainer extends Component {
             </CardMedia> :
             cardTitle
           }
+          <CardActions style={{textAlign: 'right'}}>
+            <FlatButton
+              icon={<LinkIcon />}
+              label="Add Link"
+              labelPosition="before"
+              secondary={true} />
+          </CardActions>
         </Card>
         <Paper className="list-progress list-detail">
           <LinearProgress

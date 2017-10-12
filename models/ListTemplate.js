@@ -8,6 +8,7 @@ const { findAndUploadImage } = require('../util/wikiHelper')
 const List = require('./List')
 const ListItem = require('./ListItem')
 const PendingItem = require('./PendingItem')
+const ListLink = require('./ListLink')
 
 const Schema = mongoose.Schema
 
@@ -16,6 +17,7 @@ const listTemplate = new Schema({
   items: [ListItem.schema],
   image: { type: 'String' },
   pendingItems: [PendingItem.schema],
+  link: ListLink.schema,
   sha: { type: 'String' },
   dateAdded: { type: 'Date', default: Date.now, required: true },
   dateModified: { type: 'Date', default: Date.now, required: false },
@@ -138,6 +140,28 @@ listTemplate.methods.updateImage = async function(imageUrl) {
     const lists = await this.model('List').find({_template: this._id}).exec()
     lists.forEach(list => {
       list.image = imageUrl
+      promises.push(list.save())
+    })
+
+    return Promise.all(promises)
+  } catch(err) {
+    console.log('error: ', err)
+    return Promise.reject(err)
+  }
+}
+
+listTemplate.methods.addLink = async function(link) {
+  const template = this
+
+  template.link = link
+  const promises = [
+    template.save()
+  ]
+
+  try {
+    const lists = await this.model('List').find({_template: this._id}).exec()
+    lists.forEach(list => {
+      list.link = link
       promises.push(list.save())
     })
 

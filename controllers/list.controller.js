@@ -172,6 +172,23 @@ const addListItem = async (req, res) => {
   }
 }
 
+const addListLink = async (req, res) => {
+
+  if (!user) {
+    res.status(401).send('No user on the request')
+  }
+
+  const user = await User.find().findByAuth0(req.user).exec()
+
+  try {
+    let list = await List.findById(req.params.id).exec()
+    list = await list.addLink(req.body.url, user)
+    res.json({ list })
+  } catch(err) {
+    res.status(422).send(err)
+  }
+}
+
 const deleteListItem = async (req, res) => {
 
   try {
@@ -326,6 +343,7 @@ const findOrCreateTemplateByItems = async (action, user) => {
 module.exports = {
   addEmptyList: addEmptyList,
   addListItem: addListItem,
+  addListLink: addListLink,
   cloneList: cloneList,
   count: count,
   deleteList: deleteList,

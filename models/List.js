@@ -2,8 +2,12 @@ const mongoose = require('mongoose')
 const Promise = require('bluebird')
 const _ = require('lodash')
 const autopopulate = require('mongoose-autopopulate')
+const summary = require('node-tldr')
+
+const summarize = Promise.promisify(summary.summarize)
 
 const ListItem = require('./ListItem')
+const ListLink = require('./ListLink')
 const ListTemplate = require('./ListTemplate')
 const PendingItem = require('./PendingItem')
 const User = require('./User')
@@ -13,11 +17,13 @@ mongoose.Promise = Promise
 
 const ADD_ITEM_THRESHOLD = 1
 const DELETE_ITEM_THRESHOLD = 1
+const ADD_LINK_THRESHOLD = 1
 
 const listSchema = new Schema({
   verb: { type: 'String', required: true },
   action: { type: 'String', required: true },
   image: { type: 'String' },
+  link: ListLink.schema,
   _template: { type: Schema.Types.ObjectId, ref: 'ListTemplate' },
   items: [ListItem.schema],
   _users: [{ type: Schema.Types.ObjectId, ref: 'User', autopopulate: { select: 'name picture username points' } }],
@@ -176,9 +182,43 @@ listSchema.methods.addListItem = function(item, user) {
 
 listSchema.methods.addItemsFromTemplate = function(template) {
   this.image = template.image
+  this.link = template.link
   this.items = _.clone(template.items)
   this._template = template._id
   return this.save()
+}
+
+listSchema.methods.addLink = async function(url, user) {
+  const list = this
+
+  if (!!list.link) {
+    return Promise.reject('This list already has a link.')
+  }
+
+  if (!url) {
+    return Promise.reject('Link url is required.')
+  }
+
+  const {title} = await summarize(url)
+
+  const link = new ListLink({text: title, url})
+
+  list.link = link
+
+  // look for other lists with this link url. if the number of lists
+  //  is greater than the threshold, add to the template
+  const lists = await this.constructor.find({
+    _template: list._template,
+    _id: { $ne: list._id },
+    'link.url': url
+  })
+
+  if (lists && lists.length > ADD_LINK_THRESHOLD) {
+    const template = await ListTemplate.findById(list._template).exec()
+    await template.addLink(link)
+  }
+
+  return list.save()
 }
 
 listSchema.methods.cloneForUser = async function(_user) {
@@ -187,6 +227,7 @@ listSchema.methods.cloneForUser = async function(_user) {
   newList.verb = this.verb
   newList.action = this.action
   newList.image = this.image
+  newList.link = this.link
   newList._users.push(_user)
 
   this.items.forEach( (item) => {
