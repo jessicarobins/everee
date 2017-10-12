@@ -17,6 +17,7 @@ router.post('/find_or_create', requireAuth, ListController.findOrCreateListTempl
 router.put('/:id/toggle/:list_item_id', requireAuth, ListController.toggleListItem)
 router.post('/:id/clone', requireAuth, ListController.cloneList)
 router.get('/:id/related', ListController.getRelatedLists)
+router.put('/:id/link', requireAuth, ListController.addListLink)
 router.get('/:id', authOptional, ListController.getList)
 router.post('/:id', requireAuth, ListController.addListItem)
 router.delete('/:id/item/:list_item_id', requireAuth, ListController.deleteListItem)

@@ -45,6 +45,21 @@ export function addListItemRequest({id, text}) {
   }
 }
 
+export function addListLinkRequest({id, url}) {
+  return (dispatch) => {
+    return api(`lists/${id}/link`, {
+      method: 'put',
+      data: {
+        url: url
+      }
+    }).then( ({list}) => {
+      dispatch(addListLink(list))
+    }).catch(err => {
+      dispatch(addMessage(err))
+    })
+  }
+}
+
 export function toggleListItemRequest({listId, listItemId}) {
   return (dispatch) => {
     return api(`lists/${listId}/toggle/${listItemId}`, {
@@ -154,6 +169,13 @@ export function toggleListItem(list) {
 export function addListItem(list) {
   return {
     type: actions.ADD_LIST_ITEM,
+    list
+  }
+}
+
+export function addListLink(list) {
+  return {
+    type: actions.ADD_LIST_LINK,
     list
   }
 }

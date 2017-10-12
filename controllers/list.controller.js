@@ -174,10 +174,6 @@ const addListItem = async (req, res) => {
 
 const addListLink = async (req, res) => {
 
-  if (!user) {
-    res.status(401).send('No user on the request')
-  }
-
   const user = await User.find().findByAuth0(req.user).exec()
 
   try {
