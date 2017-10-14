@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
@@ -43,9 +44,17 @@ class List extends Component {
     this.props.pushState(`/list/${list._id}`)
   }
 
+  pageTitle = () => {
+    const { list } = this.props
+    return list ? list.fullName : 'a bucket list for completionists'
+  }
+
   render() {
     return (
       <Page>
+        <Helmet>
+          <title>everee &mdash; {this.pageTitle()}</title>
+        </Helmet>
         { this.showListContainer() &&
           <ListPageContainer
             handleChangeList={this.handleChangeList}

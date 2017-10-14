@@ -89,7 +89,9 @@ class ListPageContainer extends Component {
             toggleListItem={this.props.toggleListItem}
             list={list} />
         </div>
-        <Sharebar className="list-detail" />
+        <Sharebar
+          title={list.fullName}
+          className="list-detail" />
         {
           (this.props.list.related && this.props.list.related.length > 0) &&
           <ListListCard

@@ -6,29 +6,27 @@ import './Sharebar.css'
 
 const {
   FacebookShareButton,
-  GooglePlusShareButton,
   TwitterShareButton,
   RedditShareButton
 } = ShareButtons
 
 const FacebookIcon = generateShareIcon('facebook')
 const TwitterIcon = generateShareIcon('twitter')
-const GooglePlusIcon = generateShareIcon('google')
 const RedditIcon = generateShareIcon('reddit')
 
 class Sharebar extends Component {
 
   render() {
     const shareUrl = String(window.location)
-    const shareTitle = document.title
+    const shareTitle = this.props.title || document.title
     const iconSize = 44
 
     return (
       <div className={`sharebar ${this.props.className}`}>
         <FacebookShareButton
           url={shareUrl}
-          title={shareTitle}
-          picture={`${process.env.REACT_APP_BASE_URL}everee.svg`}>
+          quote={shareTitle}
+          picture={`${process.env.REACT_APP_BASE_URL}logo-solid.svg`}>
           <FacebookIcon size={iconSize} round />
         </FacebookShareButton>
         <TwitterShareButton
@@ -36,10 +34,6 @@ class Sharebar extends Component {
           title={shareTitle}>
           <TwitterIcon size={iconSize} round />
         </TwitterShareButton>
-        <GooglePlusShareButton
-          url={shareUrl}>
-          <GooglePlusIcon size={iconSize} round />
-        </GooglePlusShareButton>
         <RedditShareButton
           url={shareUrl}
           title={shareTitle}>
