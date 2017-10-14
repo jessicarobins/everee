@@ -180,7 +180,7 @@ const addListLink = async (req, res) => {
     user = await user.assignPoints('addLink')
     res.json({ list, user })
   } catch(err) {
-    res.status(422).send(err)
+    res.status(422).send('There was an error adding the link.')
   }
 }
 
@@ -192,7 +192,7 @@ const removeListLink = async (req, res) => {
     user = await user.assignPoints('addLink', {remove: true})
     res.json({ list, user })
   } catch(err) {
-    res.status(422).send(err)
+    res.status(422).send('There was an error removing the link')
   }
 }
 
