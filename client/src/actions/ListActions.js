@@ -52,8 +52,9 @@ export function addListLinkRequest({id, url}) {
       data: {
         url: url
       }
-    }).then( ({list}) => {
+    }).then( ({list, user}) => {
       dispatch(addListLink(list))
+      dispatch(updateProfile(user))
     }).catch(err => {
       dispatch(addMessage(err))
     })
@@ -64,8 +65,9 @@ export function removeListLinkRequest({id}) {
   return (dispatch) => {
     return api(`lists/${id}/link`, {
       method: 'delete'
-    }).then( ({list}) => {
+    }).then( ({list, user}) => {
       dispatch(removeListLink(list))
+      dispatch(updateProfile(user))
     }).catch(err => {
       dispatch(addMessage(err))
     })

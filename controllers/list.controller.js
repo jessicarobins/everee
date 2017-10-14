@@ -173,25 +173,24 @@ const addListItem = async (req, res) => {
 }
 
 const addListLink = async (req, res) => {
-
-  const user = await User.find().findByAuth0(req.user).exec()
-
   try {
+    let user = await User.find().findByAuth0(req.user).exec()
     let list = await List.findById(req.params.id).exec()
-    list = await list.addLink(req.body.url, user)
-    res.json({ list })
+    list = await list.addLink(req.body.url)
+    user = await user.assignPoints('addLink')
+    res.json({ list, user })
   } catch(err) {
     res.status(422).send(err)
   }
 }
 
 const removeListLink = async (req, res) => {
-  const user = await User.find().findByAuth0(req.user).exec()
-
   try {
+    let user = await User.find().findByAuth0(req.user).exec()
     let list = await List.findById(req.params.id).exec()
-    list = await list.removeLink(user)
-    res.json({ list })
+    list = await list.removeLink()
+    user = await user.assignPoints('addLink', {remove: true})
+    res.json({ list, user })
   } catch(err) {
     res.status(422).send(err)
   }

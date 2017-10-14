@@ -159,7 +159,9 @@ listTemplate.methods.addLink = async function(link) {
   ]
 
   try {
-    const lists = await this.model('List').find({_template: this._id}).exec()
+    const lists = await this.model('List')
+      .find({_template: this._id})
+      .where('link').equals(null).exec()
     lists.forEach(list => {
       list.link = link
       promises.push(list.save())

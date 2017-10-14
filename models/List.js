@@ -186,7 +186,7 @@ listSchema.methods.addItemsFromTemplate = function(template) {
   return this.save()
 }
 
-listSchema.methods.addLink = async function(url, user) {
+listSchema.methods.addLink = async function(url) {
   const list = this
 
   if (!!list.link) {
@@ -215,7 +215,7 @@ listSchema.methods.addLink = async function(url, user) {
     'link.url': url
   })
 
-  if (lists && lists.length > ADD_LINK_THRESHOLD) {
+  if (lists && lists.length >= ADD_LINK_THRESHOLD) {
     const template = await ListTemplate.findById(list._template).exec()
     await template.addLink(link)
   }
@@ -223,7 +223,7 @@ listSchema.methods.addLink = async function(url, user) {
   return list.save()
 }
 
-listSchema.methods.removeLink = function(user) {
+listSchema.methods.removeLink = function() {
   this.link.remove()
   return this.save()
 }

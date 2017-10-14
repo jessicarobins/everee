@@ -3,5 +3,6 @@ module.exports = {
   cloneListCreator: 4,
   cloneListOwner: 6,
   pendingItemRealized: 4,
-  checkListItem: 1
+  checkListItem: 1,
+  addLink: 2
 }
