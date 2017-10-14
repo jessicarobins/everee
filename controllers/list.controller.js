@@ -176,7 +176,7 @@ const addListLink = async (req, res) => {
   try {
     let user = await User.find().findByAuth0(req.user).exec()
     let list = await List.findById(req.params.id).exec()
-    list = await list.addLink(req.body.url)
+    list = await list.addLink(req.body.url, user)
     user = await user.assignPoints('addLink')
     res.json({ list, user })
   } catch(err) {

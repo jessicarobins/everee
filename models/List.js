@@ -186,7 +186,7 @@ listSchema.methods.addItemsFromTemplate = function(template) {
   return this.save()
 }
 
-listSchema.methods.addLink = async function(url) {
+listSchema.methods.addLink = async function(url, user) {
   const list = this
 
   if (!!list.link) {
@@ -207,17 +207,24 @@ listSchema.methods.addLink = async function(url) {
 
   list.link = link
 
-  // look for other lists with this link url. if the number of lists
-  //  is greater than the threshold, add to the template
-  const lists = await this.constructor.find({
-    _template: list._template,
-    _id: { $ne: list._id },
-    'link.url': url
-  })
+  const template = await ListTemplate.findById(list._template).exec()
 
-  if (lists && lists.length >= ADD_LINK_THRESHOLD) {
-    const template = await ListTemplate.findById(list._template).exec()
+  if (template.createdBy.equals(user._id)) {
+    console.log('the user who added the template is adding the link')
     await template.addLink(link)
+  } else {
+
+    // look for other lists with this link url. if the number of lists
+    //  is greater than the threshold, add to the template
+    const lists = await this.constructor.find({
+      _template: list._template,
+      _id: { $ne: list._id },
+      'link.url': url
+    })
+
+    if (lists && lists.length >= ADD_LINK_THRESHOLD) {
+      await template.addLink(link)
+    }
   }
 
   return list.save()
