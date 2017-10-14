@@ -36,6 +36,13 @@ class AddLinkButton extends Component {
     this.handleClose()
   }
 
+  onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      this.handleAddLink()
+    }
+  }
+
   updateUrl = (e) => {
     this.setState({
       url: e.target.value
@@ -71,7 +78,9 @@ class AddLinkButton extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}>
           <TextField
+            autoFocus
             value={this.state.url}
+            onKeyPress={this.onKeyPress}
             onChange={this.updateUrl}
             type='url'
             fullWidth={true}

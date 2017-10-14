@@ -43,7 +43,9 @@ class LinkActions extends Component {
     const {muiTheme, list} = this.props
     const styles = {
       link: {
-        color: muiTheme.palette.accent3Color
+        color: muiTheme.palette.accent3Color,
+        display: 'flex',
+        alignItems: 'center'
       },
       linkIcon: {
         color: muiTheme.palette.accent3Color,
