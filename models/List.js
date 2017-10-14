@@ -223,6 +223,11 @@ listSchema.methods.addLink = async function(url, user) {
   return list.save()
 }
 
+listSchema.methods.removeLink = function(user) {
+  this.link.remove()
+  return this.save()
+}
+
 listSchema.methods.cloneForUser = async function(_user) {
   const list = this
   const newList = new this.constructor()

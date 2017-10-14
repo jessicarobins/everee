@@ -6,18 +6,21 @@ import AddLinkButton from './AddLinkButton/AddLinkButton'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import {grey400} from 'material-ui/styles/colors'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import IconButton from 'material-ui/IconButton'
 
 class LinkActions extends Component {
+
+  handleRemoveLink = () => {
+    this.props.removeListLink({id: this.props.list.id})
+  }
 
   renderLinkContainer = () => {
     const styles = {
       container: {
         display: 'inline-flex',
         width: '100%',
-        justifyContent: 'space-between'
-      },
-      deleteIcon: {
-        margin: '0 15px'
+        justifyContent: 'space-between',
+        alignItems: 'center'
       }
     }
     return (
@@ -26,7 +29,11 @@ class LinkActions extends Component {
           this.renderLink()
         }
         {
-          this.props.canEdit && <DeleteIcon color={grey400} style={styles.deleteIcon} />
+          this.props.canEdit &&
+            <IconButton
+              onClick={this.handleRemoveLink}>
+              <DeleteIcon color={grey400} />
+            </IconButton>
         }
       </div>
     )

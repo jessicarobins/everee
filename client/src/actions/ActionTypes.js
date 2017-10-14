@@ -21,6 +21,7 @@ export const ADD_LIST_ITEM = 'ADD_LIST_ITEM'
 export const TOGGLE_LIST_ITEM = 'TOGGLE_LIST_ITEM'
 export const DELETE_LIST_ITEM = 'DELETE_LIST_ITEM'
 export const ADD_LIST_LINK = 'ADD_LIST_LINK'
+export const REMOVE_LIST_LINK = 'REMOVE_LIST_LINK'
 
 // demo lists
 export const ADD_DEMO_LISTS = 'ADD_DEMO_LISTS'

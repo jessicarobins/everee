@@ -185,6 +185,18 @@ const addListLink = async (req, res) => {
   }
 }
 
+const removeListLink = async (req, res) => {
+  const user = await User.find().findByAuth0(req.user).exec()
+
+  try {
+    let list = await List.findById(req.params.id).exec()
+    list = await list.removeLink(user)
+    res.json({ list })
+  } catch(err) {
+    res.status(422).send(err)
+  }
+}
+
 const deleteListItem = async (req, res) => {
 
   try {
@@ -354,5 +366,6 @@ module.exports = {
   getRelatedLists: getRelatedLists,
   paginateLists: paginateLists,
   random: random,
+  removeListLink: removeListLink,
   toggleListItem: toggleListItem
 }

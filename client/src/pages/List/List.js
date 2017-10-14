@@ -57,6 +57,7 @@ class List extends Component {
             deleteListItem={this.props.listActions.deleteListItemRequest}
             toggleListItem={this.props.listActions.toggleListItemRequest}
             addListLink={this.props.listActions.addListLinkRequest}
+            removeListLink={this.props.listActions.removeListLinkRequest}
             list={this.props.list} />
         }
       </Page>

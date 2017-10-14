@@ -60,6 +60,18 @@ export function addListLinkRequest({id, url}) {
   }
 }
 
+export function removeListLinkRequest({id}) {
+  return (dispatch) => {
+    return api(`lists/${id}/link`, {
+      method: 'delete'
+    }).then( ({list}) => {
+      dispatch(removeListLink(list))
+    }).catch(err => {
+      dispatch(addMessage(err))
+    })
+  }
+}
+
 export function toggleListItemRequest({listId, listItemId}) {
   return (dispatch) => {
     return api(`lists/${listId}/toggle/${listItemId}`, {
@@ -176,6 +188,13 @@ export function addListItem(list) {
 export function addListLink(list) {
   return {
     type: actions.ADD_LIST_LINK,
+    list
+  }
+}
+
+export function removeListLink(list) {
+  return {
+    type: actions.REMOVE_LIST_LINK,
     list
   }
 }

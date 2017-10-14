@@ -49,6 +49,7 @@ class ListPageContainer extends Component {
           <LinkActions
             canEdit={this.props.canEdit}
             list={list}
+            removeListLink={this.props.removeListLink}
             addListLink={this.props.addListLink} />
         </Card>
         <Paper className="list-progress list-detail">

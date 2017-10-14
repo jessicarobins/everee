@@ -31,6 +31,8 @@ const currentList = (
       return action.list
     case actions.ADD_LIST_LINK :
       return action.list
+    case actions.REMOVE_LIST_LINK :
+      return action.list
     default:
       return state
   }
