@@ -265,7 +265,9 @@ listSchema.methods.cloneForUser = async function(_user) {
   console.log('template?? ', template)
   if (!_user.equals(template.createdBy)) {
     const createdBy = await User.findById(template.createdBy).exec()
-    createdBy.assignPoints('cloneListCreator')
+    if (createdBy) {
+      createdBy.assignPoints('cloneListCreator')
+    }
   }
   template.pendingItems.forEach( (pendingItem) => {
     if(!!_.find(pendingItem._lists, _list => _list.equals(list._id))){
