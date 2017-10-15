@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import AddIcon from 'material-ui/svg-icons/av/playlist-add'
 
 import './CreateListItemForm.css'
 
@@ -44,7 +45,9 @@ class CreateListItemForm extends Component {
           onChange={(event, newValue) => this.setState({text: newValue})}
           hintText="A new item..."
         />
-        <FlatButton
+        <RaisedButton
+          icon={<AddIcon />}
+          labelPosition="before"
           onClick={this.addListItem}
           label="Add item"
           secondary={true} />
