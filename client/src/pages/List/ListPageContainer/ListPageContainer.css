@@ -19,6 +19,12 @@
   margin-bottom: 20px;
 }
 
+.list-name {
+  font-weight: 100;
+  font-size: 3em;
+  grid-column: 1 / span 1;
+}
+
 @media only screen
   and (max-device-width: 736px) {
 
@@ -28,6 +34,14 @@
     align-items: stretch;
     margin-left: 10px;
     margin-right: 10px;
+  }
+
+  .list-name {
+    font-size: 2em;
+  }
+
+  .list-progress {
+    margin-top: 10px;
   }
 
   .list-item-form,
@@ -54,12 +68,6 @@
 .list-image {
   object-fit: cover;
   max-height: 350px;
-}
-
-.list-name {
-  font-weight: 100;
-  font-size: 3em;
-  grid-column: 1 / span 1;
 }
 
 .list-link {
