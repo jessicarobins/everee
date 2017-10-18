@@ -27,10 +27,15 @@ class Page extends Component {
    this.props.userActions.removeLockListeners()
   }
 
+  goHome = () => {
+    this.props.pushState('/')
+  }
+
   renderAppBar = () => {
     return (
       <AppBar
         user={this.props.user}
+        goHome={this.goHome}
         authenticated={this.props.isAuthenticated}
         appBarStyle={this.props.appBarStyle}
         login={this.props.userActions.login}
