@@ -28,7 +28,8 @@ class GridLayout extends Component {
     const styles = {
       container: {
         marginTop: '5px',
-        marginBottom: '70px'
+        marginBottom: '70px',
+        overflow: 'hidden'
       }
     }
 
