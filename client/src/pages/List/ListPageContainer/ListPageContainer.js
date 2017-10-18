@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 
 import {Card, CardTitle, CardMedia, CardHeader} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
-import LinearProgress from 'material-ui/LinearProgress'
-import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import Sharebar from '../../../components/Sharebar/Sharebar'
@@ -11,6 +9,7 @@ import ListItems from '../../../components/ListItems/ListItems'
 import CreateListItemForm from '../../../components/CreateListItemForm/CreateListItemForm'
 import ListListCard from '../../../components/ListListCard/ListListCard'
 import LinkActions from './LinkActions/LinkActions'
+import ListProgress from './ListProgress/ListProgress'
 
 import './ListPageContainer.css'
 
@@ -52,15 +51,7 @@ class ListPageContainer extends Component {
             removeListLink={this.props.removeListLink}
             addListLink={this.props.addListLink} />
         </Card>
-        <Paper className="list-progress list-detail">
-          <LinearProgress
-            mode="determinate"
-            value={list.percentComplete} />
-          <div className="list-chips">
-            <Chip>{list.percentComplete} %</Chip>
-            <Chip>{list.fractionComplete.total} items</Chip>
-          </div>
-        </Paper>
+        <ListProgress list={list} />
         <div className="right">
           {
             this.props.canEdit &&
