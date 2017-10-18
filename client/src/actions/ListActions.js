@@ -120,6 +120,7 @@ export function fetchLists() {
 
 export function addListRequest(list, endpoint='lists/find_or_create') {
   return (dispatch) => {
+    dispatch(hideAddEmptyList())
     dispatch(showSpinner())
     return api(endpoint, {
       method: 'post',
@@ -136,7 +137,6 @@ export function addListRequest(list, endpoint='lists/find_or_create') {
         dispatch(setList(list))
         dispatch(addMessage('List created.'))
         dispatch(push(`/list/${list._id}`))
-        dispatch(hideAddEmptyList())
         dispatch(updateProfile(user))
       }
       else {
