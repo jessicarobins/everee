@@ -65,7 +65,7 @@ class GridLayout extends Component {
           </InfiniteScroll>
         }
         {
-          this.props.isLoading &&
+          this.props.isLoading && !this.props.spinner &&
             <div className="grid-layout-spinner-container">
               <CircularProgress size={40} thickness={5}/>
             </div>
