@@ -44,6 +44,13 @@ class CreateListForm extends Component {
     }, 'lists')
   }
 
+  onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      this.addList()
+    }
+  }
+
   render() {
 
     const { muiTheme } = this.props
@@ -96,6 +103,7 @@ class CreateListForm extends Component {
             <div className="create-list-text-fields">
               I want to
               <TextField
+                onKeyPress={this.onKeyPress}
                 onChange={(event, newValue) => this.setState({verb: newValue})}
                 style={styles.textField.container}
                 underlineStyle={styles.textField.underlineStyle}
@@ -106,6 +114,7 @@ class CreateListForm extends Component {
               every
             </div>
             <AutoComplete
+              onKeyPress={this.onKeyPress}
               style={styles.autocomplete}
               fullWidth={true}
               menuStyle={styles.menu}
