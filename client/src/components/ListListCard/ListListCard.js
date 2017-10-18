@@ -4,6 +4,8 @@ import Paper from 'material-ui/Paper'
 
 import ListList from '../ListList/ListList'
 
+import '../ListCard/ListCard.css'
+
 class ListListCard extends Component {
 
   render() {
