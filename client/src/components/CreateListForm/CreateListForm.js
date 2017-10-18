@@ -56,6 +56,9 @@ class CreateListForm extends Component {
       menu: {
         maxHeight: '300px'
       },
+      autocomplete: {
+        width: '90%'
+      },
       textField: {
         underlineStyle: {
           marginBottom: '-15px'
@@ -68,7 +71,7 @@ class CreateListForm extends Component {
           lineHeight: 'inherit',
           fontSize: 'inherit',
           height: 'inherit',
-          margin: '0 10px'
+          margin: '0 10px 15px'
         },
         hintStyle: {
           marginBottom: '-15px',
@@ -89,18 +92,22 @@ class CreateListForm extends Component {
     return (
       <div style={styles.container}>
         <div className="create-list-form container">
-          <div className="create-list-text-fields">
-            I want to
-            <TextField
-              onChange={(event, newValue) => this.setState({verb: newValue})}
-              style={styles.textField.container}
-              underlineStyle={styles.textField.underlineStyle}
-              underlineFocusStyle={styles.textField.underlineFocusStyle}
-              hintStyle={styles.textField.hintStyle}
-              hintText="climb"
-              inputStyle={styles.textField.inputStyle} />
-            every
-             <AutoComplete
+          <div className="create-list-text-fields-container">
+            <div className="create-list-text-fields">
+              I want to
+              <TextField
+                onChange={(event, newValue) => this.setState({verb: newValue})}
+                style={styles.textField.container}
+                underlineStyle={styles.textField.underlineStyle}
+                underlineFocusStyle={styles.textField.underlineFocusStyle}
+                hintStyle={styles.textField.hintStyle}
+                hintText="climb"
+                inputStyle={styles.textField.inputStyle} />
+              every
+            </div>
+            <AutoComplete
+              style={styles.autocomplete}
+              fullWidth={true}
               menuStyle={styles.menu}
               openOnFocus={true}
               onUpdateInput={(searchText) => this.setState({action: searchText})}
@@ -108,7 +115,7 @@ class CreateListForm extends Component {
               underlineStyle={styles.textField.underlineStyle}
               hintStyle={styles.textField.hintStyle}
               underlineFocusStyle={styles.textField.underlineFocusStyle}
-              hintText="mountain"
+              hintText="mountain in the usa"
               inputStyle={styles.textField.inputStyle}
               filter={AutoComplete.fuzzyFilter}
               dataSource={this.props.templates}

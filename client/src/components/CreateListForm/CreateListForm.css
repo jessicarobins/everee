@@ -6,15 +6,22 @@
   padding-bottom: 28px;
 }
 
-.create-list-text-fields {
+.create-list-text-fields-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 4em;
+  line-height: 1;
+  padding-bottom: 30px;
+  font-weight: 100;
   flex: 1;
+  overflow: hidden;
+}
+
+.create-list-text-fields {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  font-weight: 100;
-  font-size: 4rem;
-  line-height: 5rem;
-  padding-bottom: 30px;
   flex-wrap: wrap;
 }
 
@@ -30,5 +37,14 @@
   .create-list-form {
     flex-direction: column;
     padding-top: 40px;
+  }
+
+  .create-list-text-fields-container {
+    font-size: 2.4em;
+  }
+
+  .create-list-text-fields {
+    flex-direction: column;
+    align-items: center;
   }
 }
