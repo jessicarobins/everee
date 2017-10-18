@@ -70,7 +70,7 @@ listSchema.query.byRecent = function() {
   return this
           .find()
           .sort('-dateAdded')
-          .limit(20)
+          .limit(40)
 }
 
 listSchema.query.byPage = function(page, queryParams={}, limit=28) {

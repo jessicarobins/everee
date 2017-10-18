@@ -75,7 +75,6 @@ class Home extends Component {
         {
           this.showNoLists() &&
           <NoLists
-            handleChangeList={(list) => this.handleChangeList(list, false)}
             pushState={this.props.pushState}
             lists={this.props.recentLists}
             fetchLists={this.props.listActions.fetchRecentLists} />

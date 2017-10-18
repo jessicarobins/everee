@@ -42,7 +42,7 @@ const getRecentLists = (req, res) => {
     .then( (lists) => {
       const uniqueLists = _.chain(lists)
         .uniqBy('name')
-        .take(10)
+        .take(20)
         .value()
       res.json( { lists: uniqueLists })
     })
