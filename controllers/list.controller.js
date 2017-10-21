@@ -180,6 +180,7 @@ const addListLink = async (req, res) => {
     user = await user.assignPoints('addLink')
     res.json({ list, user })
   } catch(err) {
+    console.log(err)
     res.status(422).send('There was an error adding the link.')
   }
 }

@@ -209,7 +209,7 @@ listSchema.methods.addLink = async function(url, user) {
 
   const template = await ListTemplate.findById(list._template).exec()
 
-  if (template.createdBy.equals(user._id)) {
+  if (user._id.equals(template.createdBy)) {
     console.log('the user who added the template is adding the link')
     await template.addLink(link)
   } else {
