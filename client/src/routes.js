@@ -14,6 +14,8 @@ import ReactGA from 'react-ga'
 import reducers from './reducers'
 
 import Analytics from './components/Analytics/Analytics'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
+
 import Callback from './pages/Callback/Callback'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
@@ -54,37 +56,40 @@ export const makeMainRoutes = () => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Analytics>
-          <Switch>
-            <Route exact path="/" render={(props) => (
-                !isAuthenticated() ? (
-                  <Redirect to="/login"/>
-                ) : (
-                  <Home {...props} />
-                )
-              )} />
-            <Route path="/login" render={(props) => (
-                isAuthenticated() ? (
-                  <Redirect to="/" />
-                ) : (
-                  <Login {...props} />
-                )
-              )} />
-            <Route path="/list/:id" component={List} />
-            <Route exact path="/explore" render={() => <Redirect to="/explore/recent" />} />
-            <Route
-              path="/explore/recent"
-              render={(props) => <Explore tab='recent' {...props} />} />
-            <Route
-              path="/explore/popular"
-              render={(props) => <Explore tab='popular' {...props} />} />
-            <Route
-              path="/explore/complete"
-              render={(props) => <Explore tab='complete' {...props} />} />
-            <Route path="/callback" component={Callback} />
-            <Route component={NotFound} />
-          </Switch>
-        </Analytics>
+        <div>
+        <ScrollToTop />
+          <Analytics>
+            <Switch>
+              <Route exact path="/" render={(props) => (
+                  !isAuthenticated() ? (
+                    <Redirect to="/login"/>
+                  ) : (
+                    <Home {...props} />
+                  )
+                )} />
+              <Route path="/login" render={(props) => (
+                  isAuthenticated() ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Login {...props} />
+                  )
+                )} />
+              <Route path="/list/:id" component={List} />
+              <Route exact path="/explore" render={() => <Redirect to="/explore/recent" />} />
+              <Route
+                path="/explore/recent"
+                render={(props) => <Explore tab='recent' {...props} />} />
+              <Route
+                path="/explore/popular"
+                render={(props) => <Explore tab='popular' {...props} />} />
+              <Route
+                path="/explore/complete"
+                render={(props) => <Explore tab='complete' {...props} />} />
+              <Route path="/callback" component={Callback} />
+              <Route component={NotFound} />
+            </Switch>
+          </Analytics>
+        </div>
       </ConnectedRouter>
      </Provider>
   )
