@@ -76,6 +76,7 @@ class ListPageContainer extends Component {
           }
           <CloneList
             list={list}
+            viewMyList={() => this.props.handleChangeList(this.props.myRelevantList)}
             canEdit={this.props.canEdit}
             authenticated={this.props.authenticated}
             myRelevantList={this.props.myRelevantList}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import LinearProgress from 'material-ui/LinearProgress'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
