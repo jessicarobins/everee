@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import {Card, CardTitle, CardMedia, CardHeader} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
-import RaisedButton from 'material-ui/RaisedButton'
 
 import Sharebar from '../../../components/Sharebar/Sharebar'
 import ListItems from '../../../components/ListItems/ListItems'
@@ -10,6 +9,7 @@ import CreateListItemForm from '../../../components/CreateListItemForm/CreateLis
 import ListListCard from '../../../components/ListListCard/ListListCard'
 import LinkActions from './LinkActions/LinkActions'
 import ListProgress from './ListProgress/ListProgress'
+import OtherUserInteraction from './OtherUserInteraction/OtherUserInteraction'
 
 import './ListPageContainer.css'
 
@@ -62,18 +62,12 @@ class ListPageContainer extends Component {
                 list={list} />
             </Paper>
           }
-          {
-            !this.props.canEdit && this.props.authenticated &&
-              <Paper className="list-detail clone-list">
-                <div className="clone-list-container">
-                  <div className="do-this-too">Want to do this too?</div>
-                  <RaisedButton
-                    onClick={this.props.cloneList}
-                    label="Clone this list"
-                    secondary={true} />
-                </div>
-              </Paper>
-          }
+          <OtherUserInteraction
+            theirList={list}
+            myRelevantList={this.props.myRelevantList}
+            canEdit={this.props.canEdit}
+            authenticated={this.props.authenticated}
+            cloneList={this.props.cloneList} />
           <ListItems
             canEdit={this.props.canEdit}
             deleteListItem={this.props.deleteListItem}

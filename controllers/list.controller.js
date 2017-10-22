@@ -150,7 +150,15 @@ const getList = async (req, res) => {
   try {
     const list = await List.findById(req.params.id).exec()
 
-    const authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
+    let authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
+
+    if (!authenticated) {
+      authenticated = await List.findOne()
+        .where('_template').equals(list._template)
+        .where('_users').equals(user._id)
+        .exec()
+    }
+
     const related = await list.relatedLists()
     res.json({ list, related, authenticated })
   } catch(err) {

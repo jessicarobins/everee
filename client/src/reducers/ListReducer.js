@@ -129,7 +129,8 @@ const ListReducer = combineReducers({
 export const getMyLists = state => state.lists.myLists
 
 export const getList = state => state.lists.currentList
-export const canEditList = state => state.lists.canEditCurrentList
+export const canEditList = state => (state.lists.canEditCurrentList === true)
+export const getMyRelevantList = state => ((typeof state.lists.canEditCurrentList) === "object" ? state.lists.canEditCurrentList : undefined)
 
 export const getDemoLists = state => state.lists.demoLists
 export const getRecentLists = state => state.lists.recentLists

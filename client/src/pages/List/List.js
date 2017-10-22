@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
 
-import { getList, canEditList } from '../../reducers/ListReducer'
+import { getList, canEditList, getMyRelevantList } from '../../reducers/ListReducer'
 import * as listActions from '../../actions/ListActions'
 import { LIST_INDEX, getShowSpinner } from '../../reducers/AppReducer'
 import * as appActions from '../../actions/AppActions'
@@ -57,6 +57,7 @@ class List extends Component {
         </Helmet>
         { this.showListContainer() &&
           <ListPageContainer
+            myRelevantList={this.props.myRelevantList}
             handleChangeList={this.handleChangeList}
             authenticated={this.props.isAuthenticated}
             cloneList={() => this.props.listActions.cloneListRequest(this.props.list.id)}
@@ -79,6 +80,7 @@ function mapStateToProps(state) {
     isAuthenticated: isAuthenticated(state),
     list: getList(state),
     canEdit: canEditList(state),
+    myRelevantList: getMyRelevantList(state),
     spinner: getShowSpinner(state)
   }
 }
