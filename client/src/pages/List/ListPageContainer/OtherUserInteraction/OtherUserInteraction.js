@@ -32,55 +32,54 @@ class OtherUserInteraction extends Component {
 
     const styles = {
       topProgress: {
-        borderBottomLeftRadius: '0',
-        borderBottomRightRadius: '0',
-        height: '10px'
+        marginTop: 16,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        height: 10
       },
       bottomProgress: {
-        borderTopLeftRadius: '0',
-        borderTopRightRadius: '0',
-        height: '10px',
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        height: 10,
         backgroundColor: muiTheme.palette.borderColor
       },
       chipContainer: {
         display: 'flex',
         justifyContent: 'flex-end',
-        margin: '8px 0'
+        marginTop: 8
       },
       chipLeft: {
         marginRight: 4
       }
     }
     return (
-      <Card className="clone-list">
-        <CardText>
-          <div className="do-this-too">You want to do this too!</div>
-          <div style={styles.chipContainer}>
-            <Chip
-              style={styles.chipLeft}
-              labelColor={muiTheme.palette.alternateTextColor}
-              backgroundColor={muiTheme.palette.primary1Color}>
-              <Avatar src={myRelevantList._users[0].picture} />
-              {myRelevantList.percentComplete}%
-            </Chip>
-            <Chip
-              labelColor={muiTheme.palette.alternateTextColor}
-              backgroundColor={muiTheme.palette.accent1Color}>
-              <Avatar src={theirList._users[0].picture} />
-              {theirList.percentComplete}%
-            </Chip>
-          </div>
-          <LinearProgress
-            style={styles.topProgress}
-            mode="determinate"
-            value={myRelevantList.percentComplete || 1} />
-          <LinearProgress
-            color={muiTheme.palette.accent1Color}
-            style={styles.bottomProgress}
-            mode="determinate"
-            value={theirList.percentComplete || 1} />
-        </CardText>
-      </Card>
+      <Paper className="list-detail clone-list">
+        <div className="do-this-too">You want to do this too!</div>
+        <LinearProgress
+          style={styles.topProgress}
+          mode="determinate"
+          value={myRelevantList.percentComplete || 1} />
+        <LinearProgress
+          color={muiTheme.palette.accent1Color}
+          style={styles.bottomProgress}
+          mode="determinate"
+          value={theirList.percentComplete || 1} />
+        <div style={styles.chipContainer}>
+          <Chip
+            style={styles.chipLeft}
+            labelColor={muiTheme.palette.alternateTextColor}
+            backgroundColor={muiTheme.palette.primary1Color}>
+            <Avatar src={myRelevantList._users[0].picture} />
+            {myRelevantList.percentComplete}%
+          </Chip>
+          <Chip
+            labelColor={muiTheme.palette.alternateTextColor}
+            backgroundColor={muiTheme.palette.accent1Color}>
+            <Avatar src={theirList._users[0].picture} />
+            {theirList.percentComplete}%
+          </Chip>
+        </div>
+      </Paper>
     )
   }
 

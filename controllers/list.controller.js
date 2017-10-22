@@ -156,6 +156,7 @@ const getList = async (req, res) => {
       authenticated = await List.findOne()
         .where('_template').equals(list._template)
         .where('_users').equals(user._id)
+        .where('verb').equals(list.verb)
         .exec()
     }
 
