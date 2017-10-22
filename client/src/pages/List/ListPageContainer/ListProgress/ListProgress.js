@@ -12,14 +12,11 @@ class ListProgress extends Component {
 
     const styles = {
       topProgress: {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
         height: 10
       },
       bottomProgress: {
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
         height: 10,
+        marginTop: 2,
         backgroundColor: muiTheme.palette.borderColor
       },
       chipContainer: {

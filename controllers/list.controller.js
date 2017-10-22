@@ -152,7 +152,7 @@ const getList = async (req, res) => {
 
     let authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
 
-    if (!authenticated) {
+    if (!authenticated && user) {
       authenticated = await List.findOne()
         .where('_template').equals(list._template)
         .where('_users').equals(user._id)
