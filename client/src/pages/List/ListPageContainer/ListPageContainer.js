@@ -9,7 +9,7 @@ import CreateListItemForm from '../../../components/CreateListItemForm/CreateLis
 import ListListCard from '../../../components/ListListCard/ListListCard'
 import LinkActions from './LinkActions/LinkActions'
 import ListProgress from './ListProgress/ListProgress'
-import OtherUserInteraction from './OtherUserInteraction/OtherUserInteraction'
+import CloneList from './CloneList/CloneList'
 
 import './ListPageContainer.css'
 
@@ -22,6 +22,10 @@ class ListPageContainer extends Component {
         fontSize: '1em',
         lineHeight: '1em'
       },
+      cardTitleSubtitle: {
+        fontWeight: 400,
+        textAlign: 'right'
+      },
       cardHeader: {
         lineHeight: '24px'
       }
@@ -29,6 +33,7 @@ class ListPageContainer extends Component {
 
     const cardTitle =
       <CardTitle
+        subtitleStyle={styles.cardTitleSubtitle}
         titleStyle={styles.cardText}
         title={`I want to ${list.name}`}
         subtitle={`${list.fractionComplete.denominator} items`} />
@@ -55,7 +60,10 @@ class ListPageContainer extends Component {
             removeListLink={this.props.removeListLink}
             addListLink={this.props.addListLink} />
         </Card>
-        <ListProgress list={list} />
+        <ListProgress
+          list={list}
+          myRelevantList={this.props.myRelevantList}
+          authenticated={this.props.authenticated} />
         <div className="right">
           {
             this.props.canEdit &&
@@ -66,11 +74,11 @@ class ListPageContainer extends Component {
                 list={list} />
             </Paper>
           }
-          <OtherUserInteraction
-            theirList={list}
-            myRelevantList={this.props.myRelevantList}
+          <CloneList
+            list={list}
             canEdit={this.props.canEdit}
             authenticated={this.props.authenticated}
+            myRelevantList={this.props.myRelevantList}
             cloneList={this.props.cloneList} />
           <ListItems
             canEdit={this.props.canEdit}

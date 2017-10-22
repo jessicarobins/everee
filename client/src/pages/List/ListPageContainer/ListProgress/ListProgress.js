@@ -1,10 +1,70 @@
 import React, { Component } from 'react'
 
+import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import LinearProgress from 'material-ui/LinearProgress'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
+import Avatar from 'material-ui/Avatar'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 class ListProgress extends Component {
+  renderMyProgress = () => {
+    const { list, myRelevantList, muiTheme } = this.props
+
+    const styles = {
+      topProgress: {
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        height: 10
+      },
+      bottomProgress: {
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        height: 10,
+        backgroundColor: muiTheme.palette.borderColor
+      },
+      chipContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: 8
+      },
+      chipLeft: {
+        marginRight: 4
+      }
+    }
+    return (
+      <Card className="list-progress">
+        <CardHeader
+          subtitle="Compare Your Progress" />
+        <CardText>
+          <LinearProgress
+            style={styles.topProgress}
+            mode="determinate"
+            value={myRelevantList.percentComplete || 1} />
+          <LinearProgress
+            color={muiTheme.palette.accent1Color}
+            style={styles.bottomProgress}
+            mode="determinate"
+            value={list.percentComplete || 1} />
+          <div style={styles.chipContainer}>
+            <Chip
+              style={styles.chipLeft}
+              labelColor={muiTheme.palette.alternateTextColor}
+              backgroundColor={muiTheme.palette.primary1Color}>
+              <Avatar src={myRelevantList._users[0].picture} />
+              {myRelevantList.percentComplete}%
+            </Chip>
+            <Chip
+              labelColor={muiTheme.palette.alternateTextColor}
+              backgroundColor={muiTheme.palette.accent1Color}>
+              <Avatar src={list._users[0].picture} />
+              {list.percentComplete}%
+            </Chip>
+          </div>
+        </CardText>
+      </Card>
+    )
+  }
 
   renderProgress = () => {
     const { list } = this.props
@@ -18,7 +78,6 @@ class ListProgress extends Component {
             value={list.percentComplete || 1} />
           <div className="list-chips">
             <Chip>{list.percentComplete}% complete</Chip>
-            <Chip>{list.fractionComplete.total} items</Chip>
           </div>
         </CardText>
       </Card>
@@ -26,7 +85,9 @@ class ListProgress extends Component {
   }
 
   render() {
-    if (this.props.list.items.length) {
+    if (this.props.list.items.length && this.props.myRelevantList) {
+      return this.renderMyProgress()
+    } else if (this.props.list.items.length) {
       return this.renderProgress()
     }
 
@@ -34,4 +95,4 @@ class ListProgress extends Component {
   }
 }
 
-export default ListProgress
+export default muiThemeable()(ListProgress)
