@@ -13,6 +13,7 @@ class ListProgress extends Component {
         <CardHeader subtitle="Progress"/>
         <CardText>
           <LinearProgress
+            style={{height: 10}}
             mode="determinate"
             value={list.percentComplete || 1} />
           <div className="list-chips">

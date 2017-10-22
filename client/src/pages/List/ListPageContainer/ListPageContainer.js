@@ -27,7 +27,11 @@ class ListPageContainer extends Component {
       }
     }
 
-    const cardTitle = <CardTitle titleStyle={styles.cardText} title={`I want to ${list.name}`} />
+    const cardTitle =
+      <CardTitle
+        titleStyle={styles.cardText}
+        title={`I want to ${list.name}`}
+        subtitle={`${list.fractionComplete.denominator} items`} />
     return (
       <div className="list-page-container container">
         <Card className="list-name">
