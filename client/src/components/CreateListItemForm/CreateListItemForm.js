@@ -29,6 +29,7 @@ class CreateListItemForm extends Component {
       })
     }
     else {
+      this.input.focus()
       this.props.addMessage('All fields are required.')
     }
   }
@@ -40,6 +41,7 @@ class CreateListItemForm extends Component {
         onSubmit={this.addListItem}
         className="create-list-item-form">
         <TextField
+          ref={(input) => {this.input = input}}
           fullWidth={true}
           value={this.state.text}
           onChange={(event, newValue) => this.setState({text: newValue})}

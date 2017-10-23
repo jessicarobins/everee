@@ -33,6 +33,11 @@ class CreateListForm extends Component {
       })
     }
     else {
+      if (!this.state.verb.length) {
+        this.input.focus()
+      } else {
+        this.autocomplete.focus()
+      }
       this.props.addMessage('All fields are required.')
     }
   }
@@ -103,6 +108,7 @@ class CreateListForm extends Component {
             <div className="create-list-text-fields">
               I want to
               <TextField
+                ref={(input) => {this.input = input}}
                 onKeyPress={this.onKeyPress}
                 onChange={(event, newValue) => this.setState({verb: newValue})}
                 style={styles.textField.container}
@@ -114,6 +120,7 @@ class CreateListForm extends Component {
               every
             </div>
             <AutoComplete
+              ref={(input) => {this.autocomplete = input}}
               onKeyPress={this.onKeyPress}
               style={styles.autocomplete}
               fullWidth={true}
