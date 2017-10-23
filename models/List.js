@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose-fill')
 const Promise = require('bluebird')
 const _ = require('lodash')
 const autopopulate = require('mongoose-autopopulate')
@@ -30,6 +30,13 @@ const listSchema = new Schema({
 })
 
 listSchema.plugin(autopopulate)
+
+listSchema.fill('related', function(cb) {
+  this.constructor
+    .find({_template: this._template})
+    .ne('_users', this._users[0]._id)
+    .exec(cb)
+})
 
 listSchema.virtual('name').get(function() {
   return `${this.verb} every ${this.action}`
@@ -362,7 +369,6 @@ listSchema.methods.relatedLists = function() {
     .constructor
     .find({_template: this._template})
     .ne('_users', this._users[0]._id)
-    .populate('_users', 'name picture username')
     .exec()
 }
 
@@ -394,5 +400,6 @@ listSchema.statics.demoLists = function() {
 }
 
 listSchema.set('toJSON', { virtuals: true })
+listSchema.set('toObject', { virtuals: true })
 
 module.exports = mongoose.model('List', listSchema)

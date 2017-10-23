@@ -89,8 +89,7 @@ export function toggleListItemRequest({listId, listItemId}) {
 export function fetchList(id) {
   return (dispatch) => {
     return api(`lists/${id}`)
-      .then(({list, authenticated, related}) => {
-        list.related = related
+      .then(({list, authenticated}) => {
         dispatch(setList(list))
         dispatch(setCanEditList(authenticated))
       })

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose-fill')
 const Promise = require('bluebird')
 const _ = require('lodash')
 
@@ -20,7 +20,7 @@ const cloneList = async (req, res) => {
   try {
     const user = await User.find().findByAuth0(req.user).exec()
 
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
     list = await list.cloneForUser(user)
     res.json({ list })
   } catch(err) {
@@ -148,7 +148,9 @@ const getList = async (req, res) => {
   }
 
   try {
-    const list = await List.findById(req.params.id).exec()
+    const list =
+      await List.findById(req.params.id)
+                .fill('related').exec()
 
     let authenticated = !!(user && !!_.find(list._users, {_id: user._id}))
 
@@ -160,8 +162,7 @@ const getList = async (req, res) => {
         .exec()
     }
 
-    const related = await list.relatedLists()
-    res.json({ list, related, authenticated })
+    res.json({ list, authenticated })
   } catch(err) {
     console.log('error in the controller: ', err)
     res.status(404).send(err)
@@ -173,10 +174,11 @@ const addListItem = async (req, res) => {
   const user = await User.find().findByAuth0(req.user).exec()
 
   try {
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
     list = await list.addListItem(req.body.item, user)
     res.json({ list })
   } catch(err) {
+    console.log(err)
     res.status(422).send(err)
   }
 }
@@ -184,7 +186,7 @@ const addListItem = async (req, res) => {
 const addListLink = async (req, res) => {
   try {
     let user = await User.find().findByAuth0(req.user).exec()
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
     list = await list.addLink(req.body.url, user)
     user = await user.assignPoints('addLink')
     res.json({ list, user })
@@ -197,7 +199,7 @@ const addListLink = async (req, res) => {
 const removeListLink = async (req, res) => {
   try {
     let user = await User.find().findByAuth0(req.user).exec()
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
     list = await list.removeLink()
     user = await user.assignPoints('addLink', {remove: true})
     res.json({ list, user })
@@ -210,7 +212,7 @@ const deleteListItem = async (req, res) => {
 
   try {
     let user = await User.find().findByAuth0(req.user).exec()
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
     const item = list.items.id(req.params.list_item_id)
     if (item.complete) {
       user = await user.assignPoints('checkListItem', {remove: true})
@@ -315,7 +317,7 @@ const toggleListItem = async (req, res) => {
 
   try {
     let user = await User.find().findByAuth0(req.user).exec()
-    let list = await List.findById(req.params.id).exec()
+    let list = await List.findById(req.params.id).fill('related').exec()
 
     const todo = list.items.id(req.params.list_item_id)
 
