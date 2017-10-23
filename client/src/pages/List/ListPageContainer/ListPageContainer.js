@@ -56,6 +56,7 @@ class ListPageContainer extends Component {
           }
           <LinkActions
             canEdit={this.props.canEdit}
+            addMessage={this.props.addMessage}
             list={list}
             removeListLink={this.props.removeListLink}
             addListLink={this.props.addListLink} />

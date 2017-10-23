@@ -13,7 +13,8 @@ class AddLinkButton extends Component {
 
     this.state = {
       open: false,
-      url: ''
+      url: '',
+      adding: false
     }
   }
 
@@ -28,12 +29,29 @@ class AddLinkButton extends Component {
     })
   }
 
-  handleAddLink = () => {
-    this.props.addListLink({
-      id: this.props.list._id,
-      url: this.state.url
-    })
-    this.handleClose()
+  handleAddLink = async () => {
+    if (this.state.url) {
+      this.setState({
+        adding: true
+      })
+
+      this.handleClose()
+
+      await this.props.addListLink({
+        id: this.props.list._id,
+        url: this.state.url
+      })
+
+      if (this.refs.addLinkButton) {
+        this.setState({
+          adding: false
+        })
+      }
+
+    } else {
+      this.input.focus()
+      this.props.addMessage('A valid URL is required.')
+    }
   }
 
   onKeyPress = (e) => {
@@ -66,6 +84,8 @@ class AddLinkButton extends Component {
     return (
       <div>
         <FlatButton
+          ref="addLinkButton"
+          disabled={this.state.adding}
           onClick={this.handleOpen}
           icon={<LinkIcon />}
           label="Add Link"
@@ -78,6 +98,7 @@ class AddLinkButton extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}>
           <TextField
+            ref={(input) => {this.input = input}}
             autoFocus
             value={this.state.url}
             onKeyPress={this.onKeyPress}

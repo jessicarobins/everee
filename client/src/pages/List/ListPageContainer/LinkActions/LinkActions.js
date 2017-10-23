@@ -78,6 +78,7 @@ class LinkActions extends Component {
           { list.link ?
             this.renderLinkContainer() :
             <AddLinkButton
+              addMessage={this.props.addMessage}
               addListLink={this.props.addListLink}
               list={list} />
           }
