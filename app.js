@@ -19,7 +19,8 @@ const whitelist = [
   /everee-jrobins.c9users.io:*/,
   /evereeapp.herokuapp.com:*/,
   /everee.io:*/,
-  /d2jkyipbmdllba.cloudfront.net:*/
+  /d2jkyipbmdllba.cloudfront.net:*/,
+  /everee.jessis.cool:*/
 ]
 
 const corsOptions = {
